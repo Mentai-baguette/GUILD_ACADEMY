@@ -69,12 +69,14 @@ Assets/
   - workflow の permissions は **最小権限**（`contents: read` 等）に設定する
   - Secrets は environment で分離し、workflow から直接参照しない
 
-## Mac 対応
+## 対応プラットフォーム
 
-- 開発環境: macOS + Unity 6.4 (Apple Silicon 対応)
-- ビルドターゲット: macOS (StandaloneOSX)
-- テスト実行: Mac上でのEdit Mode / Play Mode テスト
-- CI/CD: GitHub Actions の macOS runner を使用
+- 開発環境: macOS / Windows 両対応
+- Unity 6.4 (Apple Silicon / x86_64)
+- ビルドターゲット: StandaloneOSX, StandaloneWindows64
+- テスト実行: Edit Mode / Play Mode テスト（両OSで実行可能）
+- CI/CD: GitHub Actions を使用
+- 改行コード: `.gitattributes` で LF に統一（macOS/Windows混在対策）
 
 ## AI活用ツール
 

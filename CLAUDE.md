@@ -33,9 +33,9 @@ feature/* or fix/*  →  PR  →  develop  →  テスト確認  →  PR  →  m
 
 ## プラットフォーム
 
-- **macOS 対応**（開発・テスト・プレイすべて Mac）
-- ビルドターゲット: StandaloneOSX
-- CI/CD: GitHub Actions の macOS runner を使用
+- **macOS / Windows 対応**（開発環境は両OS対応）
+- ビルドターゲット: StandaloneOSX, StandaloneWindows64
+- CI/CD: GitHub Actions を使用
 
 ## コーディング規約
 
@@ -84,9 +84,14 @@ Assets/Tests/
 ### テスト実行コマンド
 
 ```bash
-# Unity Test Runner (CLI)
-# macOS の Unity Hub インストールでは以下のパスを使用（バージョンは適宜変更）
+# Unity Test Runner (CLI) — バージョンは適宜変更
+
+# macOS
 /Applications/Unity/Hub/Editor/6000.1.*/Unity.app/Contents/MacOS/Unity \
+  -runTests -testPlatform EditMode -projectPath . -testResults results.xml
+
+# Windows (PowerShell)
+& "C:\Program Files\Unity\Hub\Editor\6000.1.*\Editor\Unity.exe" `
   -runTests -testPlatform EditMode -projectPath . -testResults results.xml
 
 # GitHub Actions では game-ci/unity-test-runner を使用
