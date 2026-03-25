@@ -1,0 +1,63 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment / Secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Build output
+build/
+dist/
+out/
+bin/
+
+# Dependencies
+node_modules/
+.godot/
+
+# Unity
+Library/
+Temp/
+Obj/
+Logs/
+UserSettings/
+MemoryCaptures/
+Recordings/
+[Aa]ssets/AssetStoreTools*
+*.csproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.unityproj
+
+# Unity License
+*.ulf
+*.alf
+
+# Steam
+steam_appid.txt
+
+# Logs
+*.log
+
+# Crash reports
+sysinfo.txt
+crashlytics-build.properties
