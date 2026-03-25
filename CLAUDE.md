@@ -85,7 +85,9 @@ Assets/Tests/
 
 ```bash
 # Unity Test Runner (CLI)
-unity -runTests -testPlatform EditMode -projectPath . -testResults results.xml
+# macOS の Unity Hub インストールでは以下のパスを使用（バージョンは適宜変更）
+/Applications/Unity/Hub/Editor/6000.*/Unity.app/Contents/MacOS/Unity \
+  -runTests -testPlatform EditMode -projectPath . -testResults results.xml
 
 # GitHub Actions では game-ci/unity-test-runner を使用
 ```
@@ -99,9 +101,9 @@ unity -runTests -testPlatform EditMode -projectPath . -testResults results.xml
 | END1 | 裏ハッピー | 学園に行かない選択 |
 | END2 | トゥルー | シオン第1形態勝利→レイ死亡（意識残る） |
 | END3 | シオンルート | シオン第2形態勝利→罪悪感で崩壊 |
-| END4 | ノーマル/メリバ | シオン第2形態敗北→シオン死亡 |
-| END5 | 表ハッピー | シオン救出 + カルロス撃破 |
-| END6 | 全滅 | カルロス戦で全滅 |
+| END4 | ノーマル/メリバ | シオン第2形態勝利だが救出条件未達→カルロスがシオン殺害 |
+| END5 | 表ハッピー | 全員信頼MAX + シオン救出 + カルロス撃破（全員生存の唯一の道） |
+| END6 | 全滅 | シオン第2形態戦で全員HP0 / 選択ミス蓄積 |
 
 ### マダミス分岐
 

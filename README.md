@@ -23,8 +23,9 @@ cd GUILD_ACADEMY
 git checkout develop
 ```
 
-5. Unity Hub でプロジェクトを開く
-6. File > Build Settings で **macOS** が選択されていることを確認
+5. Unity Hub の「Add」ボタンでプロジェクトフォルダを開く
+
+> **Note:** Unity プロジェクトの初期化（Assets/, Packages/, ProjectSettings/ の作成）はまだ完了していません。初回セットアップ時にチームで行います。
 
 ## リポジトリ構成
 
