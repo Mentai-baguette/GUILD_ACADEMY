@@ -57,10 +57,10 @@ feature/* or fix/*  →  PR  →  develop  →  テスト確認  →  PR  →  m
 ### ファイル配置
 
 ```
-Assets/Scripts/
+Assets/_Project/Scripts/
 ├── Core/           # 純粋C#ロジック（テスト対象）
 ├── MonoBehaviours/ # Unity依存スクリプト
-└── Data/           # ScriptableObject定義
+└── ScriptableObjects/ # ScriptableObject定義
 
 Assets/Tests/
 ├── EditMode/       # Edit Modeテスト（NUnit）

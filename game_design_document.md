@@ -1103,14 +1103,14 @@ on:
     branches: [main]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4  # TODO: SHA pinning に切り替え
         with: { lfs: true }
-      - uses: game-ci/unity-test-runner@v4
+      - uses: game-ci/unity-test-runner@v4  # TODO: SHA pinning に切り替え
         env: { UNITY_LICENSE: "${{ secrets.UNITY_LICENSE }}" }
         with: { projectPath: ., testMode: EditMode }
-      - uses: game-ci/unity-test-runner@v4
+      - uses: game-ci/unity-test-runner@v4  # TODO: SHA pinning に切り替え
         env: { UNITY_LICENSE: "${{ secrets.UNITY_LICENSE }}" }
         with: { projectPath: ., testMode: PlayMode }
 ```

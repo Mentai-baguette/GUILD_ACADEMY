@@ -4,36 +4,39 @@
 
 ```
 Assets/
-├── Scripts/
-│   ├── Core/              # Unityに依存しない純粋C#（テスト容易）
-│   │   ├── Battle/        # ATBSystem, DamageCalculator, BreakSystem
-│   │   ├── Branch/        # FlagSystem, TrustSystem, BranchManager, EndingResolver
-│   │   ├── Erosion/       # ErosionSystem
-│   │   ├── SoulLink/      # SoulLinkSystem
-│   │   ├── Save/          # SaveLoadSystem
-│   │   └── Item/          # Inventory
-│   ├── MonoBehaviours/    # Unityに依存するスクリプト
-│   │   ├── UI/            # 各種UI Controller
-│   │   ├── Field/         # PlayerController, NPCController
-│   │   ├── Battle/        # BattleSceneController
-│   │   ├── Audio/         # AudioManager
-│   │   └── Scene/         # SceneTransitionManager
-│   └── Data/              # ScriptableObject定義
-│       ├── Characters/    # CharacterData
-│       ├── Enemies/       # EnemyData
-│       ├── Skills/        # SkillData
-│       └── Items/         # ItemData
+├── _Project/
+│   ├── Scripts/
+│   │   ├── Core/              # Unityに依存しない純粋C#（テスト容易）
+│   │   │   ├── Battle/        # ATBSystem, DamageCalculator, BreakSystem
+│   │   │   ├── Character/     # Stats, SoulLink, ErosionSystem
+│   │   │   ├── Branch/        # FlagSystem, TrustSystem, BranchManager, EndingResolver
+│   │   │   ├── Dialogue/      # 会話エンジン
+│   │   │   ├── Inventory/     # アイテム、装備
+│   │   │   ├── Save/          # SaveLoadSystem
+│   │   │   └── Data/          # データモデル定義
+│   │   ├── MonoBehaviours/    # Unityに依存するスクリプト
+│   │   │   ├── UI/            # 各種UI Controller
+│   │   │   ├── Field/         # PlayerController, NPCController
+│   │   │   ├── Battle/        # BattleSceneController
+│   │   │   └── Camera/
+│   │   └── ScriptableObjects/ # ScriptableObject定義
+│   ├── Data/                  # ScriptableObjectインスタンス
+│   │   ├── Characters/
+│   │   ├── Enemies/
+│   │   ├── Skills/
+│   │   ├── Dialogues/
+│   │   └── BranchConditions/  # 分岐条件定義
+│   ├── Sprites/
+│   ├── Audio/
+│   │   ├── BGM/
+│   │   └── SE/
+│   └── Scenes/
 ├── Resources/
-│   ├── Dialogues/         # 会話データ（JSON）
-│   └── StoryFlags/        # フラグ定義データ
-├── Scenes/
-│   ├── TitleScene
-│   ├── FieldScene
-│   ├── BattleScene
-│   └── EndingScene
+│   ├── Dialogues/             # 会話データ（JSON）
+│   └── StoryFlags/            # フラグ定義データ
 └── Tests/
-    ├── EditMode/          # NUnit Edit Modeテスト
-    └── PlayMode/          # Play Modeテスト
+    ├── EditMode/              # NUnit Edit Modeテスト
+    └── PlayMode/              # Play Modeテスト
 ```
 
 ## 設計原則
