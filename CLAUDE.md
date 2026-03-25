@@ -1,55 +1,124 @@
-# GUILD ACADEMY
+# CLAUDE.md — Claude Code 用プロジェクト指示書
 
-学内ハッカソン（2026年3月末〜4月上旬）で開発する2Dゲームプロジェクト。
+## プロジェクト概要
 
-## Git運用ルール
+GUILD ACADEMY: ABYSS CODE — 2D学園ダークファンタジーRPG（Unity 6 + C#）
+千葉工業大学ハッカソン「システム開発における生成AI活用ワークショップ」出展作品（3/20〜4/10）
 
-### ブランチ戦略
+## Git ルール（最重要）
 
-- `main` — 本番用。直接pushは禁止。PR経由のみ
-- `develop` — 開発統合ブランチ。直接pushは禁止。PR経由のみ
-- `feature/*` — 新機能開発
-- `fix/*` — バグ修正
-- `docs/*` — ドキュメント変更
+### ブランチ保護
+
+- **`main` への直接 push は禁止**
+- **`develop` への直接 push は禁止**
+- 必ず `feature/*` または `fix/*` ブランチを作成し、**PR 経由でマージ**すること
 
 ### マージフロー
 
-1. `feature/*` (または `fix/*`, `docs/*`) で作業
+```
+feature/* or fix/*  →  PR  →  develop  →  テスト確認  →  PR  →  main
+```
+
+1. 作業は `feature/xxx` or `fix/xxx` ブランチで行う
 2. PR を作成して `develop` にマージ
-3. `develop` でテスト・動作確認
-4. `develop` → `main` へのPRを作成（関連するdevelop PR番号を記載すること）
+3. `develop` 上でテストを実行し、バグがないことを確認
+4. `develop` → `main` への PR を作成する際、**develop 側の PR 番号を PR 本文に記載**する
+5. `main` にマージ
 
-### コミットメッセージ
+### テスト必須
 
-プレフィックスをつける:
+- **push する前に必ずテストを実行すること**
+- Edit Mode テストが全て pass していることを確認してから push
+- テストなしの push は禁止
 
-- `feat:` — 新機能
-- `fix:` — バグ修正
-- `docs:` — ドキュメント
-- `refactor:` — リファクタリング
-- `test:` — テスト追加・修正
-- `chore:` — その他（ビルド設定、依存関係など）
+## プラットフォーム
 
-### push前の確認事項
+- **macOS 対応**（開発・テスト・プレイすべて Mac）
+- ビルドターゲット: StandaloneOSX
+- CI/CD: GitHub Actions の macOS runner を使用
 
-- テストが通ること（テスト環境構築後）
-- ビルドが通ること（ビルド環境構築後）
+## コーディング規約
 
-## コマンド
+### C# スタイル
 
-<!-- 技術スタック確定後に追記 -->
+- PascalCase: クラス名、メソッド名、プロパティ名、public フィールド
+- camelCase: ローカル変数、パラメータ
+- _camelCase: private フィールド（アンダースコアプレフィクス）
+- UPPER_SNAKE_CASE: 定数
+- 名前空間: `GuildAcademy.Core.Battle`, `GuildAcademy.UI`, `GuildAcademy.Data` 等
+
+### アーキテクチャ
+
+- **Pure C# 分離**: `Core/` 配下は MonoBehaviour を継承しない。Unity API に依存しない
+- **データ駆動**: キャラ・敵・スキル・アイテムは ScriptableObject で管理
+- **イベント駆動**: クラス間通信は C# event / delegate を使用。直接参照を避ける
+- **Interface ベース**: テスト時にモック差し替え可能な設計
+
+### ファイル配置
+
+```
+Assets/Scripts/
+├── Core/           # 純粋C#ロジック（テスト対象）
+├── MonoBehaviours/ # Unity依存スクリプト
+└── Data/           # ScriptableObject定義
+
+Assets/Tests/
+├── EditMode/       # Edit Modeテスト（NUnit）
+└── PlayMode/       # Play Modeテスト
+```
+
+## テスト
+
+### Edit Mode テスト（必須）
+
+テスト対象の Pure C# クラス:
+- `ATBSystem` — ATB ゲージ計算、ターン順管理
+- `DamageCalculator` — ダメージ計算、属性相性
+- `BreakSystem` — ブレイクゲージ、ブレイク状態管理
+- `ErosionSystem` — 侵蝕値の増減、閾値判定
+- `SoulLinkSystem` — 絆レベルの増減、効果計算
+- `FlagSystem` — 情報フラグの ON/OFF、カウント
+- `TrustSystem` — 信頼ポイントの増減
+- `EndingResolver` — 6 エンディングの条件判定
+
+### テスト実行コマンド
 
 ```bash
-# ビルド
-# TBD
+# Unity Test Runner (CLI)
+unity -runTests -testPlatform EditMode -projectPath . -testResults results.xml
 
-# テスト
-# TBD
-
-# 実行
-# TBD
+# GitHub Actions では game-ci/unity-test-runner を使用
 ```
+
+## 重要なゲームシステム
+
+### 6 マルチエンディング
+
+| END | 名称 | 概要 |
+|-----|------|------|
+| END1 | 裏ハッピー | 学園に行かない選択 |
+| END2 | トゥルー | シオン第1形態勝利→レイ死亡（意識残る） |
+| END3 | シオンルート | シオン第2形態勝利→罪悪感で崩壊 |
+| END4 | ノーマル/メリバ | シオン第2形態敗北→シオン死亡 |
+| END5 | 表ハッピー | シオン救出 + カルロス撃破 |
+| END6 | 全滅 | カルロス戦で全滅 |
+
+### マダミス分岐
+
+- 情報フラグ 8 種（FlagSystem）
+- 信頼ポイント 4 人分（TrustSystem）
+- BranchManager が統合管理 → EndingResolver で判定
 
 ## ドキュメント
 
-詳細なドキュメントは `docs/` 配下を参照。
+- `docs/game-design.md` — ゲームデザイン決定事項
+- `docs/architecture.md` — 技術アーキテクチャ
+- `docs/branching-endings.md` — 分岐・エンディングシステム詳細
+- `docs/team-workflow.md` — チーム運用・Git運用
+- `docs/presentation-plan.md` — 発表資料の構成計画
+
+## Notion リンク
+
+- プロジェクトページ: https://www.notion.so/32e0e7afd513817ab3edc18eaeb0b048
+- タスクボード: https://www.notion.so/5e5f9b0072b049409ad67dcc51997daf
+- 学習リソース: https://www.notion.so/32e0e7afd51381e4bbc8db34f05d0675

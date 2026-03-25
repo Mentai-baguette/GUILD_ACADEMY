@@ -1,8 +1,9 @@
-# GUILD ACADEMY ドキュメント
+# GUILD ACADEMY: ABYSS CODE ドキュメント
 
 ## 目次
 
-- [ゲーム設計書](./game-design.md) — 世界観、ゲームシステム、ステージ構成
-- [技術仕様書](./technical-spec.md) — 技術スタック、ディレクトリ構成、アーキテクチャ
-- [開発ガイド](./development-guide.md) — 環境構築、ビルド手順、コーディング規約
-- [アセットガイド](./asset-guide.md) — 画像/音声の命名規則、フォーマット、ディレクトリ構成
+- [ゲームデザイン決定事項](./game-design.md) — キャラ、バトル、エンディング、分岐システム
+- [技術アーキテクチャ](./architecture.md) — フォルダ構成、設計原則、テスト戦略、AI活用ツール
+- [分岐・エンディングシステム](./branching-endings.md) — 情報フラグ、信頼ポイント、エンディング条件
+- [チーム運用・ワークフロー](./team-workflow.md) — メンバー、Git運用、タスク管理、スケジュール
+- [発表資料構成計画](./presentation-plan.md) — スライド構成、差別化ポイント、提出物
