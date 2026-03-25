@@ -10,6 +10,8 @@ GUILD ACADEMY: ABYSS CODE — 2D学園ダークファンタジーRPG（Unity 6.4
 **Unity プロジェクトは未初期化。** 現在はドキュメントのみ。Assets/, Packages/, ProjectSettings/ は存在しない。
 Unity プロジェクト構成やテスト実行は、初期化完了後に有効になる。
 
+以下は実在するファイルのみ記載。操作前に `ls` 等で実体を確認すること。
+
 ```
 GUILD_ACADEMY/
 ├── AGENTS.md                  # 本ファイル（AIエージェント共通指示）
@@ -17,15 +19,13 @@ GUILD_ACADEMY/
 ├── README.md                  # ゲーム概要
 ├── SECURITY.md                # セキュリティポリシー
 ├── game_design_document.md    # GDD（設計の正とする）
-├── docs/
-│   ├── README.md              # ドキュメントインデックス
-│   ├── setup-guide.md         # 環境構築ガイド
-│   ├── game-design.md         # ゲームデザイン決定事項
-│   ├── architecture.md        # 技術アーキテクチャ
-│   ├── branching-endings.md   # 分岐・エンディングシステム
-│   ├── team-workflow.md       # チーム運用・ワークフロー
-│   └── presentation-plan.md   # 発表資料構成計画
-└── (Assets/ 等は未作成)
+└── docs/
+    ├── README.md              # ドキュメントインデックス
+    ├── game-design.md         # ゲームデザイン決定事項
+    ├── architecture.md        # 技術アーキテクチャ
+    ├── branching-endings.md   # 分岐・エンディングシステム
+    ├── team-workflow.md       # チーム運用・ワークフロー
+    └── presentation-plan.md   # 発表資料構成計画
 ```
 
 ## エージェント運用ルール
