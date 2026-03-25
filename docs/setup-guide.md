@@ -23,17 +23,10 @@ Unity Hub から Unity 6.4 をインストール。モジュールは **macOS Bu
 
 ### Git のインストール
 
-Mac には最初から入っている場合が多い。ターミナルで確認：
+ターミナルで `git --version` を実行して入っているか確認。入っていなければ：
 
-```bash
-git --version
-```
-
-入っていなければ：
-
-```bash
-xcode-select --install
-```
+- **macOS**: `xcode-select --install` または [Homebrew](https://brew.sh/) で `brew install git`
+- **Windows**: [https://git-scm.com/downloads/win](https://git-scm.com/downloads/win) からインストール
 
 ### GitHub Desktop（任意）
 
