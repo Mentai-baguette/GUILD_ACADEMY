@@ -29,8 +29,35 @@ bin/
 node_modules/
 .godot/
 
+# Unity
+Library/
+Temp/
+Obj/
+Logs/
+UserSettings/
+MemoryCaptures/
+Recordings/
+[Aa]ssets/AssetStoreTools*
+*.csproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.unityproj
+
+# Unity License
+*.ulf
+*.alf
+
 # Steam
 steam_appid.txt
 
 # Logs
 *.log
+
+# Crash reports
+sysinfo.txt
+crashlytics-build.properties
