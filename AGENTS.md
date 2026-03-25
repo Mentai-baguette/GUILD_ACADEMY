@@ -5,13 +5,61 @@
 GUILD ACADEMY: ABYSS CODE — 2D学園ダークファンタジーRPG（Unity 6.4 + C#）
 千葉工業大学ハッカソン「システム開発における生成AI活用ワークショップ」出展作品（3/20〜4/10）
 
+## 現在のリポジトリ状態
+
+**Unity プロジェクトは未初期化。** 現在はドキュメントのみ。Assets/, Packages/, ProjectSettings/ は存在しない。
+Unity プロジェクト構成やテスト実行は、初期化完了後に有効になる。
+
+```
+GUILD_ACADEMY/
+├── AGENTS.md                  # 本ファイル（AIエージェント共通指示）
+├── CLAUDE.md                  # Claude Code 固有の指示
+├── README.md                  # ゲーム概要
+├── SECURITY.md                # セキュリティポリシー
+├── game_design_document.md    # GDD（設計の正とする）
+├── docs/
+│   ├── README.md              # ドキュメントインデックス
+│   ├── setup-guide.md         # 環境構築ガイド
+│   ├── game-design.md         # ゲームデザイン決定事項
+│   ├── architecture.md        # 技術アーキテクチャ
+│   ├── branching-endings.md   # 分岐・エンディングシステム
+│   ├── team-workflow.md       # チーム運用・ワークフロー
+│   └── presentation-plan.md   # 発表資料構成計画
+└── (Assets/ 等は未作成)
+```
+
+## エージェント運用ルール
+
+### 基本原則
+
+- **存在しないファイルやディレクトリを前提にしない。** 操作前に必ず実体を確認する
+- コード生成・変更時は必ず差分を提示し、確認を取ってからコミットする
+- 秘密情報（APIキー、パスワード、Notion URL、個人情報）をコミットしない
+
+### ドキュメント変更時の整合性ルール
+
+設計に関する正（Single Source of Truth）は **`game_design_document.md`（GDD）**。
+以下のドキュメントはGDDの要約・派生であり、矛盾する場合はGDDに合わせる：
+
+- `docs/game-design.md`
+- `docs/branching-endings.md`
+- `AGENTS.md` 内のゲームシステム記述
+
+ドキュメントを変更したら、関連する他ドキュメントとの整合を確認すること。
+
+### レビュー時の確認事項
+
+- SECURITY.md のルールに違反していないか（秘密情報、内部URL、個人名）
+- Git運用ルール通りのブランチ・PR・コミットメッセージか
+- 既存ドキュメント間で矛盾が生じていないか
+
 ## Git ルール（最重要）
 
 ### ブランチ保護
 
 - **`main` への直接 push は禁止**
 - **`develop` への直接 push は禁止**
-- 必ず `feature/*` または `fix/*` ブランチを作成し、**PR 経由でマージ**すること
+- 必ず `feature/*`、`fix/*`、`docs/*` ブランチを作成し、**PR 経由でマージ**すること
 
 ### マージフロー
 
@@ -27,14 +75,15 @@ feature/* or fix/*  →  PR  →  develop  →  テスト確認  →  PR  →  m
 
 ### テスト必須
 
-- **push する前に必ずテストを実行すること**
+- **push する前に必ずテストを実行すること**（テスト環境が整っている場合）
 - Edit Mode テストが全て pass していることを確認してから push
-- テストなしの push は禁止
+- テスト環境が未構築の場合は、その旨をPRに明記する
 
 ## プラットフォーム
 
-- **macOS / Windows 対応**（開発環境は両OS対応）
-- ビルドターゲット: StandaloneOSX, StandaloneWindows64
+- **macOS 主体**（開発・テスト・プレイの主環境）
+- Windows でも開発可能な構成にする（`.gitattributes` で改行コード統一）
+- ビルドターゲット: StandaloneOSX（主）、StandaloneWindows64（副）
 - CI/CD: GitHub Actions を使用
 
 ## コーディング規約
@@ -47,14 +96,14 @@ feature/* or fix/*  →  PR  →  develop  →  テスト確認  →  PR  →  m
 - UPPER_SNAKE_CASE: 定数
 - 名前空間: `GuildAcademy.Core.Battle`, `GuildAcademy.UI`, `GuildAcademy.Data` 等
 
-### アーキテクチャ
+### アーキテクチャ方針（Unity プロジェクト構築時に適用）
 
 - **Pure C# 分離**: `Core/` 配下は MonoBehaviour を継承しない。Unity API に依存しない
 - **データ駆動**: キャラ・敵・スキル・アイテムは ScriptableObject で管理
 - **イベント駆動**: クラス間通信は C# event / delegate を使用。直接参照を避ける
 - **Interface ベース**: テスト時にモック差し替え可能な設計
 
-### ファイル配置
+### 計画中のファイル配置（Unity 初期化後に適用）
 
 ```
 Assets/_Project/Scripts/
@@ -67,7 +116,7 @@ Assets/Tests/
 └── PlayMode/       # Play Modeテスト
 ```
 
-## テスト
+## テスト（Unity プロジェクト構築後に有効）
 
 ### Edit Mode テスト（必須）
 
@@ -84,8 +133,6 @@ Assets/Tests/
 ### テスト実行コマンド
 
 ```bash
-# Unity Test Runner (CLI) — バージョンは適宜変更
-
 # macOS
 /Applications/Unity/Hub/Editor/6000.1.*/Unity.app/Contents/MacOS/Unity \
   -runTests -testPlatform EditMode -projectPath . -testResults results.xml
@@ -97,7 +144,9 @@ Assets/Tests/
 # GitHub Actions では game-ci/unity-test-runner を使用
 ```
 
-## 重要なゲームシステム
+## ゲームシステム概要
+
+詳細は `game_design_document.md`（GDD）を正とする。以下は要約。
 
 ### 6 マルチエンディング
 
@@ -115,16 +164,3 @@ Assets/Tests/
 - 情報フラグ 8 種（FlagSystem）
 - 信頼ポイント 4 人分（TrustSystem）
 - BranchManager が統合管理 → EndingResolver で判定
-
-## ドキュメント
-
-- `docs/game-design.md` — ゲームデザイン決定事項
-- `docs/architecture.md` — 技術アーキテクチャ
-- `docs/branching-endings.md` — 分岐・エンディングシステム詳細
-- `docs/team-workflow.md` — チーム運用・Git運用
-- `docs/presentation-plan.md` — 発表資料の構成計画
-
-## 外部リンク
-
-Notion のプロジェクトページ・タスクボード・学習リソースはチーム内で共有。
-URLは公開リポジトリには載せない（SECURITY.md 参照）。
