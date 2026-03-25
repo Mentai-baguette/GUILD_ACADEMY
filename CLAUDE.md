@@ -2,7 +2,7 @@
 
 ## プロジェクト概要
 
-GUILD ACADEMY: ABYSS CODE — 2D学園ダークファンタジーRPG（Unity 6 + C#）
+GUILD ACADEMY: ABYSS CODE — 2D学園ダークファンタジーRPG（Unity 6.4 + C#）
 千葉工業大学ハッカソン「システム開発における生成AI活用ワークショップ」出展作品（3/20〜4/10）
 
 ## Git ルール（最重要）
@@ -86,7 +86,7 @@ Assets/Tests/
 ```bash
 # Unity Test Runner (CLI)
 # macOS の Unity Hub インストールでは以下のパスを使用（バージョンは適宜変更）
-/Applications/Unity/Hub/Editor/6000.*/Unity.app/Contents/MacOS/Unity \
+/Applications/Unity/Hub/Editor/6000.1.*/Unity.app/Contents/MacOS/Unity \
   -runTests -testPlatform EditMode -projectPath . -testResults results.xml
 
 # GitHub Actions では game-ci/unity-test-runner を使用
