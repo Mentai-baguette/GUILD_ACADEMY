@@ -18,6 +18,10 @@ Thumbs.db
 
 # Claude Code local settings
 .claude/settings.local.json
+.mcp.json
+
+# Unity AI Assistant local settings
+ProjectSettings/AI.Assistant/
 
 # Build output
 build/
