@@ -71,7 +71,7 @@ Assets/
 
 ## Mac 対応
 
-- 開発環境: macOS + Unity 6 (Apple Silicon 対応)
+- 開発環境: macOS + Unity 6.4 (Apple Silicon 対応)
 - ビルドターゲット: macOS (StandaloneOSX)
 - テスト実行: Mac上でのEdit Mode / Play Mode テスト
 - CI/CD: GitHub Actions の macOS runner を使用

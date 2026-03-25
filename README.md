@@ -6,14 +6,14 @@
 
 ## 技術スタック
 
-- **エンジン**: Unity 6 (6000.x) + C#
+- **エンジン**: Unity 6.4 + C#
 - **プラットフォーム**: macOS（開発・テスト・プレイすべてMac）
 - **CI/CD**: GitHub Actions + game-ci/unity-test-runner
 
 ## 環境構築
 
 1. [Unity Hub](https://unity.com/download) をインストール
-2. Unity Hub から **Unity 6 (6000.x)** をインストール（macOS Build Support を含める）
+2. Unity Hub から **Unity 6.4** をインストール（macOS Build Support を含める）
 3. Git が入っていなければ: `xcode-select --install`
 4. リポジトリをクローン
 
