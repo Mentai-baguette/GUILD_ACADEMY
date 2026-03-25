@@ -1,55 +1,41 @@
 # GUILD ACADEMY: ABYSS CODE
 
-2D学園ダークファンタジーRPG（マルチエンディング）
+> *"お前の中に眠るその闇、俺が引き出してやるよ。"*
 
-千葉工業大学ハッカソン「システム開発における生成AI活用ワークショップ」出展作品（2026/3/20〜4/10）
+**2D学園ダークファンタジーRPG** — 6つのマルチエンディング
+
+## ゲーム概要
+
+記憶を失った少年レイが、冒険者ギルドの養成学校「クロノス・アカデミー」に入学する。クラスメイトとの学園生活、ダンジョン実習、そして徐々に明らかになる自分の正体——彼の中には「魔王の器」としての力が封じられていた。
+
+**「誰を信じ、何を選ぶか」——あなたの選択が6つの結末を決める。**
+
+マーダーミステリー的な情報収集と選択が、取り返しのつかない結末へ導く学園ダークファンタジーRPG。
+
+## 特徴
+
+- **ATBバトル** — ゲージが溜まったら行動可能。ブレイクシステムで大ダメージチャンス
+- **侵蝕システム** — 魔王の力を使うほど強くなるが、闇に飲まれるリスクも
+- **ソウルリンク** — 仲間との絆がバトルとエンディングに影響
+- **マダミス風分岐** — 情報フラグ8種 + 信頼ポイント4人分の組み合わせで物語が分岐
+- **6マルチエンディング** — 全員生存の道はたった1つ
 
 ## 技術スタック
 
-- **エンジン**: Unity 6 (6000.x) + C#
-- **プラットフォーム**: macOS（開発・テスト・プレイすべてMac）
+- **エンジン**: Unity 6.4 + C#
+- **プラットフォーム**: macOS / PC（Steam）
 - **CI/CD**: GitHub Actions + game-ci/unity-test-runner
 
-## 環境構築
+## 開発に参加する
 
-1. [Unity Hub](https://unity.com/download) をインストール
-2. Unity Hub から **Unity 6 (6000.x)** をインストール（macOS Build Support を含める）
-3. Git が入っていなければ: `xcode-select --install`
-4. リポジトリをクローン
-
-```bash
-git clone https://github.com/Mentai-baguette/GUILD_ACADEMY.git
-cd GUILD_ACADEMY
-git checkout develop
-```
-
-5. Unity Hub の「Add」ボタンでプロジェクトフォルダを開く
-
-> **Note:** Unity プロジェクトの初期化（Assets/, Packages/, ProjectSettings/ の作成）はまだ完了していません。初回セットアップ時にチームで行います。
-
-## リポジトリ構成
-
-```
-GUILD_ACADEMY/
-├── CLAUDE.md                  # Claude Code 用プロジェクト指示書
-├── SECURITY.md                # セキュリティポリシー
-├── game_design_document.md    # ゲームデザインドキュメント（GDD）
-└── docs/
-    ├── game-design.md         # ゲームデザイン決定事項
-    ├── architecture.md        # 技術アーキテクチャ
-    ├── branching-endings.md   # 分岐・エンディングシステム
-    ├── team-workflow.md       # チーム運用・ワークフロー
-    └── presentation-plan.md   # 発表資料構成計画
-```
-
-## Git 運用
-
-- `main` / `develop` への直接 push は禁止（GitHub 側で強制）
-- 作業は `feature/*` または `fix/*` ブランチで行い、PR 経由で `develop` にマージ
-- push 前にテストを実行すること
-
-詳細は [CLAUDE.md](./CLAUDE.md) と [docs/team-workflow.md](./docs/team-workflow.md) を参照。
+環境構築やGit運用については [docs/setup-guide.md](./docs/setup-guide.md) を参照。
 
 ## ドキュメント
 
-詳細は [docs/](./docs/README.md) を参照。
+- [ゲームデザインドキュメント（GDD）](./game_design_document.md)
+- [環境構築ガイド](./docs/setup-guide.md)
+- [その他のドキュメント](./docs/README.md)
+
+## ライセンス
+
+千葉工業大学ハッカソン「システム開発における生成AI活用ワークショップ」出展作品（2026/3/20〜4/10）
