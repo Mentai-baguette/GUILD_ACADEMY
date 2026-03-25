@@ -18,6 +18,7 @@ Thumbs.db
 
 # Claude Code local settings
 .claude/settings.local.json
+.mcp.json
 
 # Build output
 build/
