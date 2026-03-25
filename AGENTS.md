@@ -7,10 +7,8 @@ GUILD ACADEMY: ABYSS CODE — 2D学園ダークファンタジーRPG（Unity 6.4
 
 ## 現在のリポジトリ状態
 
-**Unity プロジェクトは未初期化。** 現在はドキュメントのみ。Assets/, Packages/, ProjectSettings/ は存在しない。
-Unity プロジェクト構成やテスト実行は、初期化完了後に有効になる。
-
-以下は実在するファイルのみ記載。操作前に `ls` 等で実体を確認すること。
+**Unity プロジェクトは初期化済み。** Unity 6.4 + Universal 2D (URP) テンプレート。
+操作前に `ls` 等で実体を確認すること。
 
 ```
 GUILD_ACADEMY/
@@ -19,6 +17,9 @@ GUILD_ACADEMY/
 ├── README.md                  # ゲーム概要
 ├── SECURITY.md                # セキュリティポリシー
 ├── game_design_document.md    # GDD（設計の正とする）
+├── Assets/                    # Unity アセット
+├── Packages/                  # Unity パッケージ定義
+├── ProjectSettings/           # Unity プロジェクト設定
 └── docs/
     ├── README.md              # ドキュメントインデックス
     ├── game-design.md         # ゲームデザイン決定事項

@@ -47,7 +47,7 @@ git checkout develop
 
 Unity Hub の「Add」ボタンでプロジェクトフォルダを選択して開く。
 
-> **Note:** Unity プロジェクトの初期化（Assets/, Packages/, ProjectSettings/ の作成）はまだ完了していません。初回セットアップ時にチームで行います。
+> **Note:** Unity プロジェクトは初期化済みです（Unity 6.4 + Universal 2D テンプレート）。clone 後に Unity Hub でプロジェクトフォルダを開けばそのまま使えます。
 
 ## 5. ビルドターゲットの確認
 

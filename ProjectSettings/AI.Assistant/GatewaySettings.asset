@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: Unity.AI.Assistant.Editor:Unity.AI.Assistant.Editor:GatewayProjectSettings
-  m_ProviderWorkingDirs:
-  - providerId: claude-code
-    workingDir: /Volumes/Dospara_m.2/GUILD_ACADEMY
+  m_ProviderWorkingDirs: []
   m_IncludeDefaultAgentsMd: 1
