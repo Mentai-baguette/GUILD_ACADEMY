@@ -11,8 +11,6 @@ jobs:
     name: Request .alf file
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-
       - uses: game-ci/unity-request-activation-file@65874ef791dae6dfa5829f1cb490eafbd7b2173c # v2
         id: getManualLicenseFile
 

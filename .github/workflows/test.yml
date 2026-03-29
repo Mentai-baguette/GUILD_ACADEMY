@@ -28,7 +28,7 @@ jobs:
             echo "has-license=true" >> "$GITHUB_OUTPUT"
           else
             echo "has-license=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::UNITY_LICENSE is not set. Skipping tests. See PR #11 for setup instructions."
+            echo "::warning::UNITY_LICENSE is not set. Skipping tests. See SECURITY.md for setup instructions."
           fi
 
   test-editmode:
