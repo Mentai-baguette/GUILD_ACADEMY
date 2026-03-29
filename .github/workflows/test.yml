@@ -36,6 +36,10 @@ jobs:
     needs: check-license
     if: needs.check-license.outputs.has-license == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+      checks: write
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
