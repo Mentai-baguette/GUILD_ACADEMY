@@ -5,15 +5,6 @@ TextureImporter:
   - first:
       213: 6125235241767701611
     second: Carlos_normal_0
-  - first:
-      213: -1849451143941100109
-    second: Carlos_normal_1
-  - first:
-      213: 910716903511112057
-    second: Carlos_normal_2
-  - first:
-      213: -180263822894650040
-    second: Carlos_normal_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -84,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -127,10 +118,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 179
-        height: 276
+        width: 180
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -143,77 +134,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Carlos_normal_1
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 270
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3bd63ffbbfd6556e0800000000000000
-      internalID: -1849451143941100109
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Carlos_normal_2
-      rect:
-        serializedVersion: 2
-        x: 42
-        y: 274
-        width: 7
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 97939b4d23483ac00800000000000000
-      internalID: 910716903511112057
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Carlos_normal_3
-      rect:
-        serializedVersion: 2
-        x: 62
-        y: 271
-        width: 7
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 84da28612039f7df0800000000000000
-      internalID: -180263822894650040
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: a75c1de69f73b44cb9cd1d24a1897e88
     internalID: 0
     vertices: []
     indices: 
@@ -224,9 +149,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Carlos_normal_0: 6125235241767701611
-      Carlos_normal_1: -1849451143941100109
-      Carlos_normal_2: 910716903511112057
-      Carlos_normal_3: -180263822894650040
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
