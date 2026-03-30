@@ -135,11 +135,11 @@ Assets/Tests/
 
 ```bash
 # macOS
-/Applications/Unity/Hub/Editor/6000.1.*/Unity.app/Contents/MacOS/Unity \
+/Applications/Unity/Hub/Editor/6000.4.*/Unity.app/Contents/MacOS/Unity \
   -runTests -testPlatform EditMode -projectPath . -testResults results.xml
 
 # Windows (PowerShell)
-& "C:\Program Files\Unity\Hub\Editor\6000.1.*\Editor\Unity.exe" `
+& "C:\Program Files\Unity\Hub\Editor\6000.4.*\Editor\Unity.exe" `
   -runTests -testPlatform EditMode -projectPath . -testResults results.xml
 
 # GitHub Actions では game-ci/unity-test-runner を使用
