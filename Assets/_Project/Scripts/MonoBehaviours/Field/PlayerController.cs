@@ -35,8 +35,6 @@ namespace GuildAcademy.MonoBehaviours.Field
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _rb.gravityScale = 0f;
-            _rb.freezeRotation = true;
             _animator = GetComponent<Animator>();
         }
 
