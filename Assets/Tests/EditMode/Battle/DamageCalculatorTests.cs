@@ -128,5 +128,58 @@ namespace GuildAcademy.Tests.EditMode.Battle
             float mult = DamageCalculator.GetElementMultiplier(ElementType.None, ElementType.Fire, ElementType.Ice, ElementType.Dark);
             Assert.AreEqual(1.0f, mult);
         }
+
+        // --- Skill Power Tests ---
+
+        [Test]
+        public void Calculate_WithSkillPower150_DealsMoreDamage()
+        {
+            int damage = _calc.Calculate(50, 20, ElementType.None, ElementType.None, ElementType.None, ElementType.None, false, false, skillPower: 150);
+            // (50 * 150 / 100) - 20 + 0 = 75 - 20 = 55
+            Assert.AreEqual(55, damage);
+        }
+
+        [Test]
+        public void Calculate_WithSkillPower50_DealsLessDamage()
+        {
+            int damage = _calc.Calculate(50, 20, ElementType.None, ElementType.None, ElementType.None, ElementType.None, false, false, skillPower: 50);
+            // (50 * 50 / 100) - 20 + 0 = 25 - 20 = 5
+            Assert.AreEqual(5, damage);
+        }
+
+        [Test]
+        public void Calculate_SkillPowerZero_SameAsBasicAttack()
+        {
+            int withZero = _calc.Calculate(50, 20, ElementType.None, ElementType.None, ElementType.None, ElementType.None, false, false, skillPower: 0);
+            var calc2 = new DamageCalculator(new FixedRandom(0));
+            int withoutParam = calc2.Calculate(50, 20, ElementType.None, ElementType.None, ElementType.None, ElementType.None, false, false);
+            Assert.AreEqual(withoutParam, withZero);
+        }
+
+        // --- Heal Tests ---
+
+        [Test]
+        public void CalculateHeal_BasicHeal_ReturnsPositive()
+        {
+            int heal = _calc.CalculateHeal(20, 100);
+            // 20 * 100 / 100 + 0 = 20
+            Assert.AreEqual(20, heal);
+        }
+
+        [Test]
+        public void CalculateHeal_MinimumHeal_IsOne()
+        {
+            int heal = _calc.CalculateHeal(1, 1);
+            // 1 * 1 / 100 + 0 = 0 -> clamped to 1
+            Assert.AreEqual(1, heal);
+        }
+
+        [Test]
+        public void CalculateHeal_HighPower_ScalesWithAtk()
+        {
+            int heal = _calc.CalculateHeal(50, 200);
+            // 50 * 200 / 100 + 0 = 100
+            Assert.AreEqual(100, heal);
+        }
     }
 }
