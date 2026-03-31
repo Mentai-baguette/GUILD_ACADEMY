@@ -29,22 +29,37 @@ namespace GuildAcademy.Core.Branch
 
         public void AddTrust(CharacterId id, int amount)
         {
+            ValidateTrustTarget(id);
             _trust[id] = Math.Clamp(_trust[id] + amount, MinTrust, MaxTrust);
         }
 
         public void SetTrust(CharacterId id, int value)
         {
+            ValidateTrustTarget(id);
             _trust[id] = Math.Clamp(value, MinTrust, MaxTrust);
         }
 
         public int GetTrust(CharacterId id)
         {
+            ValidateTrustTarget(id);
             return _trust[id];
         }
 
         public bool MeetsThreshold(CharacterId id, int threshold)
         {
+            ValidateTrustTarget(id);
             return _trust[id] >= threshold;
+        }
+
+        public bool IsTrustTarget(CharacterId id)
+        {
+            return _trust.ContainsKey(id);
+        }
+
+        private void ValidateTrustTarget(CharacterId id)
+        {
+            if (!_trust.ContainsKey(id))
+                throw new NotSupportedException($"{id} is not a trust target. Only {string.Join(", ", TrustTargets)} are supported.");
         }
 
         public bool AllMeetThreshold(int threshold)

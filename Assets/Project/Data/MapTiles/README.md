@@ -1,3 +1,8 @@
+> **WARNING**: このディレクトリには第三者アセットが含まれます。
+> 一部アセット（Hummble Gift - Paper UI System）は再配布禁止です。
+> public リポジトリに含める場合はライセンス条件を必ず確認してください。
+> 詳細は各アセットの利用条件を参照。
+
 # Legacy Fantasy Bundle - High Forest 2.0
  Legacy Fantasy Bundle - is a huge set of assets for creating fantasy platform environments, completely free for commercial use and editions, in constant expansion, this pack contains several tiles for different environments.
 
@@ -11,7 +16,7 @@
     Some of the important points to consider when using these assets:
 
     1. It is not necessary to credit the author for any use of the arts, but if it is done it is appreciated.
-        1.1 When you want to give credits to the author, contact by email: AnomalyPixel@gmail.com
+        1.1 When you want to give credits to the author, contact via the itch.io page
         1.2 The author of the assets has no direct relationship with the development of projects using these assets
 
     2. The arts present can be altered in any shape, color or pattern
