@@ -12,10 +12,18 @@ namespace GuildAcademy.Core.Branch
 
         private readonly Dictionary<CharacterId, int> _trust;
 
+        private static readonly CharacterId[] TrustTargets =
+        {
+            CharacterId.Yuna,
+            CharacterId.Mio,
+            CharacterId.Kaito,
+            CharacterId.Shion
+        };
+
         public TrustSystem()
         {
             _trust = new Dictionary<CharacterId, int>();
-            foreach (CharacterId id in Enum.GetValues(typeof(CharacterId)))
+            foreach (var id in TrustTargets)
                 _trust[id] = 0;
         }
 
