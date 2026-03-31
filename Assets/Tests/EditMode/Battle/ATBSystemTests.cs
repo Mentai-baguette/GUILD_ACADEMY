@@ -139,5 +139,30 @@ namespace GuildAcademy.Tests.EditMode.Battle
             Assert.AreEqual(0f, _atb.GetGauge(char1));
             Assert.IsEmpty(_atb.GetReadyCharacters());
         }
+
+        [Test]
+        public void Tick_NegativeDeltaTime_GaugeDoesNotChange()
+        {
+            var char1 = new CharacterStats("Ray", 100, 50, 30, 20, 10);
+            _atb.AddCombatant(char1);
+            _atb.Tick(0.5f);
+            float before = _atb.GetGauge(char1);
+            _atb.Tick(-1.0f);
+            Assert.AreEqual(before, _atb.GetGauge(char1));
+        }
+
+        [Test]
+        public void GetGauge_UnregisteredCharacter_ReturnsZero()
+        {
+            var unknown = new CharacterStats("Unknown", 100, 50, 30, 20, 10);
+            Assert.AreEqual(0f, _atb.GetGauge(unknown));
+        }
+
+        [Test]
+        public void ResetGauge_UnregisteredCharacter_DoesNotThrow()
+        {
+            var unknown = new CharacterStats("Unknown", 100, 50, 30, 20, 10);
+            Assert.DoesNotThrow(() => _atb.ResetGauge(unknown));
+        }
     }
 }

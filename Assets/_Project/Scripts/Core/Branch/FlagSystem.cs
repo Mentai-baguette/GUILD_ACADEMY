@@ -6,19 +6,30 @@ namespace GuildAcademy.Core.Branch
 {
     public class FlagSystem
     {
+        public static class Flags
+        {
+            public const string ShionPast = "flag_shion_past";
+            public const string CarlosPlan = "flag_carlos_plan";
+            public const string VesselTruth = "flag_vessel_truth";
+            public const string AcademySecret = "flag_academy_secret";
+            public const string SealMethod = "flag_seal_method";
+            public const string DarkPowerRisk = "flag_dark_power_risk";
+            public const string TrustBetrayal = "flag_trust_betrayal";
+            public const string SalvationPath = "flag_salvation_path";
+            public const string AcademyRefused = "academy_refused";
+        }
+
         private static readonly string[] InfoFlagNames =
         {
-            "flag_shion_past",
-            "flag_carlos_plan",
-            "flag_vessel_truth",
-            "flag_academy_secret",
-            "flag_seal_method",
-            "flag_dark_power_risk",
-            "flag_trust_betrayal",
-            "flag_salvation_path"
+            Flags.ShionPast,
+            Flags.CarlosPlan,
+            Flags.VesselTruth,
+            Flags.AcademySecret,
+            Flags.SealMethod,
+            Flags.DarkPowerRisk,
+            Flags.TrustBetrayal,
+            Flags.SalvationPath
         };
-
-        private const string AcademyRefusedFlag = "academy_refused";
 
         private readonly Dictionary<string, bool> _flags;
 
@@ -27,7 +38,7 @@ namespace GuildAcademy.Core.Branch
             _flags = new Dictionary<string, bool>();
             foreach (var name in InfoFlagNames)
                 _flags[name] = false;
-            _flags[AcademyRefusedFlag] = false;
+            _flags[Flags.AcademyRefused] = false;
         }
 
         public void Set(string flagName, bool value)

@@ -1,3 +1,4 @@
+using System;
 using GuildAcademy.Core.Data;
 
 namespace GuildAcademy.Core.Branch
@@ -6,8 +7,15 @@ namespace GuildAcademy.Core.Branch
     {
         public static EndingType Resolve(EndingContext context)
         {
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
+            if (context.Flags == null)
+                throw new ArgumentNullException(nameof(context.Flags));
+            if (context.Trust == null)
+                throw new ArgumentNullException(nameof(context.Trust));
+
             // END1: 学園に行かない → 裏ハッピー（最優先）
-            if (context.Flags.Get("academy_refused"))
+            if (context.Flags.Get(FlagSystem.Flags.AcademyRefused))
                 return EndingType.HiddenHappy;
 
             // END6: 全滅 or 侵蝕90%+（END2/END3より優先）

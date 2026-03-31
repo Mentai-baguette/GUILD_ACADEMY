@@ -1,6 +1,8 @@
+using System;
 using NUnit.Framework;
 using GuildAcademy.Core.Branch;
 using GuildAcademy.Core.Data;
+using F = GuildAcademy.Core.Branch.FlagSystem.Flags;
 
 namespace GuildAcademy.Tests.EditMode.Branch
 {
@@ -35,14 +37,14 @@ namespace GuildAcademy.Tests.EditMode.Branch
 
         private void SetAllInfoFlags()
         {
-            _flags.Set("flag_shion_past", true);
-            _flags.Set("flag_carlos_plan", true);
-            _flags.Set("flag_vessel_truth", true);
-            _flags.Set("flag_academy_secret", true);
-            _flags.Set("flag_seal_method", true);
-            _flags.Set("flag_dark_power_risk", true);
-            _flags.Set("flag_trust_betrayal", true);
-            _flags.Set("flag_salvation_path", true);
+            _flags.Set(F.ShionPast, true);
+            _flags.Set(F.CarlosPlan, true);
+            _flags.Set(F.VesselTruth, true);
+            _flags.Set(F.AcademySecret, true);
+            _flags.Set(F.SealMethod, true);
+            _flags.Set(F.DarkPowerRisk, true);
+            _flags.Set(F.TrustBetrayal, true);
+            _flags.Set(F.SalvationPath, true);
         }
 
         private void SetAllTrust(int value)
@@ -56,7 +58,7 @@ namespace GuildAcademy.Tests.EditMode.Branch
         [Test]
         public void END1_AcademyRefused_ReturnsHiddenHappy()
         {
-            _flags.Set("academy_refused", true);
+            _flags.Set(F.AcademyRefused, true);
             var context = CreateContext(BattlePhase.PreAcademy);
             Assert.AreEqual(EndingType.HiddenHappy, EndingResolver.Resolve(context));
         }
@@ -64,7 +66,7 @@ namespace GuildAcademy.Tests.EditMode.Branch
         [Test]
         public void END1_TakesPriorityOverOtherConditions()
         {
-            _flags.Set("academy_refused", true);
+            _flags.Set(F.AcademyRefused, true);
             SetAllInfoFlags();
             SetAllTrust(100);
             var context = CreateContext(BattlePhase.CarlosBattle, BattleResult.PlayerVictory,
@@ -114,14 +116,13 @@ namespace GuildAcademy.Tests.EditMode.Branch
         [Test]
         public void END5_MissingOneFlag_DoesNotReturnTrueHappy()
         {
-            _flags.Set("flag_shion_past", true);
-            _flags.Set("flag_carlos_plan", true);
-            _flags.Set("flag_vessel_truth", true);
-            _flags.Set("flag_academy_secret", true);
-            _flags.Set("flag_seal_method", true);
-            _flags.Set("flag_dark_power_risk", true);
-            _flags.Set("flag_trust_betrayal", true);
-            // flag_salvation_path not set
+            _flags.Set(F.ShionPast, true);
+            _flags.Set(F.CarlosPlan, true);
+            _flags.Set(F.VesselTruth, true);
+            _flags.Set(F.AcademySecret, true);
+            _flags.Set(F.SealMethod, true);
+            _flags.Set(F.DarkPowerRisk, true);
+            _flags.Set(F.TrustBetrayal, true);
             SetAllTrust(80);
             var context = CreateContext(BattlePhase.CarlosBattle, BattleResult.PlayerVictory,
                 shionRescued: true, carlosDefeated: true);
@@ -149,11 +150,19 @@ namespace GuildAcademy.Tests.EditMode.Branch
         }
 
         [Test]
-        public void END6_ErosionOver90_ReturnsTotalDefeat()
+        public void END6_Erosion90_ReturnsTotalDefeat()
         {
             var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
                 erosionPercent: 90);
             Assert.AreEqual(EndingType.TotalDefeat, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END6_Erosion89_DoesNotReturnTotalDefeat()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                erosionPercent: 89);
+            Assert.AreNotEqual(EndingType.TotalDefeat, EndingResolver.Resolve(context));
         }
 
         [Test]
@@ -168,6 +177,26 @@ namespace GuildAcademy.Tests.EditMode.Branch
         {
             var context = CreateContext(BattlePhase.AcademyLife);
             Assert.AreEqual(EndingType.None, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void Resolve_NullContext_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => EndingResolver.Resolve(null));
+        }
+
+        [Test]
+        public void Resolve_NullFlags_ThrowsArgumentNullException()
+        {
+            var context = new EndingContext { Flags = null, Trust = _trust };
+            Assert.Throws<ArgumentNullException>(() => EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void Resolve_NullTrust_ThrowsArgumentNullException()
+        {
+            var context = new EndingContext { Flags = _flags, Trust = null };
+            Assert.Throws<ArgumentNullException>(() => EndingResolver.Resolve(context));
         }
     }
 }

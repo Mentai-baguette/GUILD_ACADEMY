@@ -23,6 +23,9 @@ namespace GuildAcademy.Core.Battle
 
         public void Tick(float deltaTime)
         {
+            if (deltaTime <= 0f)
+                return;
+
             foreach (var combatant in _combatants)
             {
                 if (combatant.Gauge < MaxGauge)
