@@ -78,7 +78,7 @@ namespace GuildAcademy.Core.Battle
 
         public CharacterStats GetCurrentActor()
         {
-            return _atb.GetReadyCharacters().FirstOrDefault();
+            return _atb.GetReadyCharacters().FirstOrDefault(c => c.CurrentHp > 0);
         }
 
         public ActionResult SubmitCommand(BattleCommand command)
@@ -90,6 +90,9 @@ namespace GuildAcademy.Core.Battle
             var result = _executor.Execute(command);
             _atb.ResetGauge(command.Attacker);
             _breakSystem.TickBreakRecovery(command.Target);
+
+            if (result.TargetDefeated)
+                _atb.RemoveCombatant(command.Target);
 
             OnActionExecuted?.Invoke(result);
 

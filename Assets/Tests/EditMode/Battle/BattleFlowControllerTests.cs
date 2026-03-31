@@ -144,5 +144,43 @@ namespace GuildAcademy.Tests.EditMode.Battle
             var battleResult = _controller.CheckBattleEnd();
             Assert.AreEqual(BattleResult.None, battleResult);
         }
+
+        [Test]
+        public void GetCurrentActor_DeadCharacter_IsSkipped()
+        {
+            var hero2 = new CharacterStats("Hero2", 200, 50, 30, 20, 5);
+            _controller.StartBattle(
+                new List<CharacterStats> { _hero, hero2 },
+                new List<CharacterStats> { _enemy });
+
+            _controller.Tick(1.0f);
+            _hero.CurrentHp = 0;
+
+            var actor = _controller.GetCurrentActor();
+            Assert.AreNotEqual(_hero, actor);
+        }
+
+        [Test]
+        public void SubmitCommand_KillTarget_RemovesFromATB()
+        {
+            var weakEnemy = new CharacterStats("Weak", 1, 0, 5, 0, 5);
+            _controller.StartBattle(
+                new List<CharacterStats> { _hero },
+                new List<CharacterStats> { weakEnemy });
+
+            _controller.Tick(1.0f);
+
+            var cmd = new BattleCommand
+            {
+                Attacker = _hero,
+                Target = weakEnemy,
+                Type = CommandType.Attack,
+                Element = ElementType.None
+            };
+
+            var result = _controller.SubmitCommand(cmd);
+            Assert.IsTrue(result.TargetDefeated);
+            Assert.AreEqual(0f, _atb.GetGauge(weakEnemy));
+        }
     }
 }
