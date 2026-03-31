@@ -5,7 +5,7 @@ namespace GuildAcademy.Core.Battle
 {
     public class ActionExecutor
     {
-        public const int CriticalChancePercent = 15;
+        public const int CRITICAL_CHANCE_PERCENT = 15;
 
         private readonly DamageCalculator _damageCalc;
         private readonly BreakSystem _breakSystem;
@@ -31,7 +31,7 @@ namespace GuildAcademy.Core.Battle
             if (command.Type == CommandType.Defend)
                 return result;
 
-            bool isCritical = _random.Range(0, 100) < CriticalChancePercent;
+            bool isCritical = _random.Range(0, 100) < CRITICAL_CHANCE_PERCENT;
             result.WasCritical = isCritical;
 
             bool isWeakHit = command.Element != ElementType.None &&

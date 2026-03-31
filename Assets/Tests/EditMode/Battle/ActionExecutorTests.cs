@@ -176,6 +176,28 @@ namespace GuildAcademy.Tests.EditMode.Battle
         }
 
         [Test]
+        public void Execute_DefendCommand_DealsZeroDamage()
+        {
+            var attacker = new CharacterStats("Ray", 100, 50, 30, 20, 10);
+            var target = new CharacterStats("Enemy", 100, 0, 20, 10, 5);
+            _breakSystem.Register(target);
+            var random = new FixedRandom(50);
+            var damageCalc = new DamageCalculator(random);
+            var executor = new ActionExecutor(damageCalc, _breakSystem, random);
+
+            var cmd = new BattleCommand
+            {
+                Attacker = attacker,
+                Target = target,
+                Type = CommandType.Defend,
+                Element = ElementType.None
+            };
+
+            var result = executor.Execute(cmd);
+            Assert.AreEqual(0, result.DamageDealt);
+        }
+
+        [Test]
         public void Execute_NullElement_ZeroDamage()
         {
             _target.NullElement = ElementType.Ice;
