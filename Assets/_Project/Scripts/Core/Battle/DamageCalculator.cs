@@ -23,10 +23,13 @@ namespace GuildAcademy.Core.Battle
 
         public int Calculate(int atk, int def, ElementType attackElement,
             ElementType defenderWeakElement, ElementType defenderResistElement,
-            ElementType defenderNullElement, bool isCritical, bool isBreakState)
+            ElementType defenderNullElement, bool isCritical, bool isBreakState,
+            int skillPower = 0)
         {
             int variance = _random.Range(VarianceMin, VarianceMax);
-            int baseDamage = atk - def + variance;
+            int baseDamage = skillPower > 0
+                ? atk * skillPower / 100 - def + variance
+                : atk - def + variance;
 
             float elementMult = GetElementMultiplier(attackElement, defenderWeakElement, defenderResistElement, defenderNullElement);
 
@@ -38,6 +41,13 @@ namespace GuildAcademy.Core.Battle
 
             int damage = (int)(baseDamage * elementMult * critMult * breakMult);
             return Math.Max(MinDamage, damage);
+        }
+
+        public int CalculateHeal(int healerAtk, int skillPower)
+        {
+            int variance = _random.Range(0, VarianceMax);
+            int heal = healerAtk * skillPower / 100 + variance;
+            return Math.Max(1, heal);
         }
 
         public static float GetElementMultiplier(ElementType attackElement,
