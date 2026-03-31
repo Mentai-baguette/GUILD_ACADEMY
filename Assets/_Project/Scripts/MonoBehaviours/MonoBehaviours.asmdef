@@ -1,0 +1,14 @@
+{
+    "name": "GuildAcademy.MonoBehaviours",
+    "rootNamespace": "GuildAcademy.MonoBehaviours",
+    "references": ["GuildAcademy.Core", "Unity.InputSystem"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
