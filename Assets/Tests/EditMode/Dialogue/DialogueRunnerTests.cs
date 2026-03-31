@@ -129,5 +129,26 @@ namespace GuildAcademy.Tests.EditMode.Dialogue
             _runner.Advance();
             Assert.IsFalse(_runner.IsActive);
         }
+
+        [Test]
+        public void End_FiresOnDialogueEnded()
+        {
+            _runner.Start("start");
+            bool ended = false;
+            _runner.OnDialogueEnded += () => ended = true;
+            _runner.End();
+            Assert.IsTrue(ended);
+            Assert.IsFalse(_runner.IsActive);
+        }
+
+        [Test]
+        public void Start_WithChoices_FiresOnChoicesPresented()
+        {
+            List<DialogueChoice> presentedChoices = null;
+            _runner.OnChoicesPresented += choices => presentedChoices = choices;
+            _runner.Start("choice_node");
+            Assert.IsNotNull(presentedChoices);
+            Assert.AreEqual(2, presentedChoices.Count);
+        }
     }
 }
