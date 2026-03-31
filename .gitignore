@@ -69,5 +69,8 @@ crashlytics-build.properties
 
 # Third-party assets (download separately, see docs/setup-guide.md)
 Assets/Project/Data/MapTiles/**/*.png
+Assets/Project/Data/MapTiles/**/*.png.meta
 Assets/Project/Data/MapTiles/**/*.aseprite
+Assets/Project/Data/MapTiles/**/*.aseprite.meta
 Assets/Project/Data/MapTiles/**/*.gif
+Assets/Project/Data/MapTiles/**/*.gif.meta
