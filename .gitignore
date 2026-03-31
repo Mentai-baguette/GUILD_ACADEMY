@@ -44,6 +44,7 @@ Recordings/
 [Aa]ssets/AssetStoreTools*
 *.csproj
 *.sln
+*.slnx
 *.suo
 *.tmp
 *.user
