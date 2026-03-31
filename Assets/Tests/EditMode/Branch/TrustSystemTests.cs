@@ -94,5 +94,23 @@ namespace GuildAcademy.Tests.EditMode.Branch
             _trustSystem.SetTrust(CharacterId.Shion, 79);
             Assert.IsFalse(_trustSystem.AllMeetThreshold(80));
         }
+
+        [Test]
+        public void AddTrust_Ray_ThrowsNotSupportedException()
+        {
+            Assert.Throws<System.NotSupportedException>(() => _trustSystem.AddTrust(CharacterId.Ray, 10));
+        }
+
+        [Test]
+        public void IsTrustTarget_Yuna_ReturnsTrue()
+        {
+            Assert.IsTrue(_trustSystem.IsTrustTarget(CharacterId.Yuna));
+        }
+
+        [Test]
+        public void IsTrustTarget_Ray_ReturnsFalse()
+        {
+            Assert.IsFalse(_trustSystem.IsTrustTarget(CharacterId.Ray));
+        }
     }
 }
