@@ -66,3 +66,6 @@ steam_appid.txt
 # Crash reports
 sysinfo.txt
 crashlytics-build.properties
+
+# Unity recovery files
+_Recovery/
