@@ -5,6 +5,19 @@ using System.Text.RegularExpressions;
 
 namespace GuildAcademy.Core.Save
 {
+    public class DefaultSaveSerializer : ISaveSerializer
+    {
+        public string Serialize(SaveData data)
+        {
+            return SaveSerializer.Serialize(data);
+        }
+
+        public SaveData Deserialize(string json)
+        {
+            return SaveSerializer.Deserialize(json);
+        }
+    }
+
     public static class SaveSerializer
     {
         public static string Serialize(SaveData data)
@@ -36,7 +49,7 @@ namespace GuildAcademy.Core.Save
             if (string.IsNullOrEmpty(json))
                 throw new ArgumentException("JSON string cannot be null or empty", nameof(json));
 
-            var data = new SaveData
+            return new SaveData
             {
                 SaveId = ExtractString(json, "saveId"),
                 Timestamp = ExtractString(json, "timestamp"),
@@ -49,13 +62,10 @@ namespace GuildAcademy.Core.Save
                 Trust = ExtractIntDict(json, "trust"),
                 BondPoints = ExtractIntDict(json, "bondPoints")
             };
-
-            return data;
         }
 
         private static string ExtractString(string json, string key)
         {
-            // Handle escaped quotes/backslashes in values
             var match = Regex.Match(json, $"\"{key}\":\"((?:[^\"\\\\]|\\\\.)*)\"");
             return match.Success ? Unescape(match.Groups[1].Value) : "";
         }
