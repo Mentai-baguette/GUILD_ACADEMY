@@ -41,8 +41,11 @@ namespace GuildAcademy.MonoBehaviours.UI
             StartCoroutine(TransitionCoroutine(sceneName));
         }
 
+        // フェードなし即時遷移。_isTransitioningを無視する（意図的）。
+        // ゲームオーバーやデバッグ用途など、演出不要な場面で使用。
         public void LoadSceneImmediate(string sceneName)
         {
+            _isTransitioning = false;
             SceneManager.LoadScene(sceneName);
         }
 
