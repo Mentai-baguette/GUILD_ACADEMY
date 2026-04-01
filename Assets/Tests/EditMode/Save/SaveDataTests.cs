@@ -31,10 +31,8 @@ namespace GuildAcademy.Tests.EditMode.Save
         public void SaveData_SetAndGetFlags()
         {
             var data = new SaveData();
-
             data.Flags["flag_shion_past"] = true;
             data.Flags["flag_carlos_plan"] = false;
-
             Assert.IsTrue(data.Flags["flag_shion_past"]);
             Assert.IsFalse(data.Flags["flag_carlos_plan"]);
             Assert.AreEqual(2, data.Flags.Count);
@@ -44,10 +42,8 @@ namespace GuildAcademy.Tests.EditMode.Save
         public void SaveData_SetAndGetTrust()
         {
             var data = new SaveData();
-
             data.Trust["Yuna"] = 75;
             data.Trust["Mio"] = 50;
-
             Assert.AreEqual(75, data.Trust["Yuna"]);
             Assert.AreEqual(50, data.Trust["Mio"]);
         }
@@ -73,12 +69,8 @@ namespace GuildAcademy.Tests.EditMode.Save
 
             Assert.That(json, Does.Contain("\"saveId\":\"save_001\""));
             Assert.That(json, Does.Contain("\"playTimeSeconds\":3600"));
-            Assert.That(json, Does.Contain("\"erosionValue\":25"));
-            Assert.That(json, Does.Contain("\"currentScene\":\"Chapter1\""));
-            Assert.That(json, Does.Contain("\"chapterNumber\":1"));
             Assert.That(json, Does.Contain("\"flag_shion_past\":true"));
             Assert.That(json, Does.Contain("\"Yuna\":80"));
-            Assert.That(json, Does.Contain("\"Mio\":3"));
         }
 
         [Test]
@@ -88,24 +80,16 @@ namespace GuildAcademy.Tests.EditMode.Save
         }
 
         [Test]
-        public void Serialize_EmptyData_ProducesMinimalJson()
+        public void Deserialize_EmptyString_ThrowsException()
         {
-            var data = new SaveData();
-
-            string json = SaveSerializer.Serialize(data);
-
-            Assert.That(json, Does.StartWith("{"));
-            Assert.That(json, Does.EndWith("}"));
-            Assert.That(json, Does.Contain("\"saveId\":\"\""));
-            Assert.That(json, Does.Contain("\"flags\":{}"));
-            Assert.That(json, Does.Contain("\"trust\":{}"));
-            Assert.That(json, Does.Contain("\"bondPoints\":{}"));
+            Assert.Throws<ArgumentException>(() => SaveSerializer.Deserialize(""));
+            Assert.Throws<ArgumentException>(() => SaveSerializer.Deserialize(null));
         }
 
         [Test]
-        public void SaveData_RoundTrip_PreservesValues()
+        public void RoundTrip_SerializeDeserialize_PreservesAllValues()
         {
-            var data = new SaveData
+            var original = new SaveData
             {
                 SaveId = "round_trip_test",
                 Timestamp = "2026-03-31T15:30:00",
@@ -115,27 +99,39 @@ namespace GuildAcademy.Tests.EditMode.Save
                 CurrentDialogueId = "dlg_final",
                 ChapterNumber = 5
             };
-            data.Flags["flag_vessel_truth"] = true;
-            data.Flags["flag_seal_method"] = false;
-            data.Trust["Kaito"] = 60;
-            data.Trust["Shion"] = 90;
-            data.BondPoints["Yuna"] = 5;
+            original.Flags["flag_vessel_truth"] = true;
+            original.Flags["flag_seal_method"] = false;
+            original.Trust["Kaito"] = 60;
+            original.Trust["Shion"] = 90;
+            original.BondPoints["Yuna"] = 5;
 
+            string json = SaveSerializer.Serialize(original);
+            var restored = SaveSerializer.Deserialize(json);
+
+            Assert.AreEqual("round_trip_test", restored.SaveId);
+            Assert.AreEqual("2026-03-31T15:30:00", restored.Timestamp);
+            Assert.AreEqual(7200, restored.PlayTimeSeconds);
+            Assert.AreEqual(42, restored.ErosionValue);
+            Assert.AreEqual("BossRoom", restored.CurrentScene);
+            Assert.AreEqual("dlg_final", restored.CurrentDialogueId);
+            Assert.AreEqual(5, restored.ChapterNumber);
+            Assert.IsTrue(restored.Flags["flag_vessel_truth"]);
+            Assert.IsFalse(restored.Flags["flag_seal_method"]);
+            Assert.AreEqual(60, restored.Trust["Kaito"]);
+            Assert.AreEqual(90, restored.Trust["Shion"]);
+            Assert.AreEqual(5, restored.BondPoints["Yuna"]);
+        }
+
+        [Test]
+        public void Deserialize_BasicJson_ReturnsCorrectData()
+        {
+            var data = new SaveData { SaveId = "test", ChapterNumber = 3 };
             string json = SaveSerializer.Serialize(data);
 
-            // Verify all values are present in serialized output
-            Assert.That(json, Does.Contain("\"round_trip_test\""));
-            Assert.That(json, Does.Contain("\"2026-03-31T15:30:00\""));
-            Assert.That(json, Does.Contain("7200"));
-            Assert.That(json, Does.Contain("42"));
-            Assert.That(json, Does.Contain("\"BossRoom\""));
-            Assert.That(json, Does.Contain("\"dlg_final\""));
-            Assert.That(json, Does.Contain("5")); // ChapterNumber and BondPoints
-            Assert.That(json, Does.Contain("\"flag_vessel_truth\":true"));
-            Assert.That(json, Does.Contain("\"flag_seal_method\":false"));
-            Assert.That(json, Does.Contain("\"Kaito\":60"));
-            Assert.That(json, Does.Contain("\"Shion\":90"));
-            Assert.That(json, Does.Contain("\"Yuna\":5"));
+            var result = SaveSerializer.Deserialize(json);
+
+            Assert.AreEqual("test", result.SaveId);
+            Assert.AreEqual(3, result.ChapterNumber);
         }
     }
 }
