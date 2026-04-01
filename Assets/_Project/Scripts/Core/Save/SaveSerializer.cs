@@ -55,7 +55,8 @@ namespace GuildAcademy.Core.Save
 
         private static string ExtractString(string json, string key)
         {
-            var match = Regex.Match(json, $"\"{key}\":\"([^\"]*)\"");
+            // Handle escaped quotes/backslashes in values
+            var match = Regex.Match(json, $"\"{key}\":\"((?:[^\"\\\\]|\\\\.)*)\"");
             return match.Success ? Unescape(match.Groups[1].Value) : "";
         }
 

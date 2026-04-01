@@ -133,5 +133,23 @@ namespace GuildAcademy.Tests.EditMode.Save
             Assert.AreEqual("test", result.SaveId);
             Assert.AreEqual(3, result.ChapterNumber);
         }
+
+        [Test]
+        public void RoundTrip_EscapedCharacters_PreservesValues()
+        {
+            var data = new SaveData
+            {
+                SaveId = "save_with_\"quotes\"",
+                CurrentScene = "path\\to\\scene",
+                CurrentDialogueId = "dlg_\"test\""
+            };
+
+            string json = SaveSerializer.Serialize(data);
+            var restored = SaveSerializer.Deserialize(json);
+
+            Assert.AreEqual("save_with_\"quotes\"", restored.SaveId);
+            Assert.AreEqual("path\\to\\scene", restored.CurrentScene);
+            Assert.AreEqual("dlg_\"test\"", restored.CurrentDialogueId);
+        }
     }
 }
