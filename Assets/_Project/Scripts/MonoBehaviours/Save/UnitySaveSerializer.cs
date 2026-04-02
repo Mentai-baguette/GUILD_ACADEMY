@@ -1,7 +1,7 @@
 using UnityEngine;
 using GuildAcademy.Core.Save;
 
-namespace GuildAcademy.MonoBehaviours.UI
+namespace GuildAcademy.MonoBehaviours.Save
 {
     /// <summary>
     /// Unity JsonUtility を使った ISaveSerializer 実装。
