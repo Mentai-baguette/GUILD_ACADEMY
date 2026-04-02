@@ -1,75 +1,159 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // 新しいInput System用
-using TMPro; // TextMeshProUGUI（テキスト表示）
-using System.Collections; // コルーチン用
+using UnityEngine.InputSystem;
+using TMPro;
+using System;
+using System.Collections;
+using GuildAcademy.Core.Dialogue;
 
 namespace GuildAcademy.UI
 {
     public class DialogueUI : MonoBehaviour
     {
+        // === Inspectorで接続する変数 ===
         [SerializeField] private GameObject dialoguePanel; // ダイアログパネル
         [SerializeField] private TextMeshProUGUI NameText; // 名前を表示するテキスト
         [SerializeField] private TextMeshProUGUI MessageText; // 話の内容を表示するテキスト
         [SerializeField] private float typingSpeed = 0.05f; // タイピングの速度(1文字あたり何秒待つか)
 
-        private Coroutine typingCoroutine; // タイピングのコルーチンを覚えておく箱
-        private bool isTyping = false; // タイピング中かどうか
-        private string currentMessage = ""; // セリフ全文を覚えておく箱
+        // === 会話が全部終わったことを通知するイベント ===
+        // 他のスクリプトが「会話終わった？」を知るために使う
+        // 使い方: dialogueUI.OnDialogueComplete += () => { 次の処理; };
+        public event Action OnDialogueComplete;
 
-        public void Start()
+        // === 内部変数 ===
+        private Coroutine _typingCoroutine; // タイピングのコルーチンを覚えておく箱
+        private bool _isTyping = false; // タイピング中かどうか
+
+        // --- 複数セリフ管理 ---
+        private DialogueLine[] _lines;     // セリフ配列（全部のセリフを保持）
+        private int _currentLineIndex = 0; // 今何番目のセリフか（0から始まる）
+        private bool _isActive = false;    // 会話中かどうか
+
+        private void Awake()
         {
             HideDialogue(); // ダイアログパネルを最初は非表示にする
         }
 
-        public void ShowDialogue(string speakerName, string message) // 会話ウィンドウを出すメソッド
+        // ============================================================
+        // 複数セリフを開始する
+        // ============================================================
+        // 使い方:
+        //   DialogueLine[] lines = new DialogueLine[]
+        //   {
+        //       new DialogueLine("先生", "アカデミーに入学するぞ"),
+        //       new DialogueLine("先生", "準備はいいか？"),
+        //       new DialogueLine("レイ", "…はい"),
+        //   };
+        //   dialogueUI.StartDialogue(lines);
+        // ============================================================
+        public void StartDialogue(DialogueLine[] lines)
         {
-            dialoguePanel.SetActive(true); // ダイアログパネルを表示する
-            NameText.text = speakerName; // 名前をテキストにセットする
-            currentMessage = message; // セリフ全文を覚えておく箱にセットする
+            if (lines == null || lines.Length == 0) return; // セリフがなければ何もしない
 
-            if (typingCoroutine != null) // もしタイピングのコルーチンが動いていたら
+            _lines = lines;            // セリフ配列を保存
+            _currentLineIndex = 0;     // 最初のセリフから
+            _isActive = true;          // 会話中フラグON
+            ShowCurrentLine();         // 最初の1行目を表示
+        }
+
+        // ============================================================
+        // 今のインデックスのセリフを画面に表示する
+        // ============================================================
+        private void ShowCurrentLine()
+        {
+            DialogueLine line = _lines[_currentLineIndex]; // 今のセリフを取り出す
+            dialoguePanel.SetActive(true);
+            NameText.text = line.SpeakerName;
+
+            if (_typingCoroutine != null)
             {
-                StopCoroutine(typingCoroutine); // タイピングのコルーチンを止める
+                StopCoroutine(_typingCoroutine);
             }
-            typingCoroutine = StartCoroutine(TypeMessage()); // タイピングのコルーチンを始める
+            _typingCoroutine = StartCoroutine(TypeMessage(line.Message));
+        }
+
+        // ============================================================
+        // 次のセリフに進む。最後なら会話を終了する
+        // ============================================================
+        private void ShowNextLine()
+        {
+            _currentLineIndex++; // インデックスを1つ進める
+
+            if (_currentLineIndex < _lines.Length)
+            {
+                // まだセリフが残っている → 次を表示
+                ShowCurrentLine();
+            }
+            else
+            {
+                // 全セリフ表示済み → 会話終了
+                EndDialogue();
+            }
+        }
+
+        // ============================================================
+        // 会話を終了してパネルを閉じる
+        // ============================================================
+        private void EndDialogue()
+        {
+            _isActive = false;
+            HideDialogue();
+            OnDialogueComplete?.Invoke(); // イベント発火（聞いてる人がいれば通知）
+        }
+
+        // === 1セリフだけ表示する（後方互換。既存の呼び出しが壊れないように残す） ===
+        public void ShowDialogue(string speakerName, string message)
+        {
+            StartDialogue(new DialogueLine[]
+            {
+                new DialogueLine(speakerName, message)
+            });
         }
 
         public void HideDialogue() // 会話ウィンドウを消すメソッド
         {
-            dialoguePanel.SetActive(false); // ダイアログパネルを非表示にする
+            dialoguePanel.SetActive(false);
         }
 
-        private IEnumerator TypeMessage() // セリフを1文字ずつ表示するコルーチン
+        // === タイプライター演出 ===
+        private IEnumerator TypeMessage(string message)
         {
-            isTyping = true; // タイピング中フラグを立てる
-            MessageText.text = ""; // 話の内容テキストを空にする
+            _isTyping = true;
+            MessageText.text = ""; // テキストを空にする
 
-            foreach (char c in currentMessage) // セリフ全文の文字を1文字ずつ取り出す
+            foreach (char c in message) // 1文字ずつ取り出す
             {
-                MessageText.text += c; // 話の内容テキストに1文字追加する
-                yield return new WaitForSeconds(typingSpeed); // タイピングの速度だけ待つ
+                MessageText.text += c; // 1文字追加
+                yield return new WaitForSeconds(typingSpeed); // 少し待つ
             }
 
-            isTyping = false; // タイピング中フラグを下ろす
+            _isTyping = false;
         }
 
+        // === クリック/キー入力の処理 ===
         private void Update()
         {
-            // マウス左クリック or Enter/Spaceキーの処理（新Input System）
-            if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame
-                || Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame
-                || Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+            // 会話中でなければ何もしない
+            if (!_isActive) return;
+
+            bool inputPressed =
+                (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+                || (Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame)
+                || (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame);
+
+            if (!inputPressed) return;
+
+            if (_isTyping)
             {
-                if (isTyping)
-                {
-                    StopCoroutine(typingCoroutine);
-                    MessageText.text = currentMessage;
-                    isTyping = false;
-                }
-                else if (dialoguePanel.activeSelf)
-                {
-                    HideDialogue();
-                }
+                // タイピング中 → スキップ（全文を即表示）
+                StopCoroutine(_typingCoroutine);
+                MessageText.text = _lines[_currentLineIndex].Message;
+                _isTyping = false;
+            }
+            else
+            {
+                // 表示完了 → 次のセリフへ（最後なら閉じる）
+                ShowNextLine();
             }
         }
     }
