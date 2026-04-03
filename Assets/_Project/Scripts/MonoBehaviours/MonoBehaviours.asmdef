@@ -1,7 +1,7 @@
 {
     "name": "GuildAcademy.MonoBehaviours",
     "rootNamespace": "GuildAcademy.MonoBehaviours",
-    "references": ["GuildAcademy.Core", "Unity.InputSystem"],
+    "references": ["GuildAcademy.Core", "Unity.InputSystem", "Unity.TextMeshPro"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

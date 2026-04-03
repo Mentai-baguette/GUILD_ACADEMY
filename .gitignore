@@ -68,7 +68,7 @@ sysinfo.txt
 crashlytics-build.properties
 
 # Unity recovery files
-_Recovery/
+_Recovery*
 
 # Third-party assets (download separately, see docs/setup-guide.md)
 Assets/Project/Data/MapTiles/**/*.png
