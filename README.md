@@ -39,3 +39,8 @@
 ## ライセンス
 
 千葉工業大学ハッカソン「システム開発における生成AI活用ワークショップ」出展作品（2026/3/20〜4/10）
+
+## 音声素材の権利者表示
+
+- 効果音（SE）素材は [OtoLogic](https://otologic.jp/) の素材を使用
+- 詳細は [docs/audio-credits.md](./docs/audio-credits.md) を参照
