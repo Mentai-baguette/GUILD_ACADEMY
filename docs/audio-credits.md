@@ -4,6 +4,17 @@
 
 本プロジェクトで使用しているBGMは、deevid.aiで生成した素材を使用しています。
 
+### 利用条件メモ
+
+- 生成サービス: https://deevid.ai/
+- 確認日: 2026-04-05
+- 参照規約: https://deevid.ai/ja/terms
+- 生成コンテンツの権利: 規約上はユーザーに帰属
+- 商用利用: 規約上、商用利用前の確認責任は利用者にある
+- 再配布: ゲーム同梱・公開リポジトリでの再配布可否は本確認時点で明示確認できていない
+- クレジット表記: 必須/任意の明示は本確認時点で未確認
+- 本PRの扱い: 例外承認対象として記録し、恒久運用にはしない
+
 | ファイル名 | 用途 | 出典 | 形式 |
 |---|---|---|---|
 | `bgm_school_daily.mp3` | 学園日常BGM | deevid.ai | MP3 |
@@ -11,7 +22,6 @@
 | `bgm_boss_battle.mp3` | ボス戦BGM | deevid.ai | MP3 |
 | `bgm_ending.mp3` | エンディングBGM | deevid.ai | MP3 |
 
-- 生成サービス: https://deevid.ai/
 - 対象ディレクトリ: `Assets/_Project/Audio/BGM/`
 - 検証記録: `docs/audio-validation.md`
 - 運用: 追加・差し替え時は本ページと検証記録を同時更新する
@@ -33,7 +43,6 @@
 | `MAGIC.wav` | 魔法発動 | EVENTSTUDIO | WAV |
 | `SELECT.wav` | メニュー決定 | EVENTSTUDIO | WAV |
 
-- 生成サービス: EVENTSTUDIO（BGM生成に使用したdeevid.aiとは別サービス）
 - 対象ディレクトリ: `Assets/_Project/Audio/SE/`
 - 検証記録: `docs/audio-validation.md`
 - 運用: 追加・差し替え時は本ページと検証記録を同時更新する

@@ -88,3 +88,9 @@ Assets/
 | BGM | Suno / Udio |
 | SE | ElevenLabs |
 | タスク管理 | Notion |
+
+### アセット生成記録の扱い
+
+- 音源素材の採用ツールは、GDDに記載された計画値と実際の採用値が異なる場合がある
+- 実際に採用したツール名、利用条件、例外承認の有無は [docs/audio-credits.md](./audio-credits.md) と [docs/audio-validation.md](./audio-validation.md) に記録する
+- GDDとの差分がある場合は、PRごとの例外承認として追跡し、設計意図と実装実績を分離して管理する
