@@ -106,12 +106,9 @@
         {
           "text": "ユナに相談する",
           "next": "ch1_consult_yuna",
-          "trustEffects": [
-            {
-              "character": "Yuna",
-              "value": 10
-            }
-          ]
+          "trustEffects": {
+            "Yuna": 10
+          }
         },
         {
           "text": "誰にも言わず隠す",
