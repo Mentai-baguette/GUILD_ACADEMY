@@ -42,5 +42,6 @@
 
 ## 音声素材の権利者表示
 
-- 効果音（SE）素材は [OtoLogic](https://otologic.jp/) の素材を使用
+- 効果音（SE）素材は EVENTSTUDIO で生成した素材を使用
 - 詳細は [docs/audio-credits.md](./docs/audio-credits.md) を参照
+- 検証記録は [docs/audio-validation.md](./docs/audio-validation.md) を参照

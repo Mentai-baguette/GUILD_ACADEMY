@@ -9,3 +9,4 @@
 - [チーム運用・ワークフロー](./team-workflow.md) — メンバー、Git運用、タスク管理、スケジュール
 - [発表資料構成計画](./presentation-plan.md) — スライド構成、差別化ポイント、提出物
 - [オーディオクレジット](./audio-credits.md) — 音声素材の権利者表示
+- [SE検証記録](./audio-validation.md) — 用途対応、基礎情報、音量バランス確認状況
