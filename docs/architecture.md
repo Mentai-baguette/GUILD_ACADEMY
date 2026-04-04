@@ -86,5 +86,5 @@ Assets/
 | コンセプトアート | Midjourney / DALL-E |
 | ドット絵 | Piskel / Aseprite |
 | BGM | Suno / Udio |
-| SE | EVENTSTUDIO |
+| SE | ElevenLabs |
 | タスク管理 | Notion |

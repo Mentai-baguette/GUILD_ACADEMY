@@ -34,7 +34,7 @@
 | 5 | デモ続き（バトル→分岐選択→別エンド到達） | 1.5分 | 完成度 |
 | 6 | **AI活用マップ（全体図）**：開発フロー全体でどのAIをどこに使ったか1枚で可視化 | 1分 | AI活用 |
 | 7 | AI活用①：Claude Code Maxで設計〜実装（GDD自動生成、Pure C#コード生成、テストコード生成） | 1分 | AI活用・技術 |
-| 8 | AI活用②：アセット生成（Midjourney/DALL-Eでドット絵、Suno/UdioでBGM、EVENTSTUDIOでSE）Before/After比較 | 1分 | AI活用 |
+| 8 | AI活用②：アセット生成（Midjourney/DALL-Eでドット絵、Suno/UdioでBGM、ElevenLabsでSE）Before/After比較 | 1分 | AI活用 |
 | 9 | AI活用③：Unity MCP連携（AIがUnity Editorを直接操作）—他チームがやらない先端的な使い方 | 45秒 | AI活用・技術 |
 | 10 | AI活用④：Notion×AI でタスク管理、3人チーム×AI = 10人分の生産性（具体的な数字） | 45秒 | AI活用 |
 | 11 | 技術的こだわり：Pure C#分離設計 → テスト駆動 → CI/CD自動テスト | 1分 | 技術 |
