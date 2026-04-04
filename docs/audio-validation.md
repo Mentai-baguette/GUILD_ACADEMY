@@ -91,7 +91,9 @@
 
 ## テスト実行状況
 
-- Edit Mode 自動テスト: 未実施（本変更はSEアセットのインポート設定と検証記録更新のため）
+- Edit Mode テスト: 実施済み（Unity Test Runner / EditMode / Run All）
+  - 実施日: 2026-04-04
+  - 結果: Passed 125 / Failed 0
 - Play Mode 自動テスト: 未実施（専用SE再生テスト未整備のため）
 - 手動検証: 本ドキュメント記載の条件で実施済み
 
