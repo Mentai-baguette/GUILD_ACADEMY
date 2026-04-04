@@ -367,6 +367,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1276382422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1276382424}
+  - component: {fileID: 1276382423}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1276382423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276382422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e076a93a80e4e4abfa8af6a430c85517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GuildAcademy.UI.DialogueUI
+  dialoguePanel: {fileID: 708502331}
+  NameText: {fileID: 1382452939}
+  MessageText: {fileID: 2007671379}
+  typingSpeed: 0.05
+--- !u!4 &1276382424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276382422}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1382452937
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30EC\u30A4"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5c36fefb3effb4e94a60a8edfc45e409, type: 2}
   m_sharedMaterial: {fileID: 5175053154628878453, guid: 5c36fefb3effb4e94a60a8edfc45e409, type: 2}
@@ -639,10 +687,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 708502332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 700, y: 50}
-  m_SizeDelta: {x: 900, y: 200}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -100, y: 375}
+  m_SizeDelta: {x: -800, y: -850}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2007671379
 MonoBehaviour:
@@ -664,7 +712,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u3053\u306E\u5B66\u5712\u306B\u306F\u4F55\u304B\u79D8\u5BC6\u304C\u3042\u308B\u3088\u3046\u3060\u2026"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5c36fefb3effb4e94a60a8edfc45e409, type: 2}
   m_sharedMaterial: {fileID: 5175053154628878453, guid: 5c36fefb3effb4e94a60a8edfc45e409, type: 2}
@@ -751,3 +799,4 @@ SceneRoots:
   - {fileID: 951659620}
   - {fileID: 1602122557}
   - {fileID: 473197158}
+  - {fileID: 1276382424}
