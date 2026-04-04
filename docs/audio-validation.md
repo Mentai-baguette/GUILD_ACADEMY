@@ -94,9 +94,9 @@
 - Edit Mode テスト: 実施済み（Unity Test Runner / EditMode / Run All）
   - 実施日: 2026-04-04
   - 結果: Passed 125 / Failed 0
-  - PR Checks: [Edit Mode Tests](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/23972309975/job/69923811098)
-  - Workflow run: [Unity Tests](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/23972309975)
-  - Test Results check: [Test Results](https://github.com/Mentai-baguette/GUILD_ACADEMY/runs/69924084882)
+  - PR Checks: [Edit Mode Tests](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/23975867310/job/69932739597)
+  - Workflow run: [Unity Tests](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/23975867310)
+  - Test Results check: [Test Results](https://github.com/Mentai-baguette/GUILD_ACADEMY/runs/69933004538)
 - Play Mode 自動テスト: 未実施（専用SE再生テスト未整備のため）
 - 手動検証: 本ドキュメント記載の条件で実施済み
 
