@@ -96,7 +96,7 @@
 
 - 対象ディレクトリ: `Assets/_Project/Audio/SE/`
 - 対象ファイル数: 10
-- 生成元: EVENTSTUDIO
+- 生成元: ElevenLabs
 - 記録日: 2026-04-04
 
 ## 用途対応表
