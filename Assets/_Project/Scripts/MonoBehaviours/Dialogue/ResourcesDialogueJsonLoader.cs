@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using GuildAcademy.Core.Dialogue;
 using UnityEngine;
 
@@ -24,6 +25,8 @@ namespace GuildAcademy.MonoBehaviours.Dialogue
         {
             if (string.IsNullOrWhiteSpace(json))
                 throw new ArgumentException("JSON content is empty.", nameof(json));
+
+            json = NormalizeTrustEffectsObjects(json);
 
             DialogueFileDto dto;
             try
@@ -85,6 +88,7 @@ namespace GuildAcademy.MonoBehaviours.Dialogue
                 return null;
 
             var converted = new Dictionary<string, int>();
+
             foreach (var effect in trustEffects)
             {
                 if (string.IsNullOrWhiteSpace(effect.characterId))
@@ -94,6 +98,27 @@ namespace GuildAcademy.MonoBehaviours.Dialogue
             }
 
             return converted;
+        }
+
+        private static string NormalizeTrustEffectsObjects(string json)
+        {
+            return Regex.Replace(json, "\"trustEffects\"\\s*:\\s*\\{([^{}]*)\\}", match =>
+            {
+                var body = match.Groups[1].Value;
+                var pairMatches = Regex.Matches(body, "\"([^\"]+)\"\\s*:\\s*(-?\\d+)");
+                if (pairMatches.Count == 0)
+                    return "\"trustEffects\": []";
+
+                var items = new List<string>(pairMatches.Count);
+                foreach (Match pair in pairMatches)
+                {
+                    var characterId = pair.Groups[1].Value;
+                    var value = pair.Groups[2].Value;
+                    items.Add($"{{\"characterId\":\"{characterId}\",\"value\":{value}}}");
+                }
+
+                return $"\"trustEffects\": [{string.Join(",", items)}]";
+            });
         }
 
         [Serializable]

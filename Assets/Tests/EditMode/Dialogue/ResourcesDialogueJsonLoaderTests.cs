@@ -16,7 +16,7 @@ namespace GuildAcademy.Tests.EditMode.Dialogue
 
             Assert.IsNotNull(entries);
             Assert.Greater(entries.Count, 0);
-            Assert.AreEqual("chapter1_start", entries[0].Id);
+            Assert.AreEqual("ch1_start_intro", entries[0].Id);
         }
 
         [Test]
