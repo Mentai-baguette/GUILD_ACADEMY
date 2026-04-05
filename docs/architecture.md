@@ -86,7 +86,7 @@ Assets/
 | コンセプトアート | Midjourney / DALL-E |
 | ドット絵 | Piskel / Aseprite |
 | BGM | deevid.ai |
-| SE | ElevenLabs |
+| SE | EVENTSTUDIO |
 | タスク管理 | Notion |
 
 ### アセット生成記録の扱い
