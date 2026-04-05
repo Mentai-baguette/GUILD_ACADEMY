@@ -4,7 +4,7 @@ using GuildAcademy.Core.Dialogue;
 using GuildAcademy.MonoBehaviours.Dialogue;
 using NUnit.Framework;
 
-namespace GuildAcademy.Tests.EditMode.Dialogue
+namespace GuildAcademy.Tests.EditMode.Dialogue.Unity
 {
     [TestFixture]
     public class Chapter1DialogueIntegrationTests

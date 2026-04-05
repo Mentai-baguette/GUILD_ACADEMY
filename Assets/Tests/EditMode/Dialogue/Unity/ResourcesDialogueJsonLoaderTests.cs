@@ -2,7 +2,7 @@ using System.IO;
 using GuildAcademy.MonoBehaviours.Dialogue;
 using NUnit.Framework;
 
-namespace GuildAcademy.Tests.EditMode.Dialogue
+namespace GuildAcademy.Tests.EditMode.Dialogue.Unity
 {
     [TestFixture]
     public class ResourcesDialogueJsonLoaderTests

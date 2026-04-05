@@ -1,7 +1,7 @@
 {
-    "name": "Tests.EditMode",
-    "rootNamespace": "GuildAcademy.Tests.EditMode",
-    "references": ["GuildAcademy.Core"],
+    "name": "Tests.EditMode.Dialogue.Unity",
+    "rootNamespace": "GuildAcademy.Tests.EditMode.Dialogue.Unity",
+    "references": ["GuildAcademy.Core", "GuildAcademy.MonoBehaviours"],
     "includePlatforms": ["Editor"],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
@@ -10,5 +10,5 @@
     "autoReferenced": false,
     "defineConstraints": ["UNITY_INCLUDE_TESTS"],
     "versionDefines": [],
-    "noEngineReferences": true
+    "noEngineReferences": false
 }
