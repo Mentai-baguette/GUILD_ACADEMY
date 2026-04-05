@@ -1,0 +1,156 @@
+{
+  "entries": [
+    {
+      "id": "ch1_start_intro",
+      "speaker": "GuildOfficer",
+      "text": "レイ、見えてきたぞ。あれがクロノス・アカデミーだ。",
+      "next": "ch1_choice_enter_academy"
+    },
+    {
+      "id": "ch1_choice_enter_academy",
+      "speaker": "GuildOfficer",
+      "text": "クロノス・アカデミーに入学するぞ。準備はいいな？",
+      "choices": [
+        {
+          "text": "うん、行こう",
+          "next": "ch1_enter_yes"
+        },
+        {
+          "text": "……行きたくない",
+          "next": "ch1_end1_refuse",
+          "flag": "academy_refused"
+        }
+      ]
+    },
+    {
+      "id": "ch1_end1_refuse",
+      "speaker": "Ray",
+      "text": "……行きたくない。理由はわからないけど、ここに来ちゃいけない気がするんだ。",
+      "next": "ch1_end1_epilogue"
+    },
+    {
+      "id": "ch1_end1_epilogue",
+      "speaker": "Narration",
+      "text": "レイは学園へ行かず、ユナとミオのいる村へ戻った。平穏な日々の陰で、どこかの酒場では新たな『器』を探す男が笑っていた。"
+    },
+    {
+      "id": "ch1_enter_yes",
+      "speaker": "Ray",
+      "text": "うん……行こう。",
+      "next": "ch1_class_intro_carlos"
+    },
+    {
+      "id": "ch1_class_intro_carlos",
+      "speaker": "Carlos",
+      "text": "ようこそAクラスへ。俺が担任のカルロスだ。肩の力を抜いていこう、ここでは仲間作りが何より大事だからな。",
+      "next": "ch1_class_reunion_yuna"
+    },
+    {
+      "id": "ch1_class_reunion_yuna",
+      "speaker": "Yuna",
+      "text": "レイ！ 同じクラスでよかった。無理しなくていいから、困ったらすぐわたしに言ってね。",
+      "next": "ch1_class_mio"
+    },
+    {
+      "id": "ch1_class_mio",
+      "speaker": "Mio",
+      "text": "えへへ、これで幼なじみ三人そろったね！ わたし、今日は教科書を忘れてない……はず！",
+      "next": "ch1_practice_announce"
+    },
+    {
+      "id": "ch1_practice_announce",
+      "speaker": "Carlos",
+      "text": "じゃあ最初の実技だ。対戦相手はカイト。レイ、胸を借りるつもりでぶつかってこい。",
+      "next": "ch1_practice_duel_kaito"
+    },
+    {
+      "id": "ch1_practice_duel_kaito",
+      "speaker": "Kaito",
+      "text": "手加減してほしいなんて言うなよ、新入生。実力差ってやつを教えてやる。",
+      "next": "ch1_practice_after"
+    },
+    {
+      "id": "ch1_practice_after",
+      "speaker": "Ray",
+      "text": "完敗だ……。俺、全然届かなかった。",
+      "next": "ch1_dungeon_intro"
+    },
+    {
+      "id": "ch1_dungeon_intro",
+      "speaker": "Carlos",
+      "text": "落ち込むのは後だ。次は翠緑の迷宮で実習する。基礎を覚えれば、戦い方はいくらでも変えられるさ。",
+      "next": "ch1_awakening"
+    },
+    {
+      "id": "ch1_awakening",
+      "speaker": "Ray",
+      "text": "な、なんだこの黒い炎……俺の中から、勝手に……！",
+      "next": "ch1_carlos_smile"
+    },
+    {
+      "id": "ch1_carlos_smile",
+      "speaker": "Narration",
+      "text": "黒炎は敵を一掃し、すぐに霧散した。遠くで見ていたカルロスは、誰にも気づかれない笑みを浮かべる。",
+      "next": "ch1_choice_consult"
+    },
+    {
+      "id": "ch1_choice_consult",
+      "speaker": "Ray",
+      "text": "今の力……誰かに話すべきか？",
+      "choices": [
+        {
+          "text": "カルロス先生に相談する",
+          "next": "ch1_consult_carlos",
+          "flag": "flag_carlos_plan"
+        },
+        {
+          "text": "ユナに相談する",
+          "next": "ch1_consult_yuna",
+          "trustEffects": {
+            "Yuna": 10
+          }
+        },
+        {
+          "text": "誰にも言わず隠す",
+          "next": "ch1_consult_hide",
+          "flag": "flag_dark_power_risk"
+        }
+      ]
+    },
+    {
+      "id": "ch1_consult_carlos",
+      "speaker": "Carlos",
+      "text": "正直に話してくれて助かる。珍しい暴走魔力だが、俺が管理してやる。しばらくは俺以外に話さない方がいい。",
+      "next": "ch1_consult_carlos_follow"
+    },
+    {
+      "id": "ch1_consult_carlos_follow",
+      "speaker": "Narration",
+      "text": "カルロスは穏やかな口調のまま、レイの力について詳しい記録を取った。安心感の裏で、言い知れない違和感が残る。",
+      "next": "ch1_chapter_end"
+    },
+    {
+      "id": "ch1_consult_yuna",
+      "speaker": "Yuna",
+      "text": "大丈夫、わたしはレイの味方だよ。怖かったよね。でも一人で抱えこまないで。わたしが一緒に考えるから。",
+      "next": "ch1_consult_yuna_follow"
+    },
+    {
+      "id": "ch1_consult_yuna_follow",
+      "speaker": "Narration",
+      "text": "ユナは少しだけ迷う表情を見せたが、すぐに笑ってレイの手を握った。言えない秘密があるように、視線だけが揺れる。",
+      "next": "ch1_chapter_end"
+    },
+    {
+      "id": "ch1_consult_hide",
+      "speaker": "Ray",
+      "text": "……いや、今は黙っていよう。正体のわからない力を口にしたら、余計に不安を広げるだけだ。",
+      "next": "ch1_chapter_end"
+    },
+    {
+      "id": "ch1_chapter_end",
+      "speaker": "Narration",
+      "text": "こうして学園生活の第一日目は幕を閉じた。穏やかな始まりの奥で、確かな違和感が静かに芽吹いていた。"
+    }
+  ]
+}
