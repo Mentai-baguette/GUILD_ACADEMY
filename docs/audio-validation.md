@@ -78,6 +78,18 @@
 - 再確認内容: ループ接続、シーン適合、音量感、ファイルサイズ
 - 判定: OK
 
+### BGM追加後のテスト実行状況（PR #34）
+
+- 対象コミット: `25e6f9c17e0d9020893e905413c1f752d811e02f`
+- 実施日: 2026-04-04
+- Edit Mode テスト: 実施済み
+  - 結果: SUCCESS
+  - PR Checks: [Edit Mode Tests](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/23982297894/job/69948484314)
+- Unity ライセンスチェック: SUCCESS
+  - PR Checks: [Check Unity License](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/23982297894/job/69948478768)
+- Test Results: NEUTRAL（表示系チェック）
+  - PR Checks: [Test Results](https://github.com/Mentai-baguette/GUILD_ACADEMY/runs/69948766594)
+
 ## SE検証記録
 
 ## 対象

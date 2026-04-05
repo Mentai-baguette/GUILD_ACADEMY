@@ -85,8 +85,8 @@ Assets/
 | 設計・実装・テスト | Claude Code Max + Unity MCP |
 | コンセプトアート | Midjourney / DALL-E |
 | ドット絵 | Piskel / Aseprite |
-| BGM | Suno / Udio |
-| SE | ElevenLabs |
+| BGM | deevid.ai |
+| SE | EVENTSTUDIO |
 | タスク管理 | Notion |
 
 ### アセット生成記録の扱い
