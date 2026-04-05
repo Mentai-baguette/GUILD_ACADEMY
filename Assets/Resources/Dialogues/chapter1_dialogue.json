@@ -79,12 +79,60 @@
       "id": "ch1_dungeon_intro",
       "speaker": "Carlos",
       "text": "落ち込むのは後だ。次は翠緑の迷宮で実習する。基礎を覚えれば、戦い方はいくらでも変えられるさ。",
+      "next": "ch1_dungeon_first_battle"
+    },
+    {
+      "id": "ch1_dungeon_first_battle",
+      "speaker": "Narration",
+      "text": "入口付近で現れた小型の魔物をどうにか退け、レイたちは息を整えながら迷宮の奥へ進んだ。",
+      "next": "ch1_dungeon_deeper"
+    },
+    {
+      "id": "ch1_dungeon_deeper",
+      "speaker": "Mio",
+      "text": "さっきより空気が重い……この先、嫌な気配がするよ。",
+      "next": "ch1_dungeon_first_encounter"
+    },
+    {
+      "id": "ch1_dungeon_first_encounter",
+      "speaker": "Narration",
+      "text": "迷宮の深部へ差しかかった瞬間、苔むした通路の奥から大量の魔物がうなり声を上げて押し寄せた。",
+      "next": "ch1_dungeon_struggle"
+    },
+    {
+      "id": "ch1_dungeon_struggle",
+      "speaker": "Ray",
+      "text": "くっ……数が多すぎる！ 斬っても斬っても押し返される……！",
+      "next": "ch1_dungeon_party_support"
+    },
+    {
+      "id": "ch1_dungeon_party_support",
+      "speaker": "Yuna",
+      "text": "レイ、前に出すぎ！ 回復はわたしがやる、だから呼吸を合わせて！",
+      "next": "ch1_dungeon_breakthrough"
+    },
+    {
+      "id": "ch1_dungeon_breakthrough",
+      "speaker": "Kaito",
+      "text": "このまま囲まれたら終わりだ。中央をこじ開ける、レイは右を抑えろ！",
+      "next": "ch1_dungeon_allies_down"
+    },
+    {
+      "id": "ch1_dungeon_allies_down",
+      "speaker": "Narration",
+      "text": "突破口を開いた直後、上層から崩れた岩塊が降り注いだ。ユナはレイをかばって倒れ、カイトも直撃を受けてその場に崩れ落ちる。",
+      "next": "ch1_awakening_callout"
+    },
+    {
+      "id": "ch1_awakening_callout",
+      "speaker": "Ray",
+      "text": "ユナ！ カイト！ しっかりしろ……！",
       "next": "ch1_awakening"
     },
     {
       "id": "ch1_awakening",
       "speaker": "Ray",
-      "text": "な、なんだこの黒い炎……俺の中から、勝手に……！",
+      "text": "くそ、体が熱い……な、なんだこの黒い炎……俺の中から、勝手に……！",
       "next": "ch1_carlos_smile"
     },
     {
