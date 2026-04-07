@@ -17,6 +17,15 @@
 - 商用利用に関する注意: 第三者素材を入力に使う場合は、利用者側で事前に権利許諾を取得する（Deevidサポート回答の注意事項）
 - 証跡: Deevidサポートからの回答メール（2026-04-07受領）
 
+### 例外承認管理（PR #34）
+
+- 承認主体: Repo Maintainer 1名 + PM/タスクオーナー 1名（両者承認）
+- 承認記録: PR #34 の Review Approval および承認コメントで記録
+- 有効期限: 2026-04-10（ハッカソン提出期限）
+- 適用範囲: `Assets/_Project/Audio/BGM/` 配下の4ファイル（`bgm_school_daily.mp3`, `bgm_dungeon.mp3`, `bgm_boss_battle.mp3`, `bgm_ending.mp3`）
+- 失効条件: 期限到来、対象ファイル変更、Deevid利用条件変更のいずれか
+- 失効後対応: 再承認または素材差し替えを実施するまで `develop` へマージしない
+
 | ファイル名 | 用途 | 出典 | 形式 |
 |---|---|---|---|
 | `bgm_school_daily.mp3` | 学園日常BGM | deevid.ai | MP3 |
