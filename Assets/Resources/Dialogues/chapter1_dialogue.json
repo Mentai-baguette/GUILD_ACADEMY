@@ -4,6 +4,58 @@
       "id": "ch1_start_intro",
       "speaker": "GuildOfficer",
       "text": "レイ、見えてきたぞ。あれがクロノス・アカデミーだ。",
+      "next": "ch1_gate_yuna"
+    },
+    {
+      "id": "ch1_gate_yuna",
+      "speaker": "Yuna",
+      "text": "一緒に行くんだから、寂しくないよ。",
+      "next": "ch1_gate_mio"
+    },
+    {
+      "id": "ch1_gate_mio",
+      "speaker": "Mio",
+      "text": "そうそう！ 三人一緒なんだから！",
+      "next": "ch1_gate_control_transfer"
+    },
+    {
+      "id": "ch1_gate_control_transfer",
+      "speaker": "Narration",
+      "text": "学園の門前で操作権がプレイヤーに渡された。周辺を自由に歩いて探索できるようになる。",
+      "next": "ch1_gate_explore_choice"
+    },
+    {
+      "id": "ch1_gate_explore_choice",
+      "speaker": "Narration",
+      "text": "門の前には掲示板や屋台、先輩たちが立ち話をしている。少しだけ周囲を見て回るか、それともすぐ中へ入るか。",
+      "choices": [
+        {
+          "text": "少し周りを見て回る",
+          "next": "ch1_gate_browse",
+          "hint": "周囲を調べると隠しENDのヒントが見つかるかもしれない"
+        },
+        {
+          "text": "すぐ中へ入る",
+          "next": "ch1_choice_enter_academy"
+        }
+      ]
+    },
+    {
+      "id": "ch1_gate_browse",
+      "speaker": "Narration",
+      "text": "掲示板には『学園への道は一筋ではない』と古い落書きがある。門の外れに古びた小道が伸びているのをユナが見つける。",
+      "next": "ch1_gate_browse_path"
+    },
+    {
+      "id": "ch1_gate_browse_path",
+      "speaker": "Yuna",
+      "text": "あそこ、ちょっと行ってみたい？ でも校門の方じゃないよ……おかしいね。",
+      "next": "ch1_gate_browse_hint"
+    },
+    {
+      "id": "ch1_gate_browse_hint",
+      "speaker": "Narration",
+      "text": "小道は学園とは反対方向へ続いている。歩数を稼いで門の反対へ何度も進むと、誰もいない夜の景色が見られると写し絵のように記されている。",
       "next": "ch1_choice_enter_academy"
     },
     {
@@ -37,6 +89,18 @@
       "id": "ch1_enter_yes",
       "speaker": "Ray",
       "text": "うん……行こう。",
+      "next": "ch1_ceremony_grave"
+    },
+    {
+      "id": "ch1_ceremony_grave",
+      "speaker": "Grave",
+      "text": "新入生諸君、ようこそクロノス・アカデミーへ。やるべきことをやれ。それだけだ。",
+      "next": "ch1_ceremony_carlos_entry"
+    },
+    {
+      "id": "ch1_ceremony_carlos_entry",
+      "speaker": "Narration",
+      "text": "講堂では拍手がわき起こり、壇上では担任たちが列を成す。カルロスは穏やかな笑みで生徒を見渡した。",
       "next": "ch1_class_intro_carlos"
     },
     {
@@ -64,6 +128,12 @@
       "next": "ch1_practice_duel_kaito"
     },
     {
+      "id": "ch1_class_blackboard",
+      "speaker": "Narration",
+      "text": "カルロスが黒板に大きく『失敗OK』と書き込む。生徒たちからどよめきと笑いが起き、場の空気が一気に和らいだ。",
+      "next": "ch1_practice_announce"
+    },
+    {
       "id": "ch1_practice_duel_kaito",
       "speaker": "Kaito",
       "text": "手加減してほしいなんて言うなよ、新入生。実力差ってやつを教えてやる。",
@@ -73,7 +143,31 @@
       "id": "ch1_practice_after",
       "speaker": "Ray",
       "text": "完敗だ……。俺、全然届かなかった。",
-      "next": "ch1_dungeon_intro"
+      "next": "ch1_practice_after_reaction"
+    },
+    {
+      "id": "ch1_practice_after_reaction",
+      "speaker": "Kaito",
+      "text": "話にならねえ。出直してこい。",
+      "next": "ch1_reaction_after_practice_others"
+    },
+    {
+      "id": "ch1_reaction_after_practice_others",
+      "speaker": "Mio",
+      "text": "レイ、大丈夫？ あの人ちょっと…",
+      "next": "ch1_reaction_yuna_support"
+    },
+    {
+      "id": "ch1_reaction_yuna_support",
+      "speaker": "Yuna",
+      "text": "大丈夫、無理しないで。私がそばにいるから。",
+      "next": "ch1_week1_end"
+    },
+    {
+      "id": "ch1_week1_end",
+      "speaker": "Narration",
+      "text": "入学式と実技の一日を終え、レイたちは寮へ戻った。これで第一週目は幕を閉じる。",
+      "next": "ch1_chapter_end"
     },
     {
       "id": "ch1_dungeon_intro",
