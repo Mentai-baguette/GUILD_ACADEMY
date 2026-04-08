@@ -67,9 +67,6 @@ steam_appid.txt
 sysinfo.txt
 crashlytics-build.properties
 
-# Unity recovery files
-_Recovery*
-
 # Third-party assets (download separately, see docs/setup-guide.md)
 Assets/Project/Data/MapTiles/**/*.png
 Assets/Project/Data/MapTiles/**/*.png.meta
