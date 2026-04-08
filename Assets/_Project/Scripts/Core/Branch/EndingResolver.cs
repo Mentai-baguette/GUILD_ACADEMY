@@ -39,6 +39,13 @@ namespace GuildAcademy.Core.Branch
                 context.Trust.AllMeetThreshold(80))
                 return EndingType.TrueHappy;
 
+            // END4.5: シオン第2形態勝利 + 救出失敗 + 隠し条件 → 最後に届いた光
+            if (context.Phase == BattlePhase.ShionPhase2 && context.Result == BattleResult.PlayerVictory &&
+                !context.ShionRescued &&
+                context.ShionTrust >= 30 && context.ShionTrust <= 49 &&
+                (context.GreyveEventCleared || context.SetsunaTrust >= 60))
+                return EndingType.HalfLight;
+
             // END4: シオン第2形態勝利だが救出未達 → ノーマル
             if (context.Phase == BattlePhase.ShionPhase2 && context.Result == BattleResult.PlayerVictory &&
                 !context.ShionRescued)
