@@ -94,3 +94,21 @@
 - `id` はファイル内で一意にする
 - `next` / `choices[].next` で参照するIDは実在させる
 - 新章追加時はこのファイルを更新し、異常系テストを追加する
+
+## テスト移行方針（2026-04-08）
+
+- `chapter1_dialogue.json` のID体系刷新により、旧ID（例: `ch1_start_intro`, `ch1_choice_enter_academy`, `ch1_choice_consult`）へ依存する統合テストは廃止する。
+- 現行運用では `flag` は `academy_refused` の分岐検証を優先し、分岐ごとの `trustEffects` 付与を前提にしない。
+- 旧仕様依存のテスト（章先頭ID固定、旧分岐固定、旧フラグ名固定）は破棄し、以下を必須ゲートにする。
+
+必須ゲート:
+
+- JSON構造テスト: entry id 一意性
+- JSON構造テスト: `next` / `choices[].next` の参照整合性
+- 統合テスト: `academy_refused` が立つ拒否ルートと、立たない通常ルートの両方
+
+対象テスト（現行）:
+
+- `Assets/Tests/EditMode/Dialogue/Unity/Chapter1DialogueJsonStructureTests.cs`
+- `Assets/Tests/EditMode/Dialogue/Unity/Chapter1DialogueIntegrationTests.cs`
+- `Assets/Tests/EditMode/Dialogue/Unity/ResourcesDialogueJsonLoaderTests.cs`

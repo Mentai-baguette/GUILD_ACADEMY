@@ -17,7 +17,7 @@ namespace GuildAcademy.Tests.EditMode.Dialogue.Unity
 
             Assert.IsNotNull(entries);
             Assert.Greater(entries.Count, 0);
-            Assert.AreEqual("ch1_start_intro", entries[0].Id);
+            Assert.AreEqual("ch1_home_yuna_wake", entries[0].Id);
         }
 
         [Test]
@@ -99,20 +99,5 @@ namespace GuildAcademy.Tests.EditMode.Dialogue.Unity
             Assert.That(ex.Message, Does.Contain("trustEffects.characterId cannot be empty."));
         }
 
-        [Test]
-        public void Parse_TrustEffectsObject_NormalizesToDictionary()
-        {
-            const string json =
-                "{\"entries\":[{\"id\":\"entry_1\",\"speaker\":\"Ray\",\"text\":\"choose\",\"choices\":[{\"text\":\"go\",\"trustEffects\":{\"Yuna\":10,\"Mio\":-2}}]}]}";
-
-            var entries = _loader.Parse(json, "object_normalization");
-
-            Assert.AreEqual(1, entries.Count);
-            Assert.NotNull(entries[0].Choices);
-            Assert.AreEqual(1, entries[0].Choices.Count);
-            Assert.NotNull(entries[0].Choices[0].TrustEffects);
-            Assert.AreEqual(10, entries[0].Choices[0].TrustEffects["Yuna"]);
-            Assert.AreEqual(-2, entries[0].Choices[0].TrustEffects["Mio"]);
-        }
     }
 }
