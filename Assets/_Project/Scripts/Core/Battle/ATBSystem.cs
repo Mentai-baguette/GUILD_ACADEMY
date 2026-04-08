@@ -30,7 +30,7 @@ namespace GuildAcademy.Core.Battle
             {
                 if (combatant.Gauge < MaxGauge)
                 {
-                    combatant.Gauge += combatant.Stats.Spd * deltaTime * GaugeRate;
+                    combatant.Gauge += combatant.Stats.Agi * deltaTime * GaugeRate;
                     if (combatant.Gauge > MaxGauge)
                         combatant.Gauge = MaxGauge;
                 }
@@ -41,7 +41,7 @@ namespace GuildAcademy.Core.Battle
         {
             return _combatants
                 .Where(c => c.Gauge >= MaxGauge)
-                .OrderByDescending(c => c.Stats.Spd)
+                .OrderByDescending(c => c.Stats.Agi)
                 .Select(c => c.Stats)
                 .ToList();
         }

@@ -16,7 +16,11 @@ namespace GuildAcademy.Data
         public int maxMp;
         public int atk;
         public int def;
-        public int spd;
+        public int intStat;
+        public int res;
+        public int agi;
+        public int dex;
+        public int luk = 100;
 
         [Header("Element")]
         public ElementType element;
@@ -26,7 +30,9 @@ namespace GuildAcademy.Data
 
         public CharacterStats ToCharacterStats()
         {
-            var stats = new CharacterStats(characterName, maxHp, maxMp, atk, def, spd, element);
+            var stats = new CharacterStats(
+                characterName, maxHp, maxMp, atk, def, agi, element,
+                intStat, res, dex, luk);
             stats.WeakElement = weakElement;
             stats.ResistElement = resistElement;
             stats.NullElement = nullElement;
