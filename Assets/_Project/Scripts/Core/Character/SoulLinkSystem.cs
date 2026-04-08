@@ -23,20 +23,29 @@ namespace GuildAcademy.Core.Character
         public const int MAX_THRESHOLD = 100;
 
         private readonly Dictionary<CharacterId, int> _bondPoints;
+        private bool _shionFrozen;
 
         public event Action<CharacterId, SoulLinkLevel> OnLevelUp;
 
-        // Only party members (not Ray himself, not Shion)
+        // All party members except Ray (protagonist)
         private static readonly CharacterId[] LinkTargets =
         {
             CharacterId.Yuna,
             CharacterId.Mio,
-            CharacterId.Kaito
+            CharacterId.Kaito,
+            CharacterId.Shion,
+            CharacterId.Rin,
+            CharacterId.Vein,
+            CharacterId.Mel,
+            CharacterId.Jin,
+            CharacterId.Setsuna,
+            CharacterId.Renji
         };
 
         public SoulLinkSystem()
         {
             _bondPoints = new Dictionary<CharacterId, int>();
+            _shionFrozen = false;
             foreach (var id in LinkTargets)
                 _bondPoints[id] = 0;
         }
@@ -45,12 +54,35 @@ namespace GuildAcademy.Core.Character
         {
             ValidateTarget(id);
             if (amount <= 0) return;
+            if (id == CharacterId.Shion && _shionFrozen) return;
             var oldLevel = GetLevel(id);
             _bondPoints[id] = Math.Min(_bondPoints[id] + amount, MAX_BOND_POINTS);
             var newLevel = GetLevel(id);
             if (newLevel > oldLevel)
                 OnLevelUp?.Invoke(id, newLevel);
         }
+
+        /// <summary>
+        /// Freeze Shion's soul link (called at Chapter 2 Week 11).
+        /// While frozen, bond points cannot be added to Shion.
+        /// </summary>
+        public void FreezeShion()
+        {
+            _shionFrozen = true;
+        }
+
+        /// <summary>
+        /// Unfreeze Shion's soul link (called on END5 rescue).
+        /// </summary>
+        public void UnfreezeShion()
+        {
+            _shionFrozen = false;
+        }
+
+        /// <summary>
+        /// Whether Shion's soul link is currently frozen.
+        /// </summary>
+        public bool IsShionFrozen => _shionFrozen;
 
         public int GetBondPoints(CharacterId id)
         {
