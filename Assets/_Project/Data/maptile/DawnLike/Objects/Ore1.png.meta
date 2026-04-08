@@ -1,0 +1,2938 @@
+fileFormatVersion: 2
+guid: 01fe2bae616a24207b4ea2be55e6b29b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4976701874522680752
+    second: Ore1_0
+  - first:
+      213: 1498156165572730411
+    second: Ore1_1
+  - first:
+      213: -6549757174457152354
+    second: Ore1_2
+  - first:
+      213: -170336006975889193
+    second: Ore1_3
+  - first:
+      213: -5058664597556063094
+    second: Ore1_4
+  - first:
+      213: 6900686659849514042
+    second: Ore1_5
+  - first:
+      213: -1488402130507877642
+    second: Ore1_6
+  - first:
+      213: 2122876231525492101
+    second: Ore1_7
+  - first:
+      213: 7917106909584061767
+    second: Ore1_8
+  - first:
+      213: 1658961850567144431
+    second: Ore1_9
+  - first:
+      213: -8914962814117029451
+    second: Ore1_10
+  - first:
+      213: -8929379763577396075
+    second: Ore1_11
+  - first:
+      213: 316843233838072123
+    second: Ore1_12
+  - first:
+      213: 7868994776034957238
+    second: Ore1_13
+  - first:
+      213: -8432827793896804366
+    second: Ore1_14
+  - first:
+      213: 6654990755548246892
+    second: Ore1_15
+  - first:
+      213: -7858503444774311918
+    second: Ore1_16
+  - first:
+      213: -4168809612631883870
+    second: Ore1_17
+  - first:
+      213: 8767423663313436758
+    second: Ore1_18
+  - first:
+      213: 6555763014931125826
+    second: Ore1_19
+  - first:
+      213: -1416236295172894225
+    second: Ore1_20
+  - first:
+      213: -1961345434061231477
+    second: Ore1_21
+  - first:
+      213: 4834712712110230148
+    second: Ore1_22
+  - first:
+      213: -1644351452668887347
+    second: Ore1_23
+  - first:
+      213: -5430991512582617311
+    second: Ore1_24
+  - first:
+      213: 6227440366674129834
+    second: Ore1_25
+  - first:
+      213: 7490228652828936222
+    second: Ore1_26
+  - first:
+      213: 1979175207043300223
+    second: Ore1_27
+  - first:
+      213: 7762636389473860176
+    second: Ore1_28
+  - first:
+      213: -807522052248463283
+    second: Ore1_29
+  - first:
+      213: 3582771377537605867
+    second: Ore1_30
+  - first:
+      213: -3013882398902429422
+    second: Ore1_31
+  - first:
+      213: -5508462221344844950
+    second: Ore1_32
+  - first:
+      213: 339456800317938370
+    second: Ore1_33
+  - first:
+      213: 7646238182579931216
+    second: Ore1_34
+  - first:
+      213: 1815629490879239458
+    second: Ore1_35
+  - first:
+      213: -5575383526916653148
+    second: Ore1_36
+  - first:
+      213: -4733399943562737322
+    second: Ore1_37
+  - first:
+      213: 7839066153156956018
+    second: Ore1_38
+  - first:
+      213: 6507919842020793203
+    second: Ore1_39
+  - first:
+      213: -7379264235555410074
+    second: Ore1_40
+  - first:
+      213: -2622385469458532830
+    second: Ore1_41
+  - first:
+      213: -5456379056453236695
+    second: Ore1_42
+  - first:
+      213: -8979757097036546947
+    second: Ore1_43
+  - first:
+      213: 1611462802877245084
+    second: Ore1_44
+  - first:
+      213: 7710964846783650341
+    second: Ore1_45
+  - first:
+      213: 8985945261194782584
+    second: Ore1_46
+  - first:
+      213: -5182788771024477212
+    second: Ore1_47
+  - first:
+      213: 3449989075123253085
+    second: Ore1_48
+  - first:
+      213: -1563608287285594939
+    second: Ore1_49
+  - first:
+      213: 100914434207877140
+    second: Ore1_50
+  - first:
+      213: -8811067467390042487
+    second: Ore1_51
+  - first:
+      213: -4451427546550114512
+    second: Ore1_52
+  - first:
+      213: 1301442290305770118
+    second: Ore1_53
+  - first:
+      213: 2043487220948496327
+    second: Ore1_54
+  - first:
+      213: 5505701362773507088
+    second: Ore1_55
+  - first:
+      213: -3846522033548733879
+    second: Ore1_56
+  - first:
+      213: -4625927007637851507
+    second: Ore1_57
+  - first:
+      213: -8416652415734980217
+    second: Ore1_58
+  - first:
+      213: 2228020213833710442
+    second: Ore1_59
+  - first:
+      213: 2191184117975405749
+    second: Ore1_60
+  - first:
+      213: 3152775141403471551
+    second: Ore1_61
+  - first:
+      213: -2949417850971648671
+    second: Ore1_62
+  - first:
+      213: 1976431129486359696
+    second: Ore1_63
+  - first:
+      213: 8647232808088798007
+    second: Ore1_64
+  - first:
+      213: -6192899003006789946
+    second: Ore1_65
+  - first:
+      213: -794471060149977923
+    second: Ore1_66
+  - first:
+      213: -7057045374016020822
+    second: Ore1_67
+  - first:
+      213: -1506310765662970448
+    second: Ore1_68
+  - first:
+      213: -4412678714795576716
+    second: Ore1_69
+  - first:
+      213: 7083216325162198633
+    second: Ore1_70
+  - first:
+      213: 7998508935148502771
+    second: Ore1_71
+  - first:
+      213: 1509680799922744340
+    second: Ore1_72
+  - first:
+      213: 7719837538753498007
+    second: Ore1_73
+  - first:
+      213: 166567731719107733
+    second: Ore1_74
+  - first:
+      213: -5224811895187812796
+    second: Ore1_75
+  - first:
+      213: -5874217234437715407
+    second: Ore1_76
+  - first:
+      213: 2993523112647580317
+    second: Ore1_77
+  - first:
+      213: -4826951986836309687
+    second: Ore1_78
+  - first:
+      213: 7949637588659485601
+    second: Ore1_79
+  - first:
+      213: -1205501514391380229
+    second: Ore1_80
+  - first:
+      213: 7985479654421629972
+    second: Ore1_81
+  - first:
+      213: 7522527360152229285
+    second: Ore1_82
+  - first:
+      213: 1608445748141112600
+    second: Ore1_83
+  - first:
+      213: -5244288912270915843
+    second: Ore1_84
+  - first:
+      213: 3579342777339238665
+    second: Ore1_85
+  - first:
+      213: 6362166368936039938
+    second: Ore1_86
+  - first:
+      213: 6115657860690619108
+    second: Ore1_87
+  - first:
+      213: 5036717929352302074
+    second: Ore1_88
+  - first:
+      213: 7920002816416780290
+    second: Ore1_89
+  - first:
+      213: -6375685434664222323
+    second: Ore1_90
+  - first:
+      213: 6128630312795334993
+    second: Ore1_91
+  - first:
+      213: 728033884797636044
+    second: Ore1_92
+  - first:
+      213: -3296845021537109614
+    second: Ore1_93
+  - first:
+      213: 8249571165855293682
+    second: Ore1_94
+  - first:
+      213: 7531200087383441868
+    second: Ore1_95
+  - first:
+      213: 4911964985471509022
+    second: Ore1_96
+  - first:
+      213: -6034749557807427278
+    second: Ore1_97
+  - first:
+      213: 4669598357006756061
+    second: Ore1_98
+  - first:
+      213: -4302381572509795936
+    second: Ore1_99
+  - first:
+      213: 5136171224531390984
+    second: Ore1_100
+  - first:
+      213: 5900384167518631251
+    second: Ore1_101
+  - first:
+      213: -6318311611689251634
+    second: Ore1_102
+  - first:
+      213: -2230313847014465894
+    second: Ore1_103
+  - first:
+      213: -4202205375592945147
+    second: Ore1_104
+  - first:
+      213: -1449577958792510654
+    second: Ore1_105
+  - first:
+      213: -200751406919685418
+    second: Ore1_106
+  - first:
+      213: 2587721276453897269
+    second: Ore1_107
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ore1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bde1f7bcfbc01540800000000000000
+      internalID: 4976701874522680752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_1
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 88
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2e160358158ac410800000000000000
+      internalID: 1498156165572730411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 96
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9c4a6b4d869a15a0800000000000000
+      internalID: -6549757174457152354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_3
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 93
+        width: 6
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d06ebbdd48d2adf0800000000000000
+      internalID: -170336006975889193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_4
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 95
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8493d8b9530cc9b0800000000000000
+      internalID: -5058664597556063094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_5
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 88
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3c6b9aa4f924cf50800000000000000
+      internalID: 6900686659849514042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_6
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 95
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f2b420f522285be0800000000000000
+      internalID: -1488402130507877642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_7
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 96
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58562326fa8f57d10800000000000000
+      internalID: 2122876231525492101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_8
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 85
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7457c82a9c63fdd60800000000000000
+      internalID: 7917106909584061767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_9
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 96
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe3baf67301d50710800000000000000
+      internalID: 1658961850567144431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_10
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 88
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b9dcb6dd80b74480800000000000000
+      internalID: -8914962814117029451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_11
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 6
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59468673a68741480800000000000000
+      internalID: -8929379763577396075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_12
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 93
+        width: 6
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3187621e37a56400800000000000000
+      internalID: 316843233838072123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_13
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 95
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b7d7fc9e09443d60800000000000000
+      internalID: 7868994776034957238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_14
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 88
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ff6dbcecc398fa80800000000000000
+      internalID: -8432827793896804366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_15
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 95
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6336ff15d64b5c50800000000000000
+      internalID: 6654990755548246892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_16
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 96
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2182b0cc0ccf0f290800000000000000
+      internalID: -7858503444774311918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_17
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 85
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2afb7de9eb96526c0800000000000000
+      internalID: -4168809612631883870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 79
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 650c627be552ca970800000000000000
+      internalID: 8767423663313436758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_19
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 79
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2461d986abfbafa50800000000000000
+      internalID: 6555763014931125826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_20
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 77
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe15434d794885ce0800000000000000
+      internalID: -1416236295172894225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_21
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 72
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8a22f828b6e7c4e0800000000000000
+      internalID: -1961345434061231477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_22
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 77
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48a4564a899581340800000000000000
+      internalID: 4834712712110230148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_23
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 72
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcef5c1e0171e29e0800000000000000
+      internalID: -1644351452668887347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_24
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 77
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1270a527efd31a4b0800000000000000
+      internalID: -5430991512582617311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_25
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 69
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa33a83e4005c6650800000000000000
+      internalID: 6227440366674129834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_26
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 79
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e18425a5643a2f760800000000000000
+      internalID: 7490228652828936222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_27
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 79
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7b731c5d51777b10800000000000000
+      internalID: 1979175207043300223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_28
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 77
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05a3c130bac6abb60800000000000000
+      internalID: 7762636389473860176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_29
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 72
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d489f6fc8fa1bc4f0800000000000000
+      internalID: -807522052248463283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_30
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 77
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be0e095e59f88b130800000000000000
+      internalID: 3582771377537605867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_31
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 72
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2195e9a2de98c26d0800000000000000
+      internalID: -3013882398902429422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_32
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 77
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a63d4167bc20e83b0800000000000000
+      internalID: -5508462221344844950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_33
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 69
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ca9a8f492ef5b400800000000000000
+      internalID: 339456800317938370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_34
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 63
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05884b49d15ec1a60800000000000000
+      internalID: 7646238182579931216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_35
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 63
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 225949ff669623910800000000000000
+      internalID: 1815629490879239458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_36
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 61
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4af719fc83240a2b0800000000000000
+      internalID: -5575383526916653148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_37
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 56
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 659c61874d59f4eb0800000000000000
+      internalID: -4733399943562737322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_38
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 61
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27f45b51225f9cc60800000000000000
+      internalID: 7839066153156956018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_39
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 56
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37b9d5aad96c05a50800000000000000
+      internalID: 6507919842020793203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_40
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 61
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66fa9f75646979990800000000000000
+      internalID: -7379264235555410074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_41
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 53
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22637cc3f4a6b9bd0800000000000000
+      internalID: -2622385469458532830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_42
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 63
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9284934482c0744b0800000000000000
+      internalID: -5456379056453236695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_43
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 63
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7cf7dd3f7e716380800000000000000
+      internalID: -8979757097036546947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_44
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 61
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c96e04e91e01d5610800000000000000
+      internalID: 1611462802877245084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_45
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 56
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52a50187ca9d20b60800000000000000
+      internalID: 7710964846783650341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_46
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 61
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 877ae900b9d74bc70800000000000000
+      internalID: 8985945261194782584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_47
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 56
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e3e33582190318b0800000000000000
+      internalID: -5182788771024477212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_48
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 61
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5f23b5f8c2d0ef20800000000000000
+      internalID: 3449989075123253085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_49
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 53
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c43c7c0c82fc4ae0800000000000000
+      internalID: -1563608287285594939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 47
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4188baba425866100800000000000000
+      internalID: 100914434207877140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_51
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 47
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98e373a42dcc8b580800000000000000
+      internalID: -8811067467390042487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_52
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 45
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 037ed782b3a5932c0800000000000000
+      internalID: -4451427546550114512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_53
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 40
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 682a8512ed6af0210800000000000000
+      internalID: 1301442290305770118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_54
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 45
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cf6fa3fccceb5c10800000000000000
+      internalID: 2043487220948496327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_55
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 40
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01cbf7f083e286c40800000000000000
+      internalID: 5505701362773507088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_56
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 45
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9425d9917986e9ac0800000000000000
+      internalID: -3846522033548733879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_57
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 37
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d823cd055e76dcfb0800000000000000
+      internalID: -4625927007637851507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_58
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 47
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 781ee22a83b023b80800000000000000
+      internalID: -8416652415734980217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_59
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 47
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6bb2f574948bee10800000000000000
+      internalID: 2228020213833710442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_60
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 45
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b4d66d8856a86e10800000000000000
+      internalID: 2191184117975405749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_61
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 40
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbe29087948e0cb20800000000000000
+      internalID: 3152775141403471551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_62
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 45
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 16d83aa57109117d0800000000000000
+      internalID: -2949417850971648671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_63
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 40
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09cfe0404a1bd6b10800000000000000
+      internalID: 1976431129486359696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_64
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 45
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7338c388c64210870800000000000000
+      internalID: 8647232808088798007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_65
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 37
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c6d8eb0b276e0aa0800000000000000
+      internalID: -6192899003006789946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_66
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 31
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbcbe63b7c879f4f0800000000000000
+      internalID: -794471060149977923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_67
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 31
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aae16f54f96501e90800000000000000
+      internalID: -7057045374016020822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_68
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 29
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bddf43e652881be0800000000000000
+      internalID: -1506310765662970448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_69
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 24
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 472bea8961403c2c0800000000000000
+      internalID: -4412678714795576716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_70
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 29
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9666a8028b3ac4260800000000000000
+      internalID: 7083216325162198633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_71
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 24
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fe7054af79600f60800000000000000
+      internalID: 7998508935148502771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_72
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 29
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41c6f9b50b673f410800000000000000
+      internalID: 1509680799922744340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_73
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 21
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79bc02d075f522b60800000000000000
+      internalID: 7719837538753498007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_74
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 31
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 594f8203874cf4200800000000000000
+      internalID: 166567731719107733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_75
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 31
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44e4819734dbd77b0800000000000000
+      internalID: -5224811895187812796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_76
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 29
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13accd75c869a7ea0800000000000000
+      internalID: -5874217234437715407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_77
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 24
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9ad74c19612b8920800000000000000
+      internalID: 2993523112647580317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_78
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 29
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94971c40eb8330db0800000000000000
+      internalID: -4826951986836309687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_79
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 24
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ab34259449c25e60800000000000000
+      internalID: 7949637588659485601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_80
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 29
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfe918a72c2354fe0800000000000000
+      internalID: -1205501514391380229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_81
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 21
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41c09e2df6f12de60800000000000000
+      internalID: 7985479654421629972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_82
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a5d70b27c2656860800000000000000
+      internalID: 7522527360152229285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_83
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 15
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81d3072d2e8525610800000000000000
+      internalID: 1608445748141112600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_84
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 13
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df6829c050b8837b0800000000000000
+      internalID: -5244288912270915843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_85
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 8
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9095aa4ba416ca130800000000000000
+      internalID: 3579342777339238665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_86
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 13
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2069e56ba94fa4850800000000000000
+      internalID: 6362166368936039938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_87
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 8
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ea2a421c6e2fd450800000000000000
+      internalID: 6115657860690619108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_88
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 13
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afd82e4654406e540800000000000000
+      internalID: 5036717929352302074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_89
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 5
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2009d9c799089ed60800000000000000
+      internalID: 7920002816416780290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_90
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 15
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d81053380e30587a0800000000000000
+      internalID: -6375685434664222323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_91
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 15
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1596bd17cc44d0550800000000000000
+      internalID: 6128630312795334993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_92
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 13
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccd8fcff5fe7a1a00800000000000000
+      internalID: 728033884797636044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_93
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 8
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 299f3cb9be04f32d0800000000000000
+      internalID: -3296845021537109614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_94
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 13
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f02c1a644d5c7270800000000000000
+      internalID: 8249571165855293682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_95
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 8
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc181e4d392348860800000000000000
+      internalID: 7531200087383441868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_96
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 13
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e12af2c212eca2440800000000000000
+      internalID: 4911964985471509022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_97
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 5
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 231517a2043404ca0800000000000000
+      internalID: -6034749557807427278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_98
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd8a22117febdc040800000000000000
+      internalID: 4669598357006756061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_99
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 0
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a9fd5a31ceda44c0800000000000000
+      internalID: -4302381572509795936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_100
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 0
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 802d6cf1488574740800000000000000
+      internalID: 5136171224531390984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_101
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 0
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3557947832062e150800000000000000
+      internalID: 5900384167518631251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_102
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 0
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecc4905a019d058a0800000000000000
+      internalID: -6318311611689251634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_103
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9e51137f555c01e0800000000000000
+      internalID: -2230313847014465894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_104
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 0
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50aab82a974cea5c0800000000000000
+      internalID: -4202205375592945147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_105
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 0
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 243cfe3d68012ebe0800000000000000
+      internalID: -1449577958792510654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_106
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 0
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6da6466b8a9c63df0800000000000000
+      internalID: -200751406919685418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ore1_107
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53441c46ace69e320800000000000000
+      internalID: 2587721276453897269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Ore1_0: 4976701874522680752
+      Ore1_1: 1498156165572730411
+      Ore1_10: -8914962814117029451
+      Ore1_100: 5136171224531390984
+      Ore1_101: 5900384167518631251
+      Ore1_102: -6318311611689251634
+      Ore1_103: -2230313847014465894
+      Ore1_104: -4202205375592945147
+      Ore1_105: -1449577958792510654
+      Ore1_106: -200751406919685418
+      Ore1_107: 2587721276453897269
+      Ore1_11: -8929379763577396075
+      Ore1_12: 316843233838072123
+      Ore1_13: 7868994776034957238
+      Ore1_14: -8432827793896804366
+      Ore1_15: 6654990755548246892
+      Ore1_16: -7858503444774311918
+      Ore1_17: -4168809612631883870
+      Ore1_18: 8767423663313436758
+      Ore1_19: 6555763014931125826
+      Ore1_2: -6549757174457152354
+      Ore1_20: -1416236295172894225
+      Ore1_21: -1961345434061231477
+      Ore1_22: 4834712712110230148
+      Ore1_23: -1644351452668887347
+      Ore1_24: -5430991512582617311
+      Ore1_25: 6227440366674129834
+      Ore1_26: 7490228652828936222
+      Ore1_27: 1979175207043300223
+      Ore1_28: 7762636389473860176
+      Ore1_29: -807522052248463283
+      Ore1_3: -170336006975889193
+      Ore1_30: 3582771377537605867
+      Ore1_31: -3013882398902429422
+      Ore1_32: -5508462221344844950
+      Ore1_33: 339456800317938370
+      Ore1_34: 7646238182579931216
+      Ore1_35: 1815629490879239458
+      Ore1_36: -5575383526916653148
+      Ore1_37: -4733399943562737322
+      Ore1_38: 7839066153156956018
+      Ore1_39: 6507919842020793203
+      Ore1_4: -5058664597556063094
+      Ore1_40: -7379264235555410074
+      Ore1_41: -2622385469458532830
+      Ore1_42: -5456379056453236695
+      Ore1_43: -8979757097036546947
+      Ore1_44: 1611462802877245084
+      Ore1_45: 7710964846783650341
+      Ore1_46: 8985945261194782584
+      Ore1_47: -5182788771024477212
+      Ore1_48: 3449989075123253085
+      Ore1_49: -1563608287285594939
+      Ore1_5: 6900686659849514042
+      Ore1_50: 100914434207877140
+      Ore1_51: -8811067467390042487
+      Ore1_52: -4451427546550114512
+      Ore1_53: 1301442290305770118
+      Ore1_54: 2043487220948496327
+      Ore1_55: 5505701362773507088
+      Ore1_56: -3846522033548733879
+      Ore1_57: -4625927007637851507
+      Ore1_58: -8416652415734980217
+      Ore1_59: 2228020213833710442
+      Ore1_6: -1488402130507877642
+      Ore1_60: 2191184117975405749
+      Ore1_61: 3152775141403471551
+      Ore1_62: -2949417850971648671
+      Ore1_63: 1976431129486359696
+      Ore1_64: 8647232808088798007
+      Ore1_65: -6192899003006789946
+      Ore1_66: -794471060149977923
+      Ore1_67: -7057045374016020822
+      Ore1_68: -1506310765662970448
+      Ore1_69: -4412678714795576716
+      Ore1_7: 2122876231525492101
+      Ore1_70: 7083216325162198633
+      Ore1_71: 7998508935148502771
+      Ore1_72: 1509680799922744340
+      Ore1_73: 7719837538753498007
+      Ore1_74: 166567731719107733
+      Ore1_75: -5224811895187812796
+      Ore1_76: -5874217234437715407
+      Ore1_77: 2993523112647580317
+      Ore1_78: -4826951986836309687
+      Ore1_79: 7949637588659485601
+      Ore1_8: 7917106909584061767
+      Ore1_80: -1205501514391380229
+      Ore1_81: 7985479654421629972
+      Ore1_82: 7522527360152229285
+      Ore1_83: 1608445748141112600
+      Ore1_84: -5244288912270915843
+      Ore1_85: 3579342777339238665
+      Ore1_86: 6362166368936039938
+      Ore1_87: 6115657860690619108
+      Ore1_88: 5036717929352302074
+      Ore1_89: 7920002816416780290
+      Ore1_9: 1658961850567144431
+      Ore1_90: -6375685434664222323
+      Ore1_91: 6128630312795334993
+      Ore1_92: 728033884797636044
+      Ore1_93: -3296845021537109614
+      Ore1_94: 8249571165855293682
+      Ore1_95: 7531200087383441868
+      Ore1_96: 4911964985471509022
+      Ore1_97: -6034749557807427278
+      Ore1_98: 4669598357006756061
+      Ore1_99: -4302381572509795936
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
