@@ -7,6 +7,7 @@ namespace GuildAcademy.Core.Data
         True,
         ShionRoute,
         Normal,
+        HalfLight,
         TrueHappy,
         TotalDefeat
     }

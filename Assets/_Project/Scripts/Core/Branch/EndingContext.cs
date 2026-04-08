@@ -11,5 +11,8 @@ namespace GuildAcademy.Core.Branch
         public bool ShionRescued { get; set; }
         public bool CarlosDefeated { get; set; }
         public int ErosionPercent { get; set; }
+        public int ShionTrust { get; set; }
+        public bool GreyveEventCleared { get; set; }
+        public int SetsunaTrust { get; set; }
     }
 }
