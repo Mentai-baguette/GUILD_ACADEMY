@@ -16,6 +16,7 @@ namespace GuildAcademy.Core.Data
         public int Luk { get; set; }
         public int Lv { get; set; }
         public int Exp { get; set; }
+        public int Sp { get; set; }
         public ElementType Element { get; set; }
         public ElementType WeakElement { get; set; }
         public ElementType ResistElement { get; set; }
