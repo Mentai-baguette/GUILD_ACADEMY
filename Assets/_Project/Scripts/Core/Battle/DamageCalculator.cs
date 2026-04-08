@@ -21,15 +21,20 @@ namespace GuildAcademy.Core.Battle
             _random = random ?? throw new ArgumentNullException(nameof(random));
         }
 
-        public int Calculate(int atk, int def, ElementType attackElement,
+        /// <summary>
+        /// ダメージ計算（物理/魔法対応）
+        /// 物理: (ATK×2 - DEF) × skillMult × element × crit × break × variance
+        /// 魔法: (INT×2 - RES) × skillMult × element × crit × break × variance
+        /// </summary>
+        public int Calculate(int attackStat, int defenseStat, ElementType attackElement,
             ElementType defenderWeakElement, ElementType defenderResistElement,
             ElementType defenderNullElement, bool isCritical, bool isBreakState,
             int skillPower = 0)
         {
             int variance = _random.Range(VarianceMin, VarianceMax);
             int baseDamage = skillPower > 0
-                ? atk * skillPower / 100 - def + variance
-                : atk - def + variance;
+                ? attackStat * 2 * skillPower / 100 - defenseStat + variance
+                : attackStat * 2 - defenseStat + variance;
 
             float elementMult = GetElementMultiplier(attackElement, defenderWeakElement, defenderResistElement, defenderNullElement);
 
@@ -43,11 +48,23 @@ namespace GuildAcademy.Core.Battle
             return Math.Max(MinDamage, damage);
         }
 
-        public int CalculateHeal(int healerAtk, int skillPower)
+        /// <summary>
+        /// 回復量計算（INT依存）
+        /// </summary>
+        public int CalculateHeal(int healerInt, int skillPower)
         {
             int variance = _random.Range(0, VarianceMax);
-            int heal = healerAtk * skillPower / 100 + variance;
+            int heal = healerInt * 2 * skillPower / 100 + variance;
             return Math.Max(1, heal);
+        }
+
+        /// <summary>
+        /// クリティカル判定（DEX依存）
+        /// クリティカル率 = DEX / 200（DEX100で50%）
+        /// </summary>
+        public static int GetCriticalChancePercent(int dex)
+        {
+            return Math.Min(dex / 2, 100);
         }
 
         public static float GetElementMultiplier(ElementType attackElement,
