@@ -26,8 +26,7 @@ namespace GuildAcademy.Tests.EditMode.Battle
         [Test]
         public void Execute_BasicAttack_DealsDamage()
         {
-            // FixedRandom(0): variance=0, crit roll=0 (<15 so crit)
-            // Use value 50 to avoid crit: 50 >= 15
+            // DEX=0 (default) → critChance=0%, so no crit regardless of random value
             var random = new FixedRandom(50);
             var damageCalc = new DamageCalculator(random);
             var executor = new ActionExecutor(damageCalc, _breakSystem, random);
@@ -171,7 +170,7 @@ namespace GuildAcademy.Tests.EditMode.Battle
             };
 
             var result = executor.Execute(command);
-            // SkillPower=150: (30*150/100) - 10 + 50(variance) = 45 - 10 + 50 = 85, no crit (50>=15)
+            // SkillPower=150: (30×2×150/100) - 10 + 50(variance) = 80, DEX=0 → no crit
             Assert.Greater(result.DamageDealt, 0);
         }
 

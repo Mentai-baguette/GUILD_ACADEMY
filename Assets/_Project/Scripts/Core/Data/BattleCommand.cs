@@ -10,5 +10,6 @@ namespace GuildAcademy.Core.Data
         public ElementType Element { get; set; }
         public int SkillPower { get; set; }
         public int MpCost { get; set; }
+        public bool IsMagic { get; set; }
     }
 }
