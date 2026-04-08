@@ -64,7 +64,7 @@ namespace GuildAcademy.Tests.EditMode.Battle
                 new List<CharacterStats> { _hero },
                 new List<CharacterStats> { _enemy });
 
-            // Tick enough to fill hero's gauge (Spd=10, GaugeRate=10, need 100)
+            // Tick enough to fill hero's gauge (Agi=10, GaugeRate=10, need 100)
             _controller.Tick(1.0f);
 
             var actor = _controller.GetCurrentActor();
