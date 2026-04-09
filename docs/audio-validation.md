@@ -80,15 +80,14 @@
 
 ### BGM追加後のテスト実行状況（PR #34）
 
-- 対象コミット: `25e6f9c17e0d9020893e905413c1f752d811e02f`
-- 実施日: 2026-04-04
+- 実施日: 2026-04-09（最新run）
 - Edit Mode テスト: 実施済み
   - 結果: SUCCESS
-  - PR Checks: [Edit Mode Tests](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/23982297894/job/69948484314)
+  - PR Checks: [Edit Mode Tests](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/24076324437/job/70225578262)
 - Unity ライセンスチェック: SUCCESS
-  - PR Checks: [Check Unity License](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/23982297894/job/69948478768)
+  - PR Checks: [Check Unity License](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/24076324437/job/70225567850)
 - Test Results: NEUTRAL（表示系チェック）
-  - PR Checks: [Test Results](https://github.com/Mentai-baguette/GUILD_ACADEMY/runs/69948766594)
+  - PR Checks: [Test Results](https://github.com/Mentai-baguette/GUILD_ACADEMY/runs/70226431679)
 
 ## SE検証記録
 
