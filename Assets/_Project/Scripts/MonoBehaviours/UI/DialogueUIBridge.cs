@@ -18,7 +18,6 @@ namespace GuildAcademy.UI
 
         private DialogueManager _dialogueManager;
         private bool _waitingForChoice;
-        private bool _initializedWithBranch;
 
         public static DialogueUIBridge Instance { get; private set; }
         public bool IsActive => _dialogueManager != null && _dialogueManager.IsActive;
@@ -33,65 +32,33 @@ namespace GuildAcademy.UI
             Instance = this;
         }
 
-        private void EnsureInitialized()
+        /// <summary>
+        /// BranchManagerが存在する場合のみDialogueManagerを初期化する。
+        /// BranchManager不在では分岐・フラグ・信頼値が機能しないため、会話開始を許可しない。
+        /// </summary>
+        private bool EnsureInitialized()
         {
+            if (_dialogueManager != null) return true;
+
             var branchManager = BranchManager.Instance;
-            bool branchAvailable = branchManager != null;
-
-            // BranchManager無しで初期化済み → BranchManagerが後から立ち上がったら再生成
-            if (_dialogueManager != null && !_initializedWithBranch && branchAvailable)
+            if (branchManager == null)
             {
-                RebuildManager(branchManager);
-                return;
+                Debug.LogError("[DialogueUIBridge] BranchManager not found. Cannot start dialogue without flag/trust systems.");
+                return false;
             }
-
-            if (_dialogueManager != null) return;
-
-            var source = new ResourcesDialogueJsonLoader();
-
-            FlagSystem flags = null;
-            TrustSystem trust = null;
-            if (branchAvailable)
-            {
-                flags = branchManager.Service.Flags;
-                trust = branchManager.Service.Trust;
-                _initializedWithBranch = true;
-            }
-
-            _dialogueManager = new DialogueManager(source, flags, trust);
-            SubscribeEvents();
-        }
-
-        private void RebuildManager(BranchManager branchManager)
-        {
-            UnsubscribeEvents();
 
             var source = new ResourcesDialogueJsonLoader();
             _dialogueManager = new DialogueManager(
                 source, branchManager.Service.Flags, branchManager.Service.Trust);
-            _initializedWithBranch = true;
-
-            SubscribeEvents();
-        }
-
-        private void SubscribeEvents()
-        {
             _dialogueManager.OnDialogueAdvanced += HandleDialogueAdvanced;
             _dialogueManager.OnChoicesPresented += HandleChoicesPresented;
             _dialogueManager.OnDialogueEnded += HandleDialogueEnded;
-        }
-
-        private void UnsubscribeEvents()
-        {
-            if (_dialogueManager == null) return;
-            _dialogueManager.OnDialogueAdvanced -= HandleDialogueAdvanced;
-            _dialogueManager.OnChoicesPresented -= HandleChoicesPresented;
-            _dialogueManager.OnDialogueEnded -= HandleDialogueEnded;
+            return true;
         }
 
         public void StartDialogue(string sourceKey, string entryId)
         {
-            EnsureInitialized();
+            if (!EnsureInitialized()) return;
 
             _dialogueManager.LoadFromSource(sourceKey);
             _dialogueManager.Start(entryId);
