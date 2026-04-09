@@ -18,6 +18,7 @@ namespace GuildAcademy.Core.Data
         public ElementType Element { get; set; }
         public SkillTargetType TargetType { get; set; }
         public bool IsHealing { get; set; }
+        public bool IsMagic { get; set; }
         public int BreakValue { get; set; }
     }
 }

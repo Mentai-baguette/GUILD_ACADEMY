@@ -5,6 +5,10 @@ namespace GuildAcademy.Core.Branch
 {
     public static class EndingResolver
     {
+        private const int HalfLightMinShionTrust = 30;
+        private const int HalfLightMaxShionTrust = 49;
+        private const int HalfLightMinSetsunaTrust = 60;
+
         public static EndingType Resolve(EndingContext context)
         {
             if (context == null)
@@ -38,6 +42,13 @@ namespace GuildAcademy.Core.Branch
                 context.ShionRescued && context.Flags.AreAllSet() &&
                 context.Trust.AllMeetThreshold(80))
                 return EndingType.TrueHappy;
+
+            // END4.5: シオン第2形態勝利 + 救出失敗 + 隠し条件 → 最後に届いた光
+            if (context.Phase == BattlePhase.ShionPhase2 && context.Result == BattleResult.PlayerVictory &&
+                !context.ShionRescued &&
+                context.ShionTrust >= HalfLightMinShionTrust && context.ShionTrust <= HalfLightMaxShionTrust &&
+                (context.GreyveEventCleared || context.SetsunaTrust >= HalfLightMinSetsunaTrust))
+                return EndingType.HalfLight;
 
             // END4: シオン第2形態勝利だが救出未達 → ノーマル
             if (context.Phase == BattlePhase.ShionPhase2 && context.Result == BattleResult.PlayerVictory &&
