@@ -1,10 +1,17 @@
 # 学園9エリア Tilemap 実装チェックリスト
 
-このチェックリストは docs/maps/area-list.md を参照しつつ、今回の対象9エリアを実装するための作業用メモ。
+このチェックリストは docs/maps/area-list.md を参照しつつ、学園内の論理9エリアを実装するための作業用メモ。
+
+## 9エリア定義と実装シーンの対応
+
+- 論理9エリア: 教室棟 / 寮 / 訓練場 / 図書室 / 食堂 / 中庭 / 保健室 / 生徒会室 / 錬金室
+- 実装シーン: 論理9エリアに加えて、導線・遷移管理用の接続シーン（Hallway / Rooftop / Schoolyard / SchoolGate など）を使用する。
+- そのため、Build Settings では「論理9エリア」より多いシーン数を扱う。
 
 ## 対象シーン
 
 - Academy_Classroom
+- Academy_Dormitory
 - Academy_Hallway
 - Academy_Cafeteria
 - Academy_Library
@@ -21,15 +28,13 @@
 - [x] 9シーンの雛形を自動生成するEditorスクリプトを追加
 - [x] Portal遷移コンポーネントを追加
 - [x] SpawnPoint/SpawnResolverを追加
-<<<<<<< HEAD
-=======
 - [x] 9シーンに初期タイルレイアウトとイベントトリガーを配置するEditorスクリプトを追加
 - [x] 9シーンにNPCスポットを配置するEditorスクリプトを追加
 - [x] Academy_TrainingGround の雛形シーンを新規作成
 - [x] Hallway <-> TrainingGround 往復接続のEditorスクリプトを追加（GuildAcademy/Maps/Connect Hallway <-> TrainingGround）
 - [x] Academy_Courtyard を新規生成するEditorスクリプトを追加（GuildAcademy/Maps/Create Academy Courtyard）
 - [x] SceneNames に Academy_Courtyard 定数を追加
->>>>>>> d0781996 (feat: add academy map assets)
+- [ ] Academy_Dormitory の雛形シーンを新規作成
 - [ ] 9シーン雛形をUnityメニューから生成
 - [x] Academy_Courtyard シーンをUnityメニューから生成
 - [ ] 各シーンにタイル配置（Ground/Decoration/Collision）
