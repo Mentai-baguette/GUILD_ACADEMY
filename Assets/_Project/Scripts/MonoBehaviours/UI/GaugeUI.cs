@@ -7,7 +7,7 @@ namespace GuildAcademy.UI
     /// <summary>
     /// 汎用ゲージUIコンポーネント。HP/MP/ATB/ブレイク/侵蝕/リンク等に使える。
     /// 3レイヤー構成: 背景(Track) + フィル(Fill) + 枠(Frame)
-    /// UIThemeSOのカラーを参照し、テーマ変更時に自動で色を更新する。
+    /// UIThemeSOのカラーを参照する。テーマ切替時はApplyTheme()を呼び出すこと。
     /// </summary>
     public class GaugeUI : MonoBehaviour
     {

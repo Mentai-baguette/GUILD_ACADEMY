@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250d92cb394b94e30b9a3c15e863feab, type: 3}
   m_Name: NewUITheme
   m_EditorClassIdentifier: GuildAcademy.ScriptableObjects::GuildAcademy.Data.UIThemeSO
-  themeName: 
+  themeName: Academy
   chapter: 1
   windowBackground: {r: 0.16, g: 0.16, b: 0.24, a: 0.8}
   windowBorder: {r: 0.55, g: 0.64, b: 0.77, a: 1}

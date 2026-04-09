@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using GuildAcademy.Data;
@@ -9,10 +10,13 @@ namespace GuildAcademy.UI
     /// テーマ対応ボタンコンポーネント。
     /// UIThemeSOから4状態（Normal/Hover/Pressed/Disabled）の色を取得して
     /// UnityのButton.ColorBlockに適用する。
+    /// 枠色もポインタイベントに連動して4状態を切り替える。
     /// タブモードでは選択/非選択の2状態切替に対応。
     /// </summary>
     [RequireComponent(typeof(Button))]
-    public class ThemedButton : MonoBehaviour
+    public class ThemedButton : MonoBehaviour,
+        IPointerEnterHandler, IPointerExitHandler,
+        IPointerDownHandler, IPointerUpHandler
     {
         public enum ButtonMode
         {
@@ -88,13 +92,58 @@ namespace GuildAcademy.UI
             colors.colorMultiplier = 1f;
             _button.colors = colors;
 
-            // 枠色
-            if (borderImage != null)
-                borderImage.color = theme.btnBorderNormal;
+            // 枠色（初期状態）
+            UpdateBorderColor();
 
             // テキスト色
             if (labelText != null)
                 labelText.color = _button.interactable ? theme.textNormal : theme.textDisabled;
+        }
+
+        private void UpdateBorderColor()
+        {
+            if (borderImage == null || theme == null) return;
+
+            if (_button != null && !_button.interactable)
+            {
+                borderImage.color = theme.btnBorderDisabled;
+                return;
+            }
+
+            if (_isPressed)
+                borderImage.color = theme.btnBorderPressed;
+            else if (_isHovered)
+                borderImage.color = theme.btnBorderHover;
+            else
+                borderImage.color = theme.btnBorderNormal;
+        }
+
+        private bool _isHovered;
+        private bool _isPressed;
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            _isHovered = true;
+            if (mode == ButtonMode.Standard) UpdateBorderColor();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            _isHovered = false;
+            _isPressed = false;
+            if (mode == ButtonMode.Standard) UpdateBorderColor();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            _isPressed = true;
+            if (mode == ButtonMode.Standard) UpdateBorderColor();
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            _isPressed = false;
+            if (mode == ButtonMode.Standard) UpdateBorderColor();
         }
 
         private void ApplyTabTheme()
