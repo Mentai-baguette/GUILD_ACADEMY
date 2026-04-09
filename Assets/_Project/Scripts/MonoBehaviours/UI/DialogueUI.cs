@@ -23,6 +23,7 @@ namespace GuildAcademy.UI
         // === 内部変数 ===
         private Coroutine _typingCoroutine; // タイピングのコルーチンを覚えておく箱
         private bool _isTyping = false; // タイピング中かどうか
+        private string _currentMessage;    // SkipTyping用に全文を保持
 
         // --- 複数セリフ管理 ---
         private DialogueLine[] _lines;     // セリフ配列（全部のセリフを保持）
@@ -62,6 +63,7 @@ namespace GuildAcademy.UI
         private void ShowCurrentLine()
         {
             DialogueLine line = _lines[_currentLineIndex]; // 今のセリフを取り出す
+            _currentMessage = line.Message;
             dialoguePanel.SetActive(true);
             NameText.text = line.SpeakerName;
 
@@ -110,6 +112,41 @@ namespace GuildAcademy.UI
             });
         }
 
+        // === DialogueUIBridgeから1行ずつ表示するためのメソッド ===
+        public void ShowLine(string speakerName, string message)
+        {
+            _isActive = true;
+            _currentMessage = message;
+            dialoguePanel.SetActive(true);
+            NameText.text = speakerName;
+
+            if (_typingCoroutine != null)
+                StopCoroutine(_typingCoroutine);
+
+            _typingCoroutine = StartCoroutine(TypeMessage(message));
+        }
+
+        public bool IsTypingComplete => !_isTyping;
+
+        /// <summary>
+        /// タイプライタ演出をスキップして全文を即表示する。
+        /// </summary>
+        public void SkipTyping()
+        {
+            if (!_isTyping) return;
+
+            if (_typingCoroutine != null)
+                StopCoroutine(_typingCoroutine);
+
+            // ShowLine経由の場合、_linesがnullの可能性があるので直接MessageTextを使う
+            // TypeMessageが途中まで書いたテキストの全文は保持していないため、
+            // ShowLine利用時のために_currentMessageを保持する
+            if (!string.IsNullOrEmpty(_currentMessage))
+                MessageText.text = _currentMessage;
+
+            _isTyping = false;
+        }
+
         public void HideDialogue() // 会話ウィンドウを消すメソッド
         {
             dialoguePanel.SetActive(false);
@@ -135,6 +172,8 @@ namespace GuildAcademy.UI
         {
             // 会話中でなければ何もしない
             if (!_isActive) return;
+            // Bridge経由(ShowLine)の場合は_linesがnull → Bridge側で入力を処理するためここではスキップ
+            if (_lines == null) return;
 
             bool inputPressed =
                 (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
@@ -146,9 +185,7 @@ namespace GuildAcademy.UI
             if (_isTyping)
             {
                 // タイピング中 → スキップ（全文を即表示）
-                StopCoroutine(_typingCoroutine);
-                MessageText.text = _lines[_currentLineIndex].Message;
-                _isTyping = false;
+                SkipTyping();
             }
             else
             {
