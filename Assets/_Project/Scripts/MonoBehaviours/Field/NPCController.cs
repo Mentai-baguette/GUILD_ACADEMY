@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using GuildAcademy.UI;
+using GuildAcademy.MonoBehaviours.Schedule;
 
 namespace GuildAcademy.MonoBehaviours.Field
 {
@@ -16,7 +18,6 @@ namespace GuildAcademy.MonoBehaviours.Field
         [SerializeField] private ChapterDialogue[] _chapterDialogues;
 
         [Header("Interaction")]
-        [SerializeField] private KeyCode _interactKey = KeyCode.E;
         [SerializeField] private NPCInteractionPrompt _prompt;
 
         [Header("Optional")]
@@ -50,7 +51,7 @@ namespace GuildAcademy.MonoBehaviours.Field
         {
             if (!_playerInRange || _inConversation) return;
 
-            if (Input.GetKeyDown(_interactKey))
+            if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
             {
                 StartConversation();
             }
@@ -79,17 +80,7 @@ namespace GuildAcademy.MonoBehaviours.Field
             }
 
             bridge.StartDialogue(_dialogueSourceKey, entryId);
-
-            // Subscribe to dialogue end to clean up
-            void OnEnd()
-            {
-                _inConversation = false;
-                if (_infoFlagTrigger != null)
-                    _infoFlagTrigger.TryComplete();
-            }
-
-            // We need a one-shot subscription. Use the bridge's manager end event indirectly.
-            StartCoroutine(WaitForDialogueEnd(bridge, OnEnd));
+            StartCoroutine(WaitForDialogueEnd(bridge));
         }
 
         private string GetCurrentEntryId()
@@ -108,16 +99,24 @@ namespace GuildAcademy.MonoBehaviours.Field
 
         private int GetCurrentChapter()
         {
-            // TODO: Get from CalendarManager when ScheduleManagerMB is implemented
+            var scheduleMB = ScheduleManagerMB.Instance;
+            if (scheduleMB != null && scheduleMB.Calendar != null)
+            {
+                // Chapter enum: Chapter1=0, Chapter2=1, ... → 1-indexed に変換
+                return (int)scheduleMB.Calendar.CurrentChapter + 1;
+            }
             return 1;
         }
 
-        private System.Collections.IEnumerator WaitForDialogueEnd(DialogueUIBridge bridge, System.Action onEnd)
+        private System.Collections.IEnumerator WaitForDialogueEnd(DialogueUIBridge bridge)
         {
-            yield return null; // Wait one frame to ensure dialogue is started
+            yield return null;
             while (bridge.IsActive)
                 yield return null;
-            onEnd?.Invoke();
+
+            _inConversation = false;
+            if (_infoFlagTrigger != null)
+                _infoFlagTrigger.TryComplete();
         }
     }
 }
