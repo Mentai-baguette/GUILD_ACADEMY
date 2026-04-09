@@ -1,5 +1,6 @@
 using GuildAcademy.Core.Battle;
 using GuildAcademy.Core.Character;
+using GuildAcademy.Tests.EditMode.TestHelpers;
 using NUnit.Framework;
 
 namespace GuildAcademy.Tests.EditMode.Character
@@ -15,22 +16,14 @@ namespace GuildAcademy.Tests.EditMode.Character
             _system = new ErosionSystem();
         }
 
-        // --- テスト用の固定乱数 ---
-        private class FixedRandom : IRandom
-        {
-            private readonly int _value;
-            public FixedRandom(int value) { _value = value; }
-            public int Range(int minInclusive, int maxExclusive) => _value;
-        }
-
-        // === 初期状態テスト ===
+// === 初期状態テスト ===
 
         [Test]
         public void InitialState_IsNormalAndZero()
         {
             Assert.AreEqual(0f, _system.CurrentErosion);
             Assert.AreEqual(ErosionStage.Normal, _system.CurrentStage);
-            Assert.AreEqual(1.0f, _system.AtkMultiplier);
+            Assert.AreEqual(ErosionSystem.NormalAtkMultiplier, _system.AtkMultiplier);
             Assert.IsFalse(_system.IsEltDefeated);
         }
 
@@ -88,7 +81,7 @@ namespace GuildAcademy.Tests.EditMode.Character
         public void AddErosion_ClampsAtMax100()
         {
             _system.AddErosion(150f);
-            Assert.AreEqual(ErosionSystem.MAX_EROSION, _system.CurrentErosion);
+            Assert.AreEqual(ErosionSystem.MaxErosion, _system.CurrentErosion);
         }
 
         // === ATK倍率テスト ===
@@ -96,28 +89,28 @@ namespace GuildAcademy.Tests.EditMode.Character
         [Test]
         public void AtkMultiplier_Normal_Is1x()
         {
-            Assert.AreEqual(ErosionSystem.NORMAL_ATK_MULTIPLIER, _system.AtkMultiplier);
+            Assert.AreEqual(ErosionSystem.NormalAtkMultiplier, _system.AtkMultiplier);
         }
 
         [Test]
         public void AtkMultiplier_Unstable_Is1_3x()
         {
             _system.AddErosion(25f);
-            Assert.AreEqual(ErosionSystem.UNSTABLE_ATK_MULTIPLIER, _system.AtkMultiplier);
+            Assert.AreEqual(ErosionSystem.UnstableAtkMultiplier, _system.AtkMultiplier);
         }
 
         [Test]
         public void AtkMultiplier_Dangerous_Is1_6x()
         {
             _system.AddErosion(50f);
-            Assert.AreEqual(ErosionSystem.DANGEROUS_ATK_MULTIPLIER, _system.AtkMultiplier);
+            Assert.AreEqual(ErosionSystem.DangerousAtkMultiplier, _system.AtkMultiplier);
         }
 
         [Test]
         public void AtkMultiplier_Critical_Is2x()
         {
             _system.AddErosion(75f);
-            Assert.AreEqual(ErosionSystem.CRITICAL_ATK_MULTIPLIER, _system.AtkMultiplier);
+            Assert.AreEqual(ErosionSystem.CriticalAtkMultiplier, _system.AtkMultiplier);
         }
 
         // === バトル中浄化テスト ===
@@ -143,7 +136,7 @@ namespace GuildAcademy.Tests.EditMode.Character
             _system.PurifyInBattle();
 
             Assert.AreEqual(ErosionStage.Dangerous, _system.CurrentStage);
-            Assert.AreEqual(ErosionSystem.DANGEROUS_THRESHOLD, _system.CurrentErosion);
+            Assert.AreEqual(ErosionSystem.DangerousThreshold, _system.CurrentErosion);
         }
 
         [Test]
@@ -332,7 +325,7 @@ namespace GuildAcademy.Tests.EditMode.Character
             _system.PurifyInBattle();
 
             Assert.AreEqual(ErosionStage.Dangerous, _system.CurrentStage);
-            Assert.AreEqual(ErosionSystem.DANGEROUS_THRESHOLD_ENHANCED, _system.CurrentErosion);
+            Assert.AreEqual(ErosionSystem.DangerousThresholdEnhanced, _system.CurrentErosion);
         }
     }
 }

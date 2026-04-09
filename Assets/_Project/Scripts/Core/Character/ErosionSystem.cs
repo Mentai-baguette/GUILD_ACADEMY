@@ -6,24 +6,24 @@ namespace GuildAcademy.Core.Character
 
     public class ErosionSystem
     {
-        public const float MAX_EROSION = 100f;
+        public const float MaxErosion = 100f;
 
         // 通常時の閾値
-        public const float NORMAL_THRESHOLD = 0f;
-        public const float UNSTABLE_THRESHOLD = 25f;
-        public const float DANGEROUS_THRESHOLD = 50f;
-        public const float CRITICAL_THRESHOLD = 75f;
+        public const float NormalThreshold = 0f;
+        public const float UnstableThreshold = 25f;
+        public const float DangerousThreshold = 50f;
+        public const float CriticalThreshold = 75f;
 
         // エルト撃破後の閾値
-        public const float UNSTABLE_THRESHOLD_ENHANCED = 35f;
-        public const float DANGEROUS_THRESHOLD_ENHANCED = 60f;
-        public const float CRITICAL_THRESHOLD_ENHANCED = 85f;
+        public const float UnstableThresholdEnhanced = 35f;
+        public const float DangerousThresholdEnhanced = 60f;
+        public const float CriticalThresholdEnhanced = 85f;
 
         // ATK倍率
-        public const float NORMAL_ATK_MULTIPLIER = 1.0f;
-        public const float UNSTABLE_ATK_MULTIPLIER = 1.3f;
-        public const float DANGEROUS_ATK_MULTIPLIER = 1.6f;
-        public const float CRITICAL_ATK_MULTIPLIER = 2.0f;
+        public const float NormalAtkMultiplier = 1.0f;
+        public const float UnstableAtkMultiplier = 1.3f;
+        public const float DangerousAtkMultiplier = 1.6f;
+        public const float CriticalAtkMultiplier = 2.0f;
 
         private float _currentErosion;
         private bool _eltDefeated;
@@ -39,8 +39,8 @@ namespace GuildAcademy.Core.Character
         {
             if (amount <= 0f) return;
             _currentErosion += amount;
-            if (_currentErosion > MAX_EROSION)
-                _currentErosion = MAX_EROSION;
+            if (_currentErosion > MaxErosion)
+                _currentErosion = MaxErosion;
         }
 
         /// <summary>バトル中浄化: 1段階下げる（1バトル1回制限）</summary>
@@ -52,7 +52,7 @@ namespace GuildAcademy.Core.Character
             var currentStage = CurrentStage;
             if (currentStage == ErosionStage.Normal) return false;
 
-            // 1段階下の閾値の直下に設定
+            // 1段階下の閾値ちょうどに設定
             var targetStage = (ErosionStage)((int)currentStage - 1);
             float targetThreshold = GetThreshold(targetStage);
             _currentErosion = targetThreshold;
@@ -93,10 +93,11 @@ namespace GuildAcademy.Core.Character
         /// <returns>暴走する場合true</returns>
         public bool CheckRampage(IRandom random, bool usedDarkSkill = true)
         {
+            if (random == null) throw new System.ArgumentNullException(nameof(random));
             if (CurrentStage != ErosionStage.Critical) return false;
             if (!usedDarkSkill) return false;
 
-            float criticalThreshold = _eltDefeated ? CRITICAL_THRESHOLD_ENHANCED : CRITICAL_THRESHOLD;
+            float criticalThreshold = _eltDefeated ? CriticalThresholdEnhanced : CriticalThreshold;
             int rampageChance = (int)((_currentErosion - criticalThreshold) * 2f);
             rampageChance = System.Math.Max(0, System.Math.Min(100, rampageChance));
 
@@ -106,9 +107,9 @@ namespace GuildAcademy.Core.Character
 
         private ErosionStage DetermineStage(float erosion)
         {
-            float criticalThreshold = _eltDefeated ? CRITICAL_THRESHOLD_ENHANCED : CRITICAL_THRESHOLD;
-            float dangerousThreshold = _eltDefeated ? DANGEROUS_THRESHOLD_ENHANCED : DANGEROUS_THRESHOLD;
-            float unstableThreshold = _eltDefeated ? UNSTABLE_THRESHOLD_ENHANCED : UNSTABLE_THRESHOLD;
+            float criticalThreshold = _eltDefeated ? CriticalThresholdEnhanced : CriticalThreshold;
+            float dangerousThreshold = _eltDefeated ? DangerousThresholdEnhanced : DangerousThreshold;
+            float unstableThreshold = _eltDefeated ? UnstableThresholdEnhanced : UnstableThreshold;
 
             if (erosion >= criticalThreshold) return ErosionStage.Critical;
             if (erosion >= dangerousThreshold) return ErosionStage.Dangerous;
@@ -120,11 +121,11 @@ namespace GuildAcademy.Core.Character
         {
             switch (stage)
             {
-                case ErosionStage.Normal: return NORMAL_ATK_MULTIPLIER;
-                case ErosionStage.Unstable: return UNSTABLE_ATK_MULTIPLIER;
-                case ErosionStage.Dangerous: return DANGEROUS_ATK_MULTIPLIER;
-                case ErosionStage.Critical: return CRITICAL_ATK_MULTIPLIER;
-                default: return NORMAL_ATK_MULTIPLIER;
+                case ErosionStage.Normal: return NormalAtkMultiplier;
+                case ErosionStage.Unstable: return UnstableAtkMultiplier;
+                case ErosionStage.Dangerous: return DangerousAtkMultiplier;
+                case ErosionStage.Critical: return CriticalAtkMultiplier;
+                default: return NormalAtkMultiplier;
             }
         }
 
@@ -133,15 +134,15 @@ namespace GuildAcademy.Core.Character
             switch (stage)
             {
                 case ErosionStage.Normal:
-                    return NORMAL_THRESHOLD;
+                    return NormalThreshold;
                 case ErosionStage.Unstable:
-                    return _eltDefeated ? UNSTABLE_THRESHOLD_ENHANCED : UNSTABLE_THRESHOLD;
+                    return _eltDefeated ? UnstableThresholdEnhanced : UnstableThreshold;
                 case ErosionStage.Dangerous:
-                    return _eltDefeated ? DANGEROUS_THRESHOLD_ENHANCED : DANGEROUS_THRESHOLD;
+                    return _eltDefeated ? DangerousThresholdEnhanced : DangerousThreshold;
                 case ErosionStage.Critical:
-                    return _eltDefeated ? CRITICAL_THRESHOLD_ENHANCED : CRITICAL_THRESHOLD;
+                    return _eltDefeated ? CriticalThresholdEnhanced : CriticalThreshold;
                 default:
-                    return NORMAL_THRESHOLD;
+                    return NormalThreshold;
             }
         }
     }
