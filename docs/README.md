@@ -3,6 +3,8 @@
 ## 目次
 
 - [環境構築ガイド](./setup-guide.md) — Unity / Git のセットアップ手順
+- [Unityエラー切り分けガイド](./unity-error-triage.md) — Import失敗とAI Assistantエラーの診断手順
+- [学園9エリア実装 明日用ランबुक](./maps/academy-9areas-tomorrow-runbook.md) — 9エリアの続き作業手順と確認ポイント
 - [ゲームデザイン決定事項](./game-design.md) — キャラ、バトル、エンディング、分岐システム
 - [技術アーキテクチャ](./architecture.md) — フォルダ構成、設計原則、テスト戦略、AI活用ツール
 - [会話JSONスキーマ](./dialogue-schema.md) — Dialogue JSON の構造、互換仕様、バリデーション
