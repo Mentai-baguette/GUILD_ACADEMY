@@ -118,5 +118,13 @@ namespace GuildAcademy.Tests.EditMode.Battle
             Assert.AreEqual(1.0f, _formation.GetAttackModifier(unknown, isMagic: false));
             Assert.AreEqual(1.0f, _formation.GetDefenseModifier(unknown, isMagic: false));
         }
+
+        [Test]
+        public void ChangeRow_UnregisteredCharacter_SwitchesToBack()
+        {
+            var unknown = new CharacterStats("Unknown", 50, 10, 10, 10, 10);
+            _formation.ChangeRow(unknown);
+            Assert.AreEqual(FormationRow.Back, _formation.GetRow(unknown));
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GuildAcademy.Core.Data;
 
@@ -15,18 +16,21 @@ namespace GuildAcademy.Core.Battle
         /// <summary>隊列を設定する</summary>
         public void SetRow(CharacterStats character, FormationRow row)
         {
+            if (character == null) throw new ArgumentNullException(nameof(character));
             _formations[character] = row;
         }
 
         /// <summary>隊列を取得する（未登録は前列扱い）</summary>
         public FormationRow GetRow(CharacterStats character)
         {
+            if (character == null) throw new ArgumentNullException(nameof(character));
             return _formations.TryGetValue(character, out var row) ? row : FormationRow.Front;
         }
 
-        /// <summary>前列⇔後列を切り替える（ターン消費）</summary>
+        /// <summary>前列⇔後列を切り替える</summary>
         public void ChangeRow(CharacterStats character)
         {
+            if (character == null) throw new ArgumentNullException(nameof(character));
             var current = GetRow(character);
             _formations[character] = current == FormationRow.Front
                 ? FormationRow.Back
@@ -39,6 +43,7 @@ namespace GuildAcademy.Core.Battle
         /// </summary>
         public float GetAttackModifier(CharacterStats attacker, bool isMagic)
         {
+            if (attacker == null) throw new ArgumentNullException(nameof(attacker));
             if (isMagic) return 1.0f;
             return GetRow(attacker) == FormationRow.Back
                 ? BACK_ROW_PHYSICAL_MODIFIER
@@ -46,11 +51,12 @@ namespace GuildAcademy.Core.Battle
         }
 
         /// <summary>
-        /// 防御側の隊列補正を返す。
+        /// 防御側の隊列補正を返す。この値は最終被ダメージに乗算する。
         /// 後列 + 物理被弾 → 0.8、それ以外 → 1.0
         /// </summary>
         public float GetDefenseModifier(CharacterStats defender, bool isMagic)
         {
+            if (defender == null) throw new ArgumentNullException(nameof(defender));
             if (isMagic) return 1.0f;
             return GetRow(defender) == FormationRow.Back
                 ? BACK_ROW_PHYSICAL_MODIFIER
