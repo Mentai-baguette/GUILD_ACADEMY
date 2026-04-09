@@ -24,10 +24,16 @@ namespace GuildAcademy.MonoBehaviours.Field
         [SerializeField] private InfoFlagTrigger _infoFlagTrigger;
 
         /// <summary>
-        /// 章取得用のCalendarManager参照。外部から設定する。
-        /// ScheduleManagerMBのAwake等で NPCController.SharedCalendar = calendar; とする。
+        /// 章取得用のCalendarManager参照。
+        /// ScheduleManagerMBが存在すればそちらから注入される。
+        /// 未設定の場合は初回アクセス時にデフォルトインスタンスを生成する。
         /// </summary>
-        public static CalendarManager SharedCalendar { get; set; }
+        public static CalendarManager SharedCalendar
+        {
+            get => _sharedCalendar ??= new CalendarManager();
+            set => _sharedCalendar = value;
+        }
+        private static CalendarManager _sharedCalendar;
 
         private bool _playerInRange;
         private bool _inConversation;
@@ -105,14 +111,11 @@ namespace GuildAcademy.MonoBehaviours.Field
 
         /// <summary>
         /// 現在の章番号を取得する（1-indexed）。
-        /// SharedCalendarが設定されていればCalendarManager.CurrentChapterから動的取得。
+        /// SharedCalendar.CurrentChapterから動的取得。
         /// </summary>
         private int GetCurrentChapter()
         {
-            if (SharedCalendar != null)
-                return (int)SharedCalendar.CurrentChapter + 1;
-
-            return 1;
+            return (int)SharedCalendar.CurrentChapter + 1;
         }
 
         private System.Collections.IEnumerator WaitForDialogueEnd(DialogueUIBridge bridge)
