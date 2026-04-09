@@ -23,8 +23,9 @@ namespace GuildAcademy.Core.Battle
 
         /// <summary>
         /// ダメージ計算（物理/魔法対応）
-        /// 物理: (ATK×2 - DEF) × skillMult × element × crit × break × variance
-        /// 魔法: (INT×2 - RES) × skillMult × element × crit × break × variance
+        /// skillPower > 0 の場合: ((ATK×2×skillPower/100) - DEF + variance) × element × crit × break
+        /// skillPower = 0 の場合: ((ATK×2) - DEF + variance) × element × crit × break
+        /// ※ variance は乗算ではなく基礎ダメージへ加算
         /// </summary>
         public int Calculate(int attackStat, int defenseStat, ElementType attackElement,
             ElementType defenderWeakElement, ElementType defenderResistElement,
@@ -60,7 +61,7 @@ namespace GuildAcademy.Core.Battle
 
         /// <summary>
         /// クリティカル判定（DEX依存）
-        /// クリティカル率 = DEX / 200（DEX100で50%）
+        /// クリティカル率 = DEX/2 %（DEX100→50%、DEX200→100%、上限100%）
         /// </summary>
         public static int GetCriticalChancePercent(int dex)
         {

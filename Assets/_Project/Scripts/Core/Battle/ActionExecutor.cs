@@ -29,7 +29,7 @@ namespace GuildAcademy.Core.Battle
             if (command.Type == CommandType.Defend)
                 return result;
 
-            // クリティカル判定: DEX依存（DEX/200）
+            // クリティカル判定: DEX依存（DEX/2%、最大100%）
             int critChance = DamageCalculator.GetCriticalChancePercent(command.Attacker.Dex);
             bool isCritical = _random.Range(0, 100) < critChance;
             result.WasCritical = isCritical;

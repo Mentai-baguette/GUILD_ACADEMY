@@ -170,8 +170,8 @@ namespace GuildAcademy.Tests.EditMode.Battle
             };
 
             var result = executor.Execute(command);
-            // SkillPower=150: (30×2×150/100) - 10 + 50(variance) = 80, DEX=0 → no crit
-            Assert.Greater(result.DamageDealt, 0);
+            // SkillPower=150: (30×2×150/100) - 10 + 50(variance) = 130, DEX=0 → no crit
+            Assert.AreEqual(130, result.DamageDealt);
         }
 
         [Test]
