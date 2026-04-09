@@ -45,3 +45,12 @@
 - 効果音（SE）素材は EVENTSTUDIO で生成した素材を使用
 - 詳細は [docs/audio-credits.md](./docs/audio-credits.md) を参照
 - 検証記録は [docs/audio-validation.md](./docs/audio-validation.md) を参照
+
+## マップタイルのライセンスクレジット
+
+DragonDePlatino様よりDawnLike - 16x16 Universal Rogue-like tileset v1.81
+https://opengameart.org/content/dawnlike-16x16-universal-rogue-like-tileset-v181
+
+Redshrike様より
+RPG Indoor Tileset: Expansion 1
+https://opengameart.org/content/rpg-indoor-tileset-expansion-1
