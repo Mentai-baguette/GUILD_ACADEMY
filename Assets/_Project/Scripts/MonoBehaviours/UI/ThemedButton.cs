@@ -71,6 +71,19 @@ namespace GuildAcademy.UI
             ApplyTheme();
         }
 
+        /// <summary>interactable変更時に枠色・テキスト色を再適用する</summary>
+        public void RefreshState()
+        {
+            if (theme == null || _button == null) return;
+
+            if (mode == ButtonMode.Standard)
+            {
+                UpdateBorderColor();
+                if (labelText != null)
+                    labelText.color = _button.interactable ? theme.textNormal : theme.textDisabled;
+            }
+        }
+
         /// <summary>タブの選択状態を設定する（Tabモード用）</summary>
         public void SetTabSelected(bool selected)
         {
