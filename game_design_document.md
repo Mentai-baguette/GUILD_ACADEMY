@@ -108,8 +108,8 @@
 |----------|--------|----------------|
 | キャラクターデザイン原案 | Midjourney / DALL-E / Stable Diffusion | コンセプトアート生成 → ドット絵化 |
 | マップタイル | AI画像生成 + 加工 | 学園・ダンジョンのタイル生成 |
-| BGM | Suno / Udio | 学園日常BGM、ダンジョン、ボス戦等を生成 |
-| SE | ElevenLabs / 効果音AI | 打撃音、魔法音、UI音の生成 |
+| BGM | deevid.ai | 学園日常BGM、ダンジョン、ボス戦等を生成 |
+| SE | EVENTSTUDIO | 打撃音、魔法音、UI音の生成 |
 | テキスト・セリフ | Claude / ChatGPT | キャラの口調に合わせたセリフ、分岐テキスト |
 
 #### Phase 4: QA・仕上げ
