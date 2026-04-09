@@ -27,7 +27,7 @@ namespace GuildAcademy.Core.Character
         public int ResGain { get; set; }
         public int AgiGain { get; set; }
         public int DexGain { get; set; }
-        public int SpGained { get; set; } // 0 or 1
+        public int SpGained { get; set; } // 連続LvUP時は累積（偶数Lvごとに+1）
     }
 
     public class LevelSystem
@@ -70,6 +70,12 @@ namespace GuildAcademy.Core.Character
             var result = new LevelUpResult();
 
             if (stats.Lv >= MAX_LEVEL)
+            {
+                result.NewLevel = stats.Lv;
+                return result;
+            }
+
+            if (expGained <= 0)
             {
                 result.NewLevel = stats.Lv;
                 return result;
