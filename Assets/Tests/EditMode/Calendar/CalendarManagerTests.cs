@@ -20,7 +20,7 @@ namespace GuildAcademy.Tests.EditMode.Calendar
         public void InitialState_Week1MondayMorningChapter1()
         {
             Assert.AreEqual(1, _calendar.CurrentWeek);
-            Assert.AreEqual(DayOfWeek.Monday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Monday, _calendar.CurrentDay);
             Assert.AreEqual(TimeOfDay.Morning, _calendar.CurrentTime);
             Assert.AreEqual(Chapter.Chapter1, _calendar.CurrentChapter);
             Assert.AreEqual(VacationType.None, _calendar.CurrentVacation);
@@ -34,7 +34,7 @@ namespace GuildAcademy.Tests.EditMode.Calendar
         {
             _calendar.AdvanceTime();
             Assert.AreEqual(TimeOfDay.Afternoon, _calendar.CurrentTime);
-            Assert.AreEqual(DayOfWeek.Monday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Monday, _calendar.CurrentDay);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace GuildAcademy.Tests.EditMode.Calendar
             _calendar.AdvanceTime(); // Morning -> Afternoon
             _calendar.AdvanceTime(); // Afternoon -> Night
             Assert.AreEqual(TimeOfDay.Night, _calendar.CurrentTime);
-            Assert.AreEqual(DayOfWeek.Monday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Monday, _calendar.CurrentDay);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace GuildAcademy.Tests.EditMode.Calendar
             _calendar.AdvanceTime(); // Afternoon -> Night
             _calendar.AdvanceTime(); // Night -> Next day Morning
             Assert.AreEqual(TimeOfDay.Morning, _calendar.CurrentTime);
-            Assert.AreEqual(DayOfWeek.Tuesday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Tuesday, _calendar.CurrentDay);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace GuildAcademy.Tests.EditMode.Calendar
         public void AdvanceDay_MondayToTuesday()
         {
             _calendar.AdvanceDay();
-            Assert.AreEqual(DayOfWeek.Tuesday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Tuesday, _calendar.CurrentDay);
             Assert.AreEqual(TimeOfDay.Morning, _calendar.CurrentTime);
         }
 
@@ -83,10 +83,10 @@ namespace GuildAcademy.Tests.EditMode.Calendar
             for (int i = 0; i < 5; i++)
                 _calendar.AdvanceDay();
 
-            Assert.AreEqual(DayOfWeek.Saturday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Saturday, _calendar.CurrentDay);
 
             _calendar.AdvanceDay();
-            Assert.AreEqual(DayOfWeek.Sunday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Sunday, _calendar.CurrentDay);
         }
 
         [Test]
@@ -96,10 +96,10 @@ namespace GuildAcademy.Tests.EditMode.Calendar
             for (int i = 0; i < 6; i++)
                 _calendar.AdvanceDay();
 
-            Assert.AreEqual(DayOfWeek.Sunday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Sunday, _calendar.CurrentDay);
 
             _calendar.AdvanceDay(); // Sunday -> next week Monday
-            Assert.AreEqual(DayOfWeek.Monday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Monday, _calendar.CurrentDay);
             Assert.AreEqual(2, _calendar.CurrentWeek);
         }
 
@@ -114,11 +114,11 @@ namespace GuildAcademy.Tests.EditMode.Calendar
         [Test]
         public void AdvanceDay_FiresEvent()
         {
-            DayOfWeek received = DayOfWeek.Monday;
+            CalendarDay received = CalendarDay.Monday;
             _calendar.OnDayAdvanced += d => received = d;
 
             _calendar.AdvanceDay();
-            Assert.AreEqual(DayOfWeek.Tuesday, received);
+            Assert.AreEqual(CalendarDay.Tuesday, received);
         }
 
         // ===== 週進行テスト =====
@@ -128,7 +128,7 @@ namespace GuildAcademy.Tests.EditMode.Calendar
         {
             _calendar.AdvanceWeek();
             Assert.AreEqual(2, _calendar.CurrentWeek);
-            Assert.AreEqual(DayOfWeek.Monday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Monday, _calendar.CurrentDay);
             Assert.AreEqual(TimeOfDay.Morning, _calendar.CurrentTime);
         }
 
@@ -350,12 +350,12 @@ namespace GuildAcademy.Tests.EditMode.Calendar
             for (int i = 0; i < 5; i++)
                 _calendar.AdvanceDay();
 
-            Assert.AreEqual(DayOfWeek.Saturday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Saturday, _calendar.CurrentDay);
             Assert.IsTrue(_calendar.IsWeekend());
             Assert.IsFalse(_calendar.IsWeekday());
 
             _calendar.AdvanceDay(); // Sunday
-            Assert.AreEqual(DayOfWeek.Sunday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Sunday, _calendar.CurrentDay);
             Assert.IsTrue(_calendar.IsWeekend());
             Assert.IsFalse(_calendar.IsWeekday());
         }
@@ -451,10 +451,10 @@ namespace GuildAcademy.Tests.EditMode.Calendar
         [Test]
         public void FullDayProgression_OneWeek_CorrectDaySequence()
         {
-            DayOfWeek[] expected = {
-                DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday,
-                DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday,
-                DayOfWeek.Sunday
+            CalendarDay[] expected = {
+                CalendarDay.Monday, CalendarDay.Tuesday, CalendarDay.Wednesday,
+                CalendarDay.Thursday, CalendarDay.Friday, CalendarDay.Saturday,
+                CalendarDay.Sunday
             };
 
             for (int i = 0; i < expected.Length; i++)
@@ -466,7 +466,7 @@ namespace GuildAcademy.Tests.EditMode.Calendar
 
             // Sunday -> AdvanceDay should move to next week Monday
             _calendar.AdvanceDay();
-            Assert.AreEqual(DayOfWeek.Monday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Monday, _calendar.CurrentDay);
             Assert.AreEqual(2, _calendar.CurrentWeek);
         }
 
@@ -480,7 +480,7 @@ namespace GuildAcademy.Tests.EditMode.Calendar
             Assert.AreEqual(TimeOfDay.Night, _calendar.CurrentTime);
             _calendar.AdvanceTime(); // wraps to next day morning
             Assert.AreEqual(TimeOfDay.Morning, _calendar.CurrentTime);
-            Assert.AreEqual(DayOfWeek.Tuesday, _calendar.CurrentDay);
+            Assert.AreEqual(CalendarDay.Tuesday, _calendar.CurrentDay);
         }
     }
 }

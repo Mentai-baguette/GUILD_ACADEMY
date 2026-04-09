@@ -3,7 +3,7 @@ using System;
 namespace GuildAcademy.Core.Calendar
 {
     public enum Chapter { Chapter1, Chapter2, Chapter3, Chapter4 }
-    public enum DayOfWeek { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
+    public enum CalendarDay { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
     public enum TimeOfDay { Morning, Afternoon, Night }
     public enum VacationType { None, Summer1, Winter, Summer2 }
 
@@ -38,7 +38,7 @@ namespace GuildAcademy.Core.Calendar
         public int CurrentWeek { get; private set; }
 
         /// <summary>現在の曜日</summary>
-        public DayOfWeek CurrentDay { get; private set; }
+        public CalendarDay CurrentDay { get; private set; }
 
         /// <summary>現在の時間帯</summary>
         public TimeOfDay CurrentTime { get; private set; }
@@ -56,7 +56,7 @@ namespace GuildAcademy.Core.Calendar
         public event Action<TimeOfDay> OnTimeAdvanced;
 
         /// <summary>日が進行したときに発火するイベント</summary>
-        public event Action<DayOfWeek> OnDayAdvanced;
+        public event Action<CalendarDay> OnDayAdvanced;
 
         /// <summary>週が進行したときに発火するイベント</summary>
         public event Action<int> OnWeekAdvanced;
@@ -70,7 +70,7 @@ namespace GuildAcademy.Core.Calendar
         public CalendarManager()
         {
             CurrentWeek = 1;
-            CurrentDay = DayOfWeek.Monday;
+            CurrentDay = CalendarDay.Monday;
             CurrentTime = TimeOfDay.Morning;
             CurrentChapter = DetermineChapter(CurrentWeek);
             CurrentVacation = DetermineVacation(CurrentWeek);
@@ -109,13 +109,13 @@ namespace GuildAcademy.Core.Calendar
         {
             if (IsFinished) return;
 
-            if (CurrentDay == DayOfWeek.Sunday)
+            if (CurrentDay == CalendarDay.Sunday)
             {
                 AdvanceWeek();
                 return;
             }
 
-            CurrentDay = CurrentDay + 1;
+            CurrentDay = (CalendarDay)((int)CurrentDay + 1);
             CurrentTime = TimeOfDay.Morning;
             OnTimeAdvanced?.Invoke(CurrentTime);
             OnDayAdvanced?.Invoke(CurrentDay);
@@ -138,7 +138,7 @@ namespace GuildAcademy.Core.Calendar
             var previousVacation = CurrentVacation;
 
             CurrentWeek++;
-            CurrentDay = DayOfWeek.Monday;
+            CurrentDay = CalendarDay.Monday;
             CurrentTime = TimeOfDay.Morning;
             CurrentChapter = DetermineChapter(CurrentWeek);
             CurrentVacation = DetermineVacation(CurrentWeek);
@@ -160,13 +160,13 @@ namespace GuildAcademy.Core.Calendar
         /// <summary>平日（月～金）かどうか</summary>
         public bool IsWeekday()
         {
-            return CurrentDay >= DayOfWeek.Monday && CurrentDay <= DayOfWeek.Friday;
+            return CurrentDay >= CalendarDay.Monday && CurrentDay <= CalendarDay.Friday;
         }
 
         /// <summary>土日かどうか</summary>
         public bool IsWeekend()
         {
-            return CurrentDay == DayOfWeek.Saturday || CurrentDay == DayOfWeek.Sunday;
+            return CurrentDay == CalendarDay.Saturday || CurrentDay == CalendarDay.Sunday;
         }
 
         /// <summary>長期休暇中かどうか</summary>
@@ -187,10 +187,10 @@ namespace GuildAcademy.Core.Calendar
         /// <summary>週番号から章を判定する</summary>
         private Chapter DetermineChapter(int week)
         {
-            if (week <= SUMMER1_END) return Chapter.Chapter1;
-            if (week <= WINTER_END) return Chapter.Chapter2;
-            if (week <= SUMMER2_END) return Chapter.Chapter3;
-            return Chapter.Chapter4;
+            if (week >= CHAPTER1_START && week <= SUMMER1_END) return Chapter.Chapter1;
+            if (week >= CHAPTER2_START && week <= WINTER_END) return Chapter.Chapter2;
+            if (week >= CHAPTER3_START && week <= SUMMER2_END) return Chapter.Chapter3;
+            return Chapter.Chapter4; // CHAPTER4_START以降
         }
 
         /// <summary>週番号から休暇種別を判定する</summary>
