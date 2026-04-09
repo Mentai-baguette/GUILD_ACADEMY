@@ -21,7 +21,8 @@ namespace GuildAcademy.Tests.EditMode.Branch
 
         private EndingContext CreateContext(BattlePhase phase = BattlePhase.AcademyLife,
             BattleResult result = BattleResult.None, bool shionRescued = false,
-            bool carlosDefeated = false, int erosionPercent = 0)
+            bool carlosDefeated = false, int erosionPercent = 0,
+            int shionTrust = 0, bool greyveEventCleared = false, int setsunaTrust = 0)
         {
             return new EndingContext
             {
@@ -31,7 +32,10 @@ namespace GuildAcademy.Tests.EditMode.Branch
                 Result = result,
                 ShionRescued = shionRescued,
                 CarlosDefeated = carlosDefeated,
-                ErosionPercent = erosionPercent
+                ErosionPercent = erosionPercent,
+                ShionTrust = shionTrust,
+                GreyveEventCleared = greyveEventCleared,
+                SetsunaTrust = setsunaTrust
             };
         }
 
@@ -170,6 +174,66 @@ namespace GuildAcademy.Tests.EditMode.Branch
         {
             var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.AllDefeated);
             Assert.AreEqual(EndingType.TotalDefeat, EndingResolver.Resolve(context));
+        }
+
+        // === END4.5 テスト ===
+
+        [Test]
+        public void END4_5_ShionTrust35_GreyveEvent_ReturnsHalfLight()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 35, greyveEventCleared: true);
+            Assert.AreEqual(EndingType.HalfLight, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END4_5_ShionTrust40_SetsunaTrust60_ReturnsHalfLight()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 40, setsunaTrust: 60);
+            Assert.AreEqual(EndingType.HalfLight, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END4_5_ShionTrust29_ReturnsNormal_NotHalfLight()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 29, greyveEventCleared: true);
+            Assert.AreEqual(EndingType.Normal, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END4_5_ShionTrust50_ReturnsNormal_NotHalfLight()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 50, greyveEventCleared: true);
+            Assert.AreEqual(EndingType.Normal, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END4_5_TakesPriorityOverEND4()
+        {
+            // END4条件（ShionPhase2勝利+救出失敗）を満たしつつ、END4.5の追加条件も満たす
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 30, greyveEventCleared: true);
+            Assert.AreEqual(EndingType.HalfLight, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END4_5_BothHiddenConditions_ReturnsHalfLight()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 49, greyveEventCleared: true, setsunaTrust: 60);
+            Assert.AreEqual(EndingType.HalfLight, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END4_5_NoHiddenCondition_ReturnsNormal()
+        {
+            // ShionTrust範囲内だがGreyveもSetsuna条件も満たさない→END4
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 35, greyveEventCleared: false, setsunaTrust: 59);
+            Assert.AreEqual(EndingType.Normal, EndingResolver.Resolve(context));
         }
 
         [Test]
