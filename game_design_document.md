@@ -940,7 +940,8 @@ HP / MP / ATK / DEF / INT / RES / AGI / DEX / LUK / Lv / EXP
 │                          │
 │      ▶ NEW GAME         │
 │        CONTINUE          │
-│        OPTIONS           │
+│        GALLERY           │
+│        SETTING           │
 │        EXIT              │
 │                          │
 │  [背景: 夕暮れの学園]     │
