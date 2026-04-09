@@ -19,6 +19,8 @@
 - [x] 9シーンの雛形を自動生成するEditorスクリプトを追加
 - [x] Portal遷移コンポーネントを追加
 - [x] SpawnPoint/SpawnResolverを追加
+- [x] 9シーンに初期タイルレイアウトとイベントトリガーを配置するEditorスクリプトを追加
+- [x] 9シーンにNPCスポットを配置するEditorスクリプトを追加
 - [ ] 9シーン雛形をUnityメニューから生成
 - [ ] 各シーンにタイル配置（Ground/Decoration/Collision）
 - [ ] NPC配置スポット配置

@@ -34,6 +34,9 @@ namespace GuildAcademy.MonoBehaviours.Field
 
         private void Awake()
         {
+            if (GetComponent<SceneSpawnResolver>() == null)
+                gameObject.AddComponent<SceneSpawnResolver>();
+
             _rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
         }

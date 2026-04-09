@@ -41,5 +41,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Academy/Academy_SchoolGate.unity
     guid: bb2261048e72f433296dc44a8e079185
+  - enabled: 1
+    path: Assets/Scenes/Battle.unity
+    guid: 61474a579ecb7450d98c370270586692
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
