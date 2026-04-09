@@ -262,5 +262,120 @@ namespace GuildAcademy.Tests.EditMode.Branch
             var context = new EndingContext { Flags = _flags, Trust = null };
             Assert.Throws<ArgumentNullException>(() => EndingResolver.Resolve(context));
         }
+
+        // === 境界値・エッジケース追加テスト ===
+
+        [Test]
+        public void END5_TrustExactly80_ReturnsTrueHappy()
+        {
+            SetAllInfoFlags();
+            SetAllTrust(80);
+            var context = CreateContext(BattlePhase.CarlosBattle, BattleResult.PlayerVictory,
+                shionRescued: true, carlosDefeated: true);
+            Assert.AreEqual(EndingType.TrueHappy, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END5_TrustAt100_ReturnsTrueHappy()
+        {
+            SetAllInfoFlags();
+            SetAllTrust(100);
+            var context = CreateContext(BattlePhase.CarlosBattle, BattleResult.PlayerVictory,
+                shionRescued: true, carlosDefeated: true);
+            Assert.AreEqual(EndingType.TrueHappy, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END5_ShionNotRescued_DoesNotReturnTrueHappy()
+        {
+            SetAllInfoFlags();
+            SetAllTrust(100);
+            var context = CreateContext(BattlePhase.CarlosBattle, BattleResult.PlayerVictory,
+                shionRescued: false, carlosDefeated: true);
+            Assert.AreNotEqual(EndingType.TrueHappy, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END5_CarlosNotDefeated_DoesNotReturnTrueHappy()
+        {
+            SetAllInfoFlags();
+            SetAllTrust(100);
+            var context = CreateContext(BattlePhase.CarlosBattle, BattleResult.PlayerVictory,
+                shionRescued: true, carlosDefeated: false);
+            Assert.AreNotEqual(EndingType.TrueHappy, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END6_Erosion100_ReturnsTotalDefeat()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                erosionPercent: 100);
+            Assert.AreEqual(EndingType.TotalDefeat, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END6_PreShionPhase2_DoesNotTrigger()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase1, BattleResult.AllDefeated);
+            Assert.AreNotEqual(EndingType.TotalDefeat, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END6_TakesPriorityOverEND4_5()
+        {
+            // Erosion 90% + END4.5 conditions both met → END6 wins
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, erosionPercent: 90, shionTrust: 35, greyveEventCleared: true);
+            Assert.AreEqual(EndingType.TotalDefeat, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END4_5_ExactBoundary_ShionTrust30_ReturnsHalfLight()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 30, greyveEventCleared: true);
+            Assert.AreEqual(EndingType.HalfLight, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END4_5_ExactBoundary_ShionTrust49_ReturnsHalfLight()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 49, greyveEventCleared: true);
+            Assert.AreEqual(EndingType.HalfLight, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END4_5_SetsunaTrust59_NoGreyve_ReturnsNormal()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 35, greyveEventCleared: false, setsunaTrust: 59);
+            Assert.AreEqual(EndingType.Normal, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END4_5_SetsunaTrust60_ReturnsHalfLight()
+        {
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
+                shionRescued: false, shionTrust: 35, setsunaTrust: 60);
+            Assert.AreEqual(EndingType.HalfLight, EndingResolver.Resolve(context));
+        }
+
+        [TestCase(BattlePhase.PreAcademy)]
+        [TestCase(BattlePhase.AcademyLife)]
+        public void NoConditionsMet_EarlyPhase_ReturnsNone(BattlePhase phase)
+        {
+            var context = CreateContext(phase, BattleResult.None);
+            Assert.AreEqual(EndingType.None, EndingResolver.Resolve(context));
+        }
+
+        [Test]
+        public void END3_EnemyVictory_WithErosion89_ReturnsShionRoute_NotTotalDefeat()
+        {
+            // Erosion 89 is below 90 threshold, so END6 doesn't trigger
+            var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.EnemyVictory,
+                erosionPercent: 89);
+            Assert.AreEqual(EndingType.ShionRoute, EndingResolver.Resolve(context));
+        }
     }
 }
