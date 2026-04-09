@@ -1,6 +1,7 @@
 using UnityEngine;
 using GuildAcademy.Core.Calendar;
 using GuildAcademy.Core.Schedule;
+using GuildAcademy.MonoBehaviours.Field;
 
 namespace GuildAcademy.MonoBehaviours.Schedule
 {
@@ -23,6 +24,9 @@ namespace GuildAcademy.MonoBehaviours.Schedule
 
             var calendar = new CalendarManager();
             Schedule = new ScheduleManager(calendar);
+
+            // NPCControllerの章切替にCalendarManagerを共有
+            NPCController.SharedCalendar = calendar;
         }
 
         private void OnDestroy()
