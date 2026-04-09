@@ -77,6 +77,35 @@ namespace GuildAcademy.Tests.EditMode.Data
         }
 
         [Test]
+        public void Constructor_NegativeMaxStack_ClampsToOne()
+        {
+            var item = new ItemData("test", "desc", ItemType.Consumable, maxStack: -5);
+            Assert.AreEqual(1, item.MaxStack);
+        }
+
+        [Test]
+        public void Constructor_ZeroMaxStack_ClampsToOne()
+        {
+            var item = new ItemData("test", "desc", ItemType.Consumable, maxStack: 0);
+            Assert.AreEqual(1, item.MaxStack);
+        }
+
+        [Test]
+        public void Constructor_NegativePrice_ClampsToZero()
+        {
+            var item = new ItemData("test", "desc", ItemType.Consumable, buyPrice: -100, sellPrice: -50);
+            Assert.AreEqual(0, item.BuyPrice);
+            Assert.AreEqual(0, item.SellPrice);
+        }
+
+        [Test]
+        public void Constructor_NegativeValue_ClampsToZero()
+        {
+            var item = new ItemData("test", "desc", ItemType.Consumable, value: -10);
+            Assert.AreEqual(0, item.Value);
+        }
+
+        [Test]
         public void FieldOnlyItem_NotUsableInBattle()
         {
             var tent = new ItemData("テント", "HP/MP全回復（フィールドのみ）", ItemType.Consumable,

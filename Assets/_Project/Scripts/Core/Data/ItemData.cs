@@ -24,10 +24,10 @@ namespace GuildAcademy.Core.Data
             Description = description ?? "";
             Type = type;
             Effect = effect;
-            Value = value;
-            MaxStack = maxStack;
-            BuyPrice = buyPrice;
-            SellPrice = sellPrice;
+            Value = Math.Max(0, value);
+            MaxStack = maxStack > 0 ? maxStack : 1;
+            BuyPrice = Math.Max(0, buyPrice);
+            SellPrice = Math.Max(0, sellPrice);
             IsUsableInBattle = isUsableInBattle;
             IsUsableInField = isUsableInField;
         }
