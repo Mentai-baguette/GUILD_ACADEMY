@@ -5,8 +5,6 @@ namespace GuildAcademy.Core.Battle
 {
     public class ActionExecutor
     {
-        public const int CRITICAL_CHANCE_PERCENT = 15;
-
         private readonly DamageCalculator _damageCalc;
         private readonly BreakSystem _breakSystem;
         private readonly IRandom _random;
@@ -31,7 +29,9 @@ namespace GuildAcademy.Core.Battle
             if (command.Type == CommandType.Defend)
                 return result;
 
-            bool isCritical = _random.Range(0, 100) < CRITICAL_CHANCE_PERCENT;
+            // クリティカル判定: DEX依存（DEX/2%、最大100%）
+            int critChance = DamageCalculator.GetCriticalChancePercent(command.Attacker.Dex);
+            bool isCritical = _random.Range(0, 100) < critChance;
             result.WasCritical = isCritical;
 
             bool isWeakHit = command.Element != ElementType.None &&
@@ -40,9 +40,13 @@ namespace GuildAcademy.Core.Battle
 
             bool isBreakState = _breakSystem.IsBreaking(command.Target);
 
+            // 物理/魔法でATK/DEF or INT/RESを使い分け
+            int attackStat = command.IsMagic ? command.Attacker.Int : command.Attacker.Atk;
+            int defenseStat = command.IsMagic ? command.Target.Res : command.Target.Def;
+
             int damage = _damageCalc.Calculate(
-                command.Attacker.Atk,
-                command.Target.Def,
+                attackStat,
+                defenseStat,
                 command.Element,
                 command.Target.WeakElement,
                 command.Target.ResistElement,

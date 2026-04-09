@@ -1,0 +1,725 @@
+{
+  "entries": [
+    {
+      "id": "ch1_home_yuna_wake",
+      "speaker": "Yuna",
+      "text": "レイ、朝だよ〜。…レイ？ …レイ！ 起きて！ ギルドの人もう来てるよ！",
+      "next": "ch1_home_ray_sleepy"
+    },
+    {
+      "id": "ch1_home_ray_sleepy",
+      "speaker": "Ray",
+      "text": "うるさいなぁ...もうちょっと寝かせてよ...",
+      "next": "ch1_home_yuna_leave"
+    },
+    {
+      "id": "ch1_home_yuna_leave",
+      "speaker": "Yuna",
+      "text": "もぅ、先に行ってるから早く来てね！",
+      "next": "ch1_home_mio_wake"
+    },
+    {
+      "id": "ch1_home_mio_wake",
+      "speaker": "Mio",
+      "text": "レイ〜起きてよ〜！ 置いていくよ〜！",
+      "next": "ch1_home_ray_sleep_more"
+    },
+    {
+      "id": "ch1_home_ray_sleep_more",
+      "speaker": "Ray",
+      "text": "わかったってば...Zzz",
+      "next": "ch1_home_yuna_sigh"
+    },
+    {
+      "id": "ch1_home_yuna_sigh",
+      "speaker": "Yuna",
+      "text": "はぁ...レイはいつもこうだよね...",
+      "next": "ch1_home_mio_shrug"
+    },
+    {
+      "id": "ch1_home_mio_shrug",
+      "speaker": "Mio",
+      "text": "まあレイだもんね〜。しょうがない！",
+      "next": "ch1_home_yuna_prepare"
+    },
+    {
+      "id": "ch1_home_yuna_prepare",
+      "speaker": "Yuna",
+      "text": "レイ、早く支度して！ もうすぐ出発するよ！",
+      "next": "ch1_home_ray_agree"
+    },
+    {
+      "id": "ch1_home_ray_agree",
+      "speaker": "Ray",
+      "text": "うん...わかった...",
+      "next": "ch1_home_bed_return_1"
+    },
+    {
+      "id": "ch1_home_bed_return_1",
+      "speaker": "Ray",
+      "text": "Zzz...",
+      "next": "ch1_home_bed_return_1_yuna"
+    },
+    {
+      "id": "ch1_home_bed_return_1_yuna",
+      "speaker": "Yuna",
+      "text": "レイ！ 起きて！ もう出発するよ！",
+      "next": "ch1_home_bed_return_1_mio"
+    },
+    {
+      "id": "ch1_home_bed_return_1_mio",
+      "speaker": "Mio",
+      "text": "レイってば起きて〜！",
+      "next": "ch1_home_bed_return_2"
+    },
+    {
+      "id": "ch1_home_bed_return_2",
+      "speaker": "Ray",
+      "text": "もうちょっと寝かせてよ...Zzz",
+      "next": "ch1_home_bed_return_2_yuna"
+    },
+    {
+      "id": "ch1_home_bed_return_2_yuna",
+      "speaker": "Yuna",
+      "text": "レイ！ もう馬車出ちゃうよ！ 早く起きて！",
+      "next": "ch1_home_bed_return_2_mio"
+    },
+    {
+      "id": "ch1_home_bed_return_2_mio",
+      "speaker": "Mio",
+      "text": "レイだけ入学できなくなっちゃうよ！",
+      "next": "ch1_home_bed_return_2_ray"
+    },
+    {
+      "id": "ch1_home_bed_return_2_ray",
+      "speaker": "Ray",
+      "text": "うん...わかった...",
+      "next": "ch1_home_bed_return_3"
+    },
+    {
+      "id": "ch1_home_bed_return_3",
+      "speaker": "Ray",
+      "text": "Zzz...",
+      "next": "ch1_home_bed_return_3_duo"
+    },
+    {
+      "id": "ch1_home_bed_return_3_duo",
+      "speaker": "Yuna & Mio",
+      "text": "レイってば！",
+      "next": "ch1_home_bed_return_3_ray"
+    },
+    {
+      "id": "ch1_home_bed_return_3_ray",
+      "speaker": "Ray",
+      "text": "ううん...もう行くよ...",
+      "next": "ch1_home_bed_return_4"
+    },
+    {
+      "id": "ch1_home_bed_return_4",
+      "speaker": "Yuna",
+      "text": "レイ...もしかして、行きたくないの？",
+      "choices": [
+        {
+          "text": "...ううん、行くよ",
+          "next": "ch1_home_depart"
+        },
+        {
+          "text": "...うん。行きたくない...ごめん",
+          "next": "ch1_home_refuse_end",
+          "flag": "academy_refused"
+        }
+      ]
+    },
+    {
+      "id": "ch1_home_bed_return_4_mio",
+      "speaker": "Mio",
+      "text": "どうなのレイ？ 学園行きたくないの？"
+    },
+    {
+      "id": "ch1_home_refuse_end",
+      "speaker": "Ray",
+      "text": "...うん。行きたくない...ごめん",
+      "next": "ch1_home_refuse_epilogue"
+    },
+    {
+      "id": "ch1_home_refuse_epilogue",
+      "speaker": "Narration",
+      "text": "レイは学園に行かず、村に帰った。穏やかな日々が続いた。魔王の力が 覚醒することもなく、誰も死なない。",
+      "next": "but..."
+    },
+    {
+      "id": "but...",
+      "speaker": "Narration",
+      "text": "しかし——",
+      "next": "ed1_shadow"
+    },
+    {
+      "id": "ed1_shadow",
+      "speaker": "Narration",
+      "text": "どこかの暗い部屋で、一つの人影が動いた。",
+      "next": "ed1_shadow_line"
+    },
+    {
+      "id": "ed1_shadow_line",
+      "speaker": "???",
+      "text": "...器が来なかったか",
+      "next": "ed1_shadow_line_2"
+    },
+    {
+      "id": "ed1_shadow_line_2",
+      "speaker": "???",
+      "text": "......計画を変更する必要があるな",
+      "next": "ed1_shadow_line_3"
+    },
+    {
+      "id": "ed1_shadow_line_3",
+      "speaker": "???",
+      "text": "平穏な日々の裏で、世界の運命の歯車は止まらなかった。",
+      "next": "ed1_text"
+    },
+    {
+      "id": "ed1_text",
+      "speaker": "???",
+      "text": "END1：知らなければ幸せだった"
+    },
+    {
+      "id": "ch1_home_depart",
+      "speaker": "Ray",
+      "text": "...ううん、行くよ",
+      "next": "ch1_carriage_greeting"
+    },
+    {
+      "id": "ch1_carriage_greeting",
+      "speaker": "Yuna",
+      "text": "おはよう、レイ！ 今日は入学式だよ！",
+      "next": "ch1_carriage_mio_greeting"
+    },
+    {
+      "id": "ch1_carriage_mio_greeting",
+      "speaker": "Mio",
+      "text": "早く行こうよ、レイ！",
+      "next": "ch1_carriage_depart"
+    },
+    {
+      "id": "ch1_carriage_depart",
+      "speaker": "Coachman",
+      "text": "これで3人揃ったな。それじゃあ出発するぞ",
+      "next": "ch1_carriage_yuna"
+    },
+    {
+      "id": "ch1_carriage_yuna",
+      "speaker": "Yuna",
+      "text": "おはようレイ。あいも変わらずお寝坊さんだね",
+      "next": "ch1_carriage_mio"
+    },
+    {
+      "id": "ch1_carriage_mio",
+      "speaker": "Mio",
+      "text": "もう〜...わたしが起こさなかったら永遠に寝てるんだから〜",
+      "next": "ch1_carriage_sleepy_narration"
+    },
+    {
+      "id": "ch1_carriage_sleepy_narration",
+      "speaker": "Narration",
+      "text": "幼馴染二人に治っていない寝癖をいじられながら馬車に揺られていると 、代わり映えのない草原と陽気な陽の光に誘われ、また段々と睡魔が意識を連れ去った。",
+      "next": "ch1_arrival_intro"
+    },
+    {
+      "id": "ch1_arrival_intro",
+      "speaker": "Coachman",
+      "text": "3人とも、見えてきたぞ。あれがクロノス・アカデミーだ。",
+      "next": "ch1_arrival_wall_narration"
+    },
+    {
+      "id": "ch1_arrival_wall_narration",
+      "speaker": "Narration",
+      "text": "王都から少し離れた山の上、鬱蒼とした森を抜けた先には今まで見たこ ともないような石造りの城壁が現れた。それは外からの魔物に対する防壁なのか。それとも中の生徒を逃さないための牢獄か。自身の何倍も高い壁に、思わず手が震える。",
+      "next": "ch1_arrival_hand"
+    },
+    {
+      "id": "ch1_arrival_hand",
+      "speaker": "Narration",
+      "text": "その時ふと、右手を温かい感覚が包んだ。見るとユナが手を握っていた 。",
+      "next": "ch1_arrival_yuna"
+    },
+    {
+      "id": "ch1_arrival_yuna",
+      "speaker": "Yuna",
+      "text": "一緒に行くんだから、寂しくないよ。",
+      "next": "ch1_arrival_mio"
+    },
+    {
+      "id": "ch1_arrival_mio",
+      "speaker": "Mio",
+      "text": "そうそう！ 三人一緒なんだから！",
+      "next": "ch1_arrival_ray"
+    },
+    {
+      "id": "ch1_arrival_ray",
+      "speaker": "Ray",
+      "text": "...ああ、ありがとう",
+      "next": "ch1_arrival_narration"
+    },
+    {
+      "id": "ch1_arrival_narration",
+      "speaker": "Narration",
+      "text": "ユナの温かさで手の震えが収まり、ミオの溌剌とした態度に背筋が伸び た。たしかにこの三人なら、何があっても大丈夫な気がする。",
+      "next": "ch1_arrival_dropoff"
+    },
+    {
+      "id": "ch1_arrival_dropoff",
+      "speaker": "Narration",
+      "text": "馬車は門の前で止まり、三人を降ろした。",
+      "next": "ch1_arrival_goodbye"
+    },
+    {
+      "id": "ch1_arrival_goodbye",
+      "speaker": "Coachman",
+      "text": "すまんな3人とも。私はここまでしか入れないんだ。頑張れよ！",
+      "next": "ch1_arrival_return"
+    },
+    {
+      "id": "ch1_arrival_return",
+      "speaker": "Narration",
+      "text": "そう笑いながら職員は王都へと帰っていった。",
+       "choices": [
+        {
+          "text": "学園へ向かう",
+          "next": "ch1_academy_gate"
+        },
+        {
+          "text": "学園と反対方向へ進む",
+          "next": "ch1_wrongway_1"
+        }
+      ]
+    },
+    {
+      "id": "ch1_wrongway_1",
+      "speaker": "Mio",
+      "text": "レイ〜、そっちは学園じゃないよ〜？",
+      "choices": [
+        {
+          "text": "学園へ向かう",
+          "next": "ch1_academy_gate"
+        },
+        {
+          "text": "学園と反対方向へ進む",
+          "next": "ch1_wrongway_2"
+        }
+      ]
+    },
+    {
+      "id": "ch1_wrongway_2",
+      "speaker": "Yuna",
+      "text": "レイ、こっちだよ？ どうしたの？",
+      "choices": [
+        {
+          "text": "学園へ向かう",
+          "next": "ch1_academy_gate"
+        },
+        {
+          "text": "学園と反対方向へ進む",
+          "next": "ch1_wrongway_3"
+        }
+      ]
+    },
+    {
+      "id": "ch1_wrongway_3",
+      "speaker": "Mio",
+      "text": "ねえ、なんか変だよ...",
+      "next": "ch1_wrongway_3_yuna"
+    },
+    {
+      "id": "ch1_wrongway_3_yuna",
+      "speaker": "Yuna",
+      "text": "レイ...？ 大丈夫？",
+      "choices": [
+        {
+          "text": "学園へ向かう",
+          "next": "ch1_academy_gate"
+        },
+        {
+          "text": "学園と反対方向へ進む",
+          "next": "ch1_wrongway_4"
+        }
+      ]
+    },
+    {
+      "id": "ch1_wrongway_4",
+      "speaker": "Yuna",
+      "text": "レイ、顔色悪いよ。無理しなくていいんだよ？",
+      "next": "ch1_wrongway_4_mio"
+    },
+    {
+      "id": "ch1_wrongway_4_mio",
+      "speaker": "Mio",
+      "text": "...レイ",
+      "choices": [
+        {
+          "text": "学園へ向かう",
+          "next": "ch1_academy_gate"
+        },
+        {
+          "text": "学園と反対方向へ進む",
+          "next": "ch1_wrongway_5"
+        }
+      ]
+    },
+    {
+      "id": "ch1_wrongway_5",
+      "speaker": "Yuna",
+      "text": "...レイ。本当に、行きたくないの？",
+      "next": "ch1_wrongway_5_yuna"
+    },
+    {
+      "id": "ch1_wrongway_5_yuna",
+      "speaker": "Yuna",
+      "text": "わたしは...レイがどうしたいか、それが一番大事だと思う",
+      "next": "ch1_wrongway_5_mio"
+    },
+    {
+      "id": "ch1_wrongway_5_mio",
+      "speaker": "Mio",
+      "text": "...ユナちゃん",
+      "next": "ch1_wrongway_5_support"
+    },
+    {
+      "id": "ch1_wrongway_5_support",
+      "speaker": "Yuna",
+      "text": "でも、もし怖いだけなら...わたしがいるから。大丈夫だから",
+      "choices": [
+        {
+          "text": "学園へ向かう",
+          "next": "ch1_academy_gate"
+        },
+        {
+          "text": "学園と反対方向へ進む",
+          "next": "ch1_wrongway_reject"
+        }
+      ]
+    },
+    {
+      "id": "ch1_wrongway_reject",
+      "speaker": "Ray",
+      "text": "...ごめん",
+      "next": "ch1_wrongway_epilogue"
+    },
+    {
+      "id": "ch1_wrongway_epilogue",
+      "speaker": "Narration",
+      "text": "レイは一人で村の方向に歩いていく。ユナとミオが立ち尽くしている。 ユナの目に涙が浮かんでいた。",
+      "next": "ch1_home_refuse_epilogue"
+    },
+    {
+      "id": "ch1_academy_gate",
+      "speaker": "Narration",
+      "text": "門の前には掲示板や屋台があり、入学式前からすでに学園は活気に満ちていた。",
+      "next": "ch1_academy_gate_yuna"
+    },
+    {
+      "id": "ch1_academy_gate_yuna",
+      "speaker": "Yuna",
+      "text": "すごいね！ 学園ってこんなに賑やかなんだ！",
+      "next": "ch1_academy_gate_mio"
+    },
+    {
+      "id": "ch1_academy_gate_mio",
+      "speaker": "Mio",
+      "text": "うん！ これからの学園生活が楽しみだね！",
+      "choices": [
+        {
+          "text": "...ああ。楽しもう",
+          "next": "ch1_academy_gate_enter"
+        },
+        {
+          "text": "...ちょっと緊張するな",
+          "next": "ch1_academy_gate_nervous"
+        }
+      ]
+    },
+    {
+      "id": "ch1_academy_gate_nervous",
+      "speaker": "Ray",
+      "text": "...でもちょっと緊張するな",
+      "next": "ch1_academy_gate_reassure_yuna"
+    },
+    {
+      "id": "ch1_academy_gate_reassure_yuna",
+      "speaker": "Yuna",
+      "text": "大丈夫だよ！ みんな最初は緊張するものだし、すぐに慣れるよ！",
+      "next": "ch1_academy_gate_reassure_mio"
+    },
+    {
+      "id": "ch1_academy_gate_reassure_mio",
+      "speaker": "Mio",
+      "text": "そうだよ！ それにわたしたちがいるから心配ないよ！",
+      "next": "ch1_academy_gate_thanks"
+    },
+    {
+      "id": "ch1_academy_gate_thanks",
+      "speaker": "Ray",
+      "text": "...ああ、ありがとう。二人がいてくれると心強いよ",
+      "next": "ch1_academy_gate_enjoy"
+    },
+    {
+      "id": "ch1_academy_gate_enjoy",
+      "speaker": "Ray",
+      "text": "...ああ。楽しもう",
+      "next": "ch1_academy_gate_enter"
+    },
+    {
+      "id": "ch1_academy_gate_enter",
+      "speaker": "Narration",
+      "text": "そう言ってレイは幼馴染二人と、三人で学園の門をくぐった。",
+      "next": "ch1_academy_inside"
+    },
+    {
+      "id": "ch1_academy_inside",
+      "speaker": "Narration",
+      "text": "門をくぐると講堂まで続く一本道は多くの新入生で賑わっていた。先輩 たちが勧誘の声をかけている。ユナには治癒術研究会の勧誘が、ミオには魔法研究会の勧誘が来ている。",
+      "next": "ch1_academy_inside_ray"
+    },
+    {
+      "id": "ch1_academy_inside_ray",
+      "speaker": "Ray",
+      "text": "(...俺には誰も声をかけてこないな)。",
+      "next": "ch1_academy_hall"
+    },
+    {
+      "id": "ch1_academy_hall",
+      "speaker": "Narration",
+      "text": "講堂に入ると、入学式がまさに始まるところだった。壇上には大柄な初 老の男性が立っている。引き締まった体躯、鋭い鋼色の目。",
+      "next": "ch1_academy_grave_gaze"
+    },
+    {
+      "id": "ch1_academy_grave_gaze",
+      "speaker": "Narration",
+      "text": "ふとその男性とレイの目が合った。男性の表情が一瞬だけこわばった。 何かを思い出すように目を細め——すぐに厳しい表情に戻り、壇上から全体を見渡した。どうやら学園長のグレイヴというらしい。",
+      "next": "ch1_academy_grave_speech"
+    },
+    {
+      "id": "ch1_academy_grave_speech",
+      "speaker": "Grave",
+      "text": "新入生諸君、ようこそクロノス・アカデミーへ。やるべきことをやり、 学びたいことを学べ。...クラス分けの用紙を配る。各自教室に移動するように",
+      "next": "ch1_class_intro"
+    },
+    {
+      "id": "ch1_class_intro",
+      "speaker": "Narration",
+      "text": "学園長の挨拶の後、教室に移動すると壇上では担任であろう先生が俺た ちを穏やかな笑みで見渡した。",
+      "next": "ch1_class_blackboard"
+    },
+    {
+      "id": "ch1_class_blackboard",
+      "speaker": "Narration",
+      "text": "担任が黒板に大きく『失敗OK』と書き込む。生徒たちからどよめきと笑 いが起き、場の空気が一気に和らいだ。",
+      "next": "ch1_class_carlos_1"
+    },
+    {
+      "id": "ch1_class_carlos_1",
+      "speaker": "Carlos",
+      "text": "ようこそAクラスへ。俺が担任のカルロスだ。肩の力を抜いていこう、ここでは仲間作りが何より大事だからな",
+      "next": "ch1_class_carlos_2"
+    },
+    {
+      "id": "ch1_class_carlos_2",
+      "speaker": "Carlos",
+      "text": "ここでは冒険者になるために必要な術を学ぶ。高い壁もあるかもしれな いが、お前たちなら大丈夫だ。何かあれば遠慮なく言ってくれ。力になるぞ",
+      "next": "ch1_class_carlos_3"
+    },
+    {
+      "id": "ch1_class_carlos_3",
+      "speaker": "Carlos",
+      "text": "早速お互いのことと今の実力を知るために模擬戦を行う。各自武器を持 って訓練場に移動してくれ",
+      "next": "ch1_class_yuna"
+    },
+    {
+      "id": "ch1_class_yuna",
+      "speaker": "Yuna",
+      "text": "レイ！ 同じクラスでよかったね",
+      "next": "ch1_class_mio"
+    },
+    {
+      "id": "ch1_class_mio",
+      "speaker": "Mio",
+      "text": "えへへ、これで幼なじみ三人そろったね！ 模擬戦ってことは思いっきり打てるんだよね？ 楽しみ！",
+      "next": "ch1_class_kaito_intro"
+    },
+    {
+      "id": "ch1_class_kaito_intro",
+      "speaker": "Narration",
+      "text": "席を立って訓練場に向かおうとした時、隣の席の銀髪の少年と目が合っ た。鋭い琥珀色の目。腕を組んだまま、こちらを値踏みするように見ている。",
+      "next": "ch1_class_kaito_line"
+    },
+    {
+      "id": "ch1_class_kaito_line",
+      "speaker": "Kaito",
+      "text": "...お前、さっきから随分キョロキョロしてたな",
+      "next": "ch1_class_ray_silent"
+    },
+    {
+      "id": "ch1_class_ray_silent",
+      "speaker": "Ray",
+      "text": "...",
+      "next": "ch1_class_kaito_name"
+    },
+    {
+      "id": "ch1_class_kaito_name",
+      "speaker": "Kaito",
+      "text": "まあいい。俺はカイトだ。お前は？",
+      "next": "ch1_class_ray_name"
+    },
+    {
+      "id": "ch1_class_ray_name",
+      "speaker": "Ray",
+      "text": "...レイ",
+      "next": "ch1_class_kaito_weak"
+    },
+    {
+      "id": "ch1_class_kaito_weak",
+      "speaker": "Kaito",
+      "text": "レイか。...弱そうだな",
+      "next": "ch1_class_mio_protest"
+    },
+    {
+      "id": "ch1_class_mio_protest",
+      "speaker": "Mio",
+      "text": "ちょっと！ 初対面でいきなり失礼じゃない！？",
+      "next": "ch1_class_kaito_prove"
+    },
+    {
+      "id": "ch1_class_kaito_prove",
+      "speaker": "Kaito",
+      "text": "事実を言っただけだ。...模擬戦で証明してみろよ",
+      "next": "ch1_class_kaito_leave"
+    },
+    {
+      "id": "ch1_class_kaito_leave",
+      "speaker": "Narration",
+      "text": "カイトは立ち上がり、訓練場に向かって歩いていった。",
+      "next": "ch1_class_yuna_feel"
+    },
+    {
+      "id": "ch1_class_yuna_feel",
+      "speaker": "Yuna",
+      "text": "...なんだか感じの悪い人だね",
+      "next": "ch1_class_ray_thought"
+    },
+    {
+      "id": "ch1_class_ray_thought",
+      "speaker": "Ray",
+      "text": "...（あいつ、強いな。目を見ればわかる）",
+      "next": "ch1_match_start"
+    },
+    {
+      "id": "ch1_match_start",
+      "speaker": "Carlos",
+      "text": "じゃあ第一試合だ。対戦相手はカイトとレイ。使用武器は両者とも木刀 。両者位置につけ",
+      "next": "ch1_match_kaito"
+    },
+    {
+      "id": "ch1_match_kaito",
+      "speaker": "Kaito",
+      "text": "...さっきの続きだ。見せてみろよ、お前の実力",
+      "next": "ch1_match_ray"
+    },
+    {
+      "id": "ch1_match_ray",
+      "speaker": "Ray",
+      "text": "...よろしく",
+      "next": "ch1_match_result_choice"
+    },
+    {
+      "id": "ch1_match_result_choice",
+      "speaker": "Narration",
+      "text": "試合は状況によって結果が分かれる。",
+      "choices": [
+        {
+          "text": "完敗だ……。俺、全然届かなかった",
+          "next": "ch1_match_result_normal"
+        },
+        {
+          "text": "...負けた",
+          "next": "ch1_match_result_endure"
+        }
+      ]
+    },
+    {
+      "id": "ch1_match_result_normal",
+      "speaker": "Ray",
+      "text": "完敗だ……。俺、全然届かなかった",
+      "next": "ch1_match_result_normal_kaito"
+    },
+    {
+      "id": "ch1_match_result_normal_kaito",
+      "speaker": "Kaito",
+      "text": "...それだけか",
+      "next": "ch1_match_result_normal_narration"
+    },
+    {
+      "id": "ch1_match_result_normal_narration",
+      "speaker": "Narration",
+      "text": "カイトは背を向けて去る。だがその足が一瞬止まった。",
+      "next": "ch1_match_result_normal_kaito_2"
+    },
+    {
+      "id": "ch1_match_result_normal_kaito_2",
+      "speaker": "Kaito",
+      "text": "(...だが、目は死んでなかった)",
+      "next": "ch1_match_after"
+    },
+    {
+      "id": "ch1_match_result_endure",
+      "speaker": "Ray",
+      "text": "...負けた",
+      "next": "ch1_match_result_endure_kaito"
+    },
+    {
+      "id": "ch1_match_result_endure_kaito",
+      "speaker": "Kaito",
+      "text": "...少しはやるな",
+      "next": "ch1_match_result_endure_narration"
+    },
+    {
+      "id": "ch1_match_result_endure_narration",
+      "speaker": "Narration",
+      "text": "カイトは背を向けて去る。",
+      "next": "ch1_match_after"
+    },
+    {
+      "id": "ch1_match_after",
+      "speaker": "Yuna",
+      "text": "レイ、大丈夫？ あの人ちょっとやりすぎだよ...",
+      "next": "ch1_match_heal"
+    },
+    {
+      "id": "ch1_match_heal",
+      "speaker": "Yuna",
+      "text": "回復魔法かけるから、じっとしてて",
+      "next": "ch1_match_after_narration"
+    },
+    {
+      "id": "ch1_match_after_narration",
+      "speaker": "Narration",
+      "text": "その後も模擬戦は続いた。中でも圧巻だったのは、猫獣人の少女と銀髪 の短剣使いの試合だ。獣人特有の反射神経で短剣の猛攻を盾で弾き続け、最後は足をすくって勝利した。",
+      "next": "ch1_match_rin"
+    },
+    {
+      "id": "ch1_match_rin",
+      "speaker": "Rin",
+      "text": "やったにゃ！ わたしの勝ちにゃ！",
+      "next": "ch1_match_jin"
+    },
+    {
+      "id": "ch1_match_jin",
+      "speaker": "Jin",
+      "text": "...やるな、猫",
+      "next": "ch1_match_carlos_end"
+    },
+    {
+      "id": "ch1_match_carlos_end",
+      "speaker": "Carlos",
+      "text": "これで全試合が終了だ。なに、今回負けてしまった奴も、これから始ま る学園生活で基礎を覚えれば、いくらでも強くなれるさ。なんてったって俺のクラスなんだからな！"
+    }
+  ]
+}

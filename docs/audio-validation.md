@@ -1,4 +1,95 @@
-# SE検証記録
+# オーディオ検証記録
+
+## BGM検証記録
+
+### 対象
+
+- 対象ディレクトリ: `Assets/_Project/Audio/BGM/`
+- 対象ファイル数: 4
+- 生成元: deevid.ai
+- 記録日: 2026-04-05
+- 実行者: PR作成者
+- 実行環境: macOS / Unity 6.4
+
+### 本PRに紐づく検証範囲
+
+- 本PRの差分は BGM 4曲の追加と音声ドキュメント更新であり、コード変更は含まない
+- そのため、検証は BGM の手動試聴、ループ再生、ファイルサイズ、インポート設定確認を中心に実施
+- 既存の Edit Mode テスト実績は本PRのベースラインとして参照する
+- 本PRで追加した BGM は、シーン適合と再生品質の確認を主目的として検証している
+
+### 用途対応表
+
+| ファイル名 | 想定用途 | 判定 |
+|---|---|---|
+| `bgm_school_daily.mp3` | 学園日常 | OK |
+| `bgm_dungeon.mp3` | ダンジョン探索 | OK |
+| `bgm_boss_battle.mp3` | ボス戦 | OK |
+| `bgm_ending.mp3` | エンディング | OK |
+
+### 雰囲気評価（手動試聴）
+
+| ファイル名 | 期待した雰囲気 | 試聴結果 | 判定 |
+|---|---|---|---|
+| `bgm_school_daily.mp3` | 学園生活の穏やかさ・日常感 | 会話や移動時に主張しすぎず、日常シーンの空気感と整合 | OK |
+| `bgm_dungeon.mp3` | 緊張感・探索感 | 不安感を維持しつつテンポが崩れず、探索シーンに適合 | OK |
+| `bgm_boss_battle.mp3` | 高揚感・圧迫感 | 戦闘開始から終盤まで勢いを維持し、ボス戦の強度に適合 | OK |
+| `bgm_ending.mp3` | 余韻・終幕感 | 終了演出の余韻を阻害せず、エンディング遷移に適合 | OK |
+
+### ループ再生評価
+
+検証条件:
+- Unity Editor（macOS）で各曲を3回以上連続ループ再生
+- 繋ぎ目のクリックノイズ、拍ズレ、音量段差の有無を確認
+
+| ファイル名 | ループ回数 | 違和感 | 判定 |
+|---|---:|---|---|
+| `bgm_school_daily.mp3` | 3回 | なし | OK |
+| `bgm_dungeon.mp3` | 3回 | なし | OK |
+| `bgm_boss_battle.mp3` | 3回 | なし | OK |
+| `bgm_ending.mp3` | 3回 | なし | OK |
+
+### ファイルサイズ評価
+
+判定基準:
+- BGM単体ファイルとして極端に大きくないこと
+- リポジトリ運用上、4曲合計で過度な容量増加にならないこと
+
+実測（`ls -lh Assets/_Project/Audio/BGM`）:
+- `bgm_school_daily.mp3`: 1.6MB
+- `bgm_dungeon.mp3`: 4.1MB
+- `bgm_boss_battle.mp3`: 3.9MB
+- `bgm_ending.mp3`: 2.9MB
+
+評価:
+- 4曲合計で約12.5MB。現行運用で許容範囲内と判断
+
+### チーム確認記録
+
+- 実施状況: 実施済み
+- 確認日: 2026-04-05
+- 確認方法: チーム試聴（学園日常/ダンジョン/ボス戦/エンディングの4シーン想定）
+- 結果: 雰囲気OKで合意
+
+### BGM追加後の手動再確認
+
+- 再確認日: 2026-04-05
+- 再確認対象: `bgm_school_daily.mp3`, `bgm_dungeon.mp3`, `bgm_boss_battle.mp3`, `bgm_ending.mp3`
+- 再確認内容: ループ接続、シーン適合、音量感、ファイルサイズ
+- 判定: OK
+
+### BGM追加後のテスト実行状況（PR #34）
+
+- 実施日: 2026-04-09（最新run）
+- Edit Mode テスト: 実施済み
+  - 結果: SUCCESS
+  - PR Checks: [Edit Mode Tests](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/24076324437/job/70225578262)
+- Unity ライセンスチェック: SUCCESS
+  - PR Checks: [Check Unity License](https://github.com/Mentai-baguette/GUILD_ACADEMY/actions/runs/24076324437/job/70225567850)
+- Test Results: NEUTRAL（表示系チェック）
+  - PR Checks: [Test Results](https://github.com/Mentai-baguette/GUILD_ACADEMY/runs/70226431679)
+
+## SE検証記録
 
 ## 対象
 
