@@ -61,6 +61,16 @@ namespace GuildAcademy.MonoBehaviours.Field
         private void LateUpdate()
         {
             UpdateAnimator();
+            UpdateCameraFollow();
+        }
+
+        private void UpdateCameraFollow()
+        {
+            var mainCam = UnityEngine.Camera.main;
+            if (mainCam == null) return;
+            Vector3 targetPos = transform.position;
+            targetPos.z = mainCam.transform.position.z;
+            mainCam.transform.position = targetPos;
         }
 
         private void UpdateAnimator()
