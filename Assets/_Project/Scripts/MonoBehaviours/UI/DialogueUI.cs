@@ -110,6 +110,21 @@ namespace GuildAcademy.UI
             });
         }
 
+        // === DialogueUIBridgeから1行ずつ表示するためのメソッド ===
+        public void ShowLine(string speakerName, string message)
+        {
+            _isActive = true;
+            dialoguePanel.SetActive(true);
+            NameText.text = speakerName;
+
+            if (_typingCoroutine != null)
+                StopCoroutine(_typingCoroutine);
+
+            _typingCoroutine = StartCoroutine(TypeMessage(message));
+        }
+
+        public bool IsTypingComplete => !_isTyping;
+
         public void HideDialogue() // 会話ウィンドウを消すメソッド
         {
             dialoguePanel.SetActive(false);
