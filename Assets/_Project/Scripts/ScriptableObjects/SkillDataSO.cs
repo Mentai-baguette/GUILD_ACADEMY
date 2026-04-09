@@ -16,6 +16,7 @@ namespace GuildAcademy.Data
         public ElementType element;
         public SkillTargetType targetType;
         public bool isHealing;
+        public bool isMagic;
 
         [Header("Break")]
         public int breakValue;
@@ -31,6 +32,7 @@ namespace GuildAcademy.Data
                 Element = element,
                 TargetType = targetType,
                 IsHealing = isHealing,
+                IsMagic = isMagic,
                 BreakValue = breakValue
             };
         }

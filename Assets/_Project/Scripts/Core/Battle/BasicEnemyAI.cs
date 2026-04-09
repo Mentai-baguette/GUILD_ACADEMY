@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GuildAcademy.Core.Data;
 
@@ -7,13 +8,18 @@ namespace GuildAcademy.Core.Battle
     {
         public BattleCommand DecideAction(EnemyAIContext context)
         {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+            if (context.Actor == null) throw new ArgumentNullException("context.Actor");
+            if (context.Party == null) throw new ArgumentNullException("context.Party");
+            if (context.Random == null) throw new ArgumentNullException("context.Random");
+
             var actor = context.Actor;
             var party = context.Party;
             var random = context.Random;
             var skills = context.AvailableSkills ?? new List<SkillData>();
             var breakSystem = context.BreakSystem;
 
-            bool isLowHp = actor.CurrentHp * 100 / actor.MaxHp < 30;
+            bool isLowHp = actor.MaxHp <= 0 || actor.CurrentHp * 100 / actor.MaxHp < 30;
 
             // Priority 1: Low HP + healing skill → 25% chance to heal
             if (isLowHp)
@@ -21,8 +27,7 @@ namespace GuildAcademy.Core.Battle
                 var healSkill = FindAffordableHealingSkill(skills, actor);
                 if (healSkill != null)
                 {
-                    int roll = random.Range(0, 100);
-                    if (roll < 25)
+                    if (random.Range(0, 100) < 25)
                     {
                         return CreateSkillCommand(actor, actor, healSkill);
                     }
@@ -60,27 +65,16 @@ namespace GuildAcademy.Core.Battle
                 }
             }
 
-            // Priority 5 (checked before 4 so we can fall through):
-            // Low HP, no healing → 20% chance to defend
+            // Priority 4: Low HP defend (also runs if heal was skipped)
             if (isLowHp)
             {
-                var healSkill = FindAffordableHealingSkill(skills, actor);
-                if (healSkill == null)
+                if (random.Range(0, 100) < 20)
                 {
-                    int roll = random.Range(0, 100);
-                    if (roll < 20)
-                    {
-                        return new BattleCommand
-                        {
-                            Attacker = actor,
-                            Target = actor,
-                            Type = CommandType.Defend
-                        };
-                    }
+                    return CreateDefendCommand(actor);
                 }
             }
 
-            // Priority 4: Normal attack on party member with lowest current HP
+            // Priority 5: Normal attack on party member with lowest current HP
             var lowestHpTarget = FindLowestHpTarget(party);
             return CreateNormalAttack(actor, lowestHpTarget);
         }
@@ -138,6 +132,16 @@ namespace GuildAcademy.Core.Battle
                 Target = target,
                 Type = CommandType.Attack,
                 Element = actor.Element
+            };
+        }
+
+        private static BattleCommand CreateDefendCommand(CharacterStats actor)
+        {
+            return new BattleCommand
+            {
+                Attacker = actor,
+                Target = actor,
+                Type = CommandType.Defend
             };
         }
 

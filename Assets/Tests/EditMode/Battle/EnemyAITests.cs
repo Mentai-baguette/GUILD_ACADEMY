@@ -47,7 +47,6 @@ namespace GuildAcademy.Tests.EditMode.Battle
 
             _breakSystem.Register(memberA);
             _breakSystem.Register(memberB, 1);
-            // Force memberB into break state
             _breakSystem.ApplyHit(memberB, true);
 
             var context = CreateContext(actor, new List<CharacterStats> { memberA, memberB },
@@ -88,14 +87,11 @@ namespace GuildAcademy.Tests.EditMode.Battle
         [Test]
         public void DefendsWhenLowHp_AndRandomDecides()
         {
-            // Actor with HP < 30%
             var actor = CreateActor(100, 100, 10);
             var member = CreatePartyMember("A", 80, ElementType.None);
 
             _breakSystem.Register(member);
 
-            // FixedRandom(0) → roll < 20 triggers defend
-            // No healing skill, so defend path is checked
             var context = CreateContext(actor, new List<CharacterStats> { member },
                 new List<SkillData>(), new FixedRandom(0));
 
@@ -109,7 +105,6 @@ namespace GuildAcademy.Tests.EditMode.Battle
         [Test]
         public void HealsWhenLowHp_AndHasHealingSkill()
         {
-            // Actor with HP < 30%
             var actor = CreateActor(100, 100, 10);
             var member = CreatePartyMember("A", 80, ElementType.None);
 
@@ -124,7 +119,6 @@ namespace GuildAcademy.Tests.EditMode.Battle
                 IsHealing = true
             };
 
-            // FixedRandom(0) → roll < 25 triggers heal
             var context = CreateContext(actor, new List<CharacterStats> { member },
                 new List<SkillData> { healSkill }, new FixedRandom(0));
 
@@ -132,7 +126,7 @@ namespace GuildAcademy.Tests.EditMode.Battle
 
             Assert.AreEqual(CommandType.Skill, cmd.Type);
             Assert.AreEqual(actor, cmd.Target);
-            Assert.IsTrue(cmd.MpCost == 5);
+            Assert.AreEqual(5, cmd.MpCost);
         }
 
         [Test]
@@ -143,7 +137,6 @@ namespace GuildAcademy.Tests.EditMode.Battle
 
             _breakSystem.Register(member);
 
-            // Skill element doesn't match weakness (None), no break, HP is fine
             var iceSkill = new SkillData
             {
                 Name = "Ice",
@@ -185,7 +178,6 @@ namespace GuildAcademy.Tests.EditMode.Battle
 
             var cmd = _ai.DecideAction(context);
 
-            // Should fall back to normal attack since not enough MP
             Assert.AreEqual(CommandType.Attack, cmd.Type);
         }
 

@@ -38,6 +38,9 @@ namespace GuildAcademy.Data
         public int breakGaugeMax;
         public int breakWeakHitValue;
 
+        [Header("Skills")]
+        public SkillDataSO[] skills = new SkillDataSO[0];
+
         [Header("Rewards")]
         public int expReward;
         public int goldReward;
