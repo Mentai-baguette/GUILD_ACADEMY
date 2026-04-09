@@ -216,5 +216,134 @@ namespace GuildAcademy.Tests.EditMode.Battle
             var result = executor.Execute(command);
             Assert.AreEqual(0, result.DamageDealt);
         }
+
+        [Test]
+        public void Execute_MagicAttack_UsesIntAndRes()
+        {
+            // attacker: ATK=30, INT=50 / target: DEF=10, RES=5
+            // IsMagic=true → INT(50) vs RES(5): base = 50*2 - 5 = 95
+            // IsMagic=false → ATK(30) vs DEF(10): base = 30*2 - 10 = 50
+            var magicAttacker = new CharacterStats("Mage", 200, 50, 30, 20, 10,
+                intStat: 50, res: 0, dex: 0);
+            var magicTarget = new CharacterStats("Target", 500, 50, 15, 10, 8,
+                intStat: 0, res: 5, dex: 0);
+            _breakSystem.Register(magicAttacker);
+            _breakSystem.Register(magicTarget);
+
+            var random = new FixedRandom(0);
+            var damageCalc = new DamageCalculator(random);
+            var executor = new ActionExecutor(damageCalc, _breakSystem, random);
+
+            var cmdMagic = new BattleCommand
+            {
+                Attacker = magicAttacker,
+                Target = magicTarget,
+                Type = CommandType.Attack,
+                Element = ElementType.None,
+                IsMagic = true
+            };
+
+            var cmdPhysical = new BattleCommand
+            {
+                Attacker = magicAttacker,
+                Target = magicTarget,
+                Type = CommandType.Attack,
+                Element = ElementType.None,
+                IsMagic = false
+            };
+
+            var magicResult = executor.Execute(cmdMagic);
+            var physicalResult = executor.Execute(cmdPhysical);
+
+            // INT(50) vs RES(5) should deal more damage than ATK(30) vs DEF(10)
+            Assert.Greater(magicResult.DamageDealt, physicalResult.DamageDealt);
+        }
+
+        [Test]
+        public void Execute_PhysicalAttack_UsesAtkAndDef()
+        {
+            // IsMagic=false (default) → ATK vs DEF
+            // attacker: ATK=30, INT=0 / target: DEF=10, RES=100
+            // Physical: ATK(30) vs DEF(10) = 30*2 - 10 = 50 → damage > 0
+            // If it mistakenly used INT/RES: INT(0) vs RES(100) → 0 - 100 → min damage
+            var physAttacker = new CharacterStats("Fighter", 200, 50, 30, 20, 10,
+                intStat: 0, res: 0, dex: 0);
+            var physTarget = new CharacterStats("Target", 500, 50, 15, 10, 8,
+                intStat: 0, res: 100, dex: 0);
+            _breakSystem.Register(physAttacker);
+            _breakSystem.Register(physTarget);
+
+            var random = new FixedRandom(0);
+            var damageCalc = new DamageCalculator(random);
+            var executor = new ActionExecutor(damageCalc, _breakSystem, random);
+
+            var command = new BattleCommand
+            {
+                Attacker = physAttacker,
+                Target = physTarget,
+                Type = CommandType.Attack,
+                Element = ElementType.None,
+                IsMagic = false
+            };
+
+            var result = executor.Execute(command);
+
+            // ATK(30) vs DEF(10) → base=50, should be well above minimum
+            Assert.Greater(result.DamageDealt, 1);
+        }
+
+        [Test]
+        public void Execute_HighDex_HigherCriticalChance()
+        {
+            // DEX=200 → critChance = min(200/2, 100) = 100%
+            // FixedRandom(0) → Range(0,100) returns 0 → 0 < 100 → critical
+            var highDexAttacker = new CharacterStats("Assassin", 200, 50, 30, 20, 10,
+                intStat: 0, res: 0, dex: 200);
+            var target = new CharacterStats("Target", 500, 50, 15, 10, 8);
+            _breakSystem.Register(highDexAttacker);
+            _breakSystem.Register(target);
+
+            var random = new FixedRandom(0);
+            var damageCalc = new DamageCalculator(random);
+            var executor = new ActionExecutor(damageCalc, _breakSystem, random);
+
+            var command = new BattleCommand
+            {
+                Attacker = highDexAttacker,
+                Target = target,
+                Type = CommandType.Attack,
+                Element = ElementType.None
+            };
+
+            var result = executor.Execute(command);
+            Assert.IsTrue(result.WasCritical);
+        }
+
+        [Test]
+        public void Execute_ZeroDex_NoCritical()
+        {
+            // DEX=0 → critChance = min(0/2, 100) = 0%
+            // FixedRandom(0) → Range(0,100) returns 0 → 0 < 0 → false → no critical
+            var zeroDexAttacker = new CharacterStats("Slowpoke", 200, 50, 30, 20, 10,
+                intStat: 0, res: 0, dex: 0);
+            var target = new CharacterStats("Target", 500, 50, 15, 10, 8);
+            _breakSystem.Register(zeroDexAttacker);
+            _breakSystem.Register(target);
+
+            var random = new FixedRandom(0);
+            var damageCalc = new DamageCalculator(random);
+            var executor = new ActionExecutor(damageCalc, _breakSystem, random);
+
+            var command = new BattleCommand
+            {
+                Attacker = zeroDexAttacker,
+                Target = target,
+                Type = CommandType.Attack,
+                Element = ElementType.None
+            };
+
+            var result = executor.Execute(command);
+            Assert.IsFalse(result.WasCritical);
+        }
     }
 }
