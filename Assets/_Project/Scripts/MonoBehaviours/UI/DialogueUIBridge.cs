@@ -74,6 +74,11 @@ namespace GuildAcademy.UI
             _waitingForChoice = false;
             if (_choiceUI != null) _choiceUI.Hide();
 
+            if (_dialogueUI == null)
+            {
+                Debug.LogError("[DialogueUIBridge] DialogueUI not assigned.");
+                return;
+            }
             _dialogueUI.ShowLine(entry.Speaker, entry.Text);
         }
 
@@ -96,7 +101,7 @@ namespace GuildAcademy.UI
         {
             _waitingForChoice = false;
             if (_choiceUI != null) _choiceUI.Hide();
-            _dialogueUI.HideDialogue();
+            if (_dialogueUI != null) _dialogueUI.HideDialogue();
         }
 
         private void OnChoiceSelected(int index)
@@ -104,6 +109,17 @@ namespace GuildAcademy.UI
             _waitingForChoice = false;
             if (_choiceUI != null) _choiceUI.Hide();
             _dialogueManager.SelectChoice(index);
+        }
+
+        private void OnDestroy()
+        {
+            if (_dialogueManager != null)
+            {
+                _dialogueManager.OnDialogueAdvanced -= HandleDialogueAdvanced;
+                _dialogueManager.OnChoicesPresented -= HandleChoicesPresented;
+                _dialogueManager.OnDialogueEnded -= HandleDialogueEnded;
+            }
+            if (Instance == this) Instance = null;
         }
 
         public void OnAdvanceInput()

@@ -172,6 +172,8 @@ namespace GuildAcademy.UI
         {
             // 会話中でなければ何もしない
             if (!_isActive) return;
+            // Bridge経由(ShowLine)の場合は_linesがnull → Bridge側で入力を処理するためここではスキップ
+            if (_lines == null) return;
 
             bool inputPressed =
                 (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
