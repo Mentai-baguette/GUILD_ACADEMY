@@ -179,7 +179,7 @@ namespace GuildAcademy.Tests.EditMode.Branch
         // === END4.5 テスト ===
 
         [Test]
-        public void END4_5_ShionTrust30_GreyveEvent_ReturnsHalfLight()
+        public void END4_5_ShionTrust35_GreyveEvent_ReturnsHalfLight()
         {
             var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
                 shionRescued: false, shionTrust: 35, greyveEventCleared: true);
@@ -187,7 +187,7 @@ namespace GuildAcademy.Tests.EditMode.Branch
         }
 
         [Test]
-        public void END4_5_ShionTrust30_SetsunaTrust60_ReturnsHalfLight()
+        public void END4_5_ShionTrust40_SetsunaTrust60_ReturnsHalfLight()
         {
             var context = CreateContext(BattlePhase.ShionPhase2, BattleResult.PlayerVictory,
                 shionRescued: false, shionTrust: 40, setsunaTrust: 60);
