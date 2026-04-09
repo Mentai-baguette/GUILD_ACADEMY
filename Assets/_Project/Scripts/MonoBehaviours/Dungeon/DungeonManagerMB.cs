@@ -138,7 +138,13 @@ namespace GuildAcademy.MonoBehaviours.Dungeon
             BattleSetupData.Current = setup;
 
             if (SceneTransitionManager.Instance != null)
+            {
                 SceneTransitionManager.Instance.LoadScene(SceneNames.Battle);
+            }
+            else
+            {
+                Debug.LogError("[DungeonManagerMB] SceneTransitionManager not found. Battle scene transition failed.");
+            }
         }
 
         private List<CharacterStats> GetBattleParty()
@@ -166,7 +172,13 @@ namespace GuildAcademy.MonoBehaviours.Dungeon
         private void HandleDungeonExited()
         {
             if (SceneTransitionManager.Instance != null)
+            {
                 SceneTransitionManager.Instance.LoadScene(SceneNames.Field);
+            }
+            else
+            {
+                Debug.LogError("[DungeonManagerMB] SceneTransitionManager not found. Field return failed.");
+            }
         }
 
         private void OnDestroy()
