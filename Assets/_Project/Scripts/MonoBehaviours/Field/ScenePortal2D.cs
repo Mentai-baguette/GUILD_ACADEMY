@@ -1,5 +1,6 @@
 using GuildAcademy.Core.Data;
 using GuildAcademy.MonoBehaviours.UI;
+using System;
 using UnityEngine;
 
 namespace GuildAcademy.MonoBehaviours.Field
@@ -8,6 +9,8 @@ namespace GuildAcademy.MonoBehaviours.Field
     public class ScenePortal2D : MonoBehaviour
     {
         private const string SpawnPointKey = "spawnPointId";
+
+        public static Func<string, bool> SceneLoadOverride { get; set; }
 
         [Header("Target")]
         [SerializeField] private string _targetSceneName;
@@ -34,6 +37,8 @@ namespace GuildAcademy.MonoBehaviours.Field
 
             if (SceneTransitionManager.Instance != null)
                 SceneTransitionManager.Instance.LoadScene(_targetSceneName);
+            else if (SceneLoadOverride != null && SceneLoadOverride(_targetSceneName))
+                return;
             else
                 UnityEngine.SceneManagement.SceneManager.LoadScene(_targetSceneName);
         }

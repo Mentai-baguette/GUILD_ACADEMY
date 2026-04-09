@@ -10,16 +10,24 @@ namespace GuildAcademy.MonoBehaviours.Field
         public string SpawnId => _spawnId;
         public Vector2 FacingDirection => _facingDirection;
 
+        public static string NormalizeSpawnId(string spawnId)
+        {
+            return string.IsNullOrWhiteSpace(spawnId) ? "default" : spawnId;
+        }
+
+        public static Vector2 NormalizeFacingDirection(Vector2 facingDirection)
+        {
+            if (facingDirection.sqrMagnitude < 0.0001f)
+                return Vector2.down;
+
+            return facingDirection.normalized;
+        }
+
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            if (string.IsNullOrWhiteSpace(_spawnId))
-                _spawnId = "default";
-
-            if (_facingDirection.sqrMagnitude < 0.0001f)
-                _facingDirection = Vector2.down;
-            else
-                _facingDirection.Normalize();
+            _spawnId = NormalizeSpawnId(_spawnId);
+            _facingDirection = NormalizeFacingDirection(_facingDirection);
         }
 #endif
     }

@@ -27,16 +27,27 @@
 - [x] Hallway <-> TrainingGround 往復接続のEditorスクリプトを追加（GuildAcademy/Maps/Connect Hallway <-> TrainingGround）
 - [x] Academy_Courtyard を新規生成するEditorスクリプトを追加（GuildAcademy/Maps/Create Academy Courtyard）
 - [x] SceneNames に Academy_Courtyard 定数を追加
-- [ ] 9シーン雛形をUnityメニューから生成
+- [x] 9シーン雛形をUnityメニューから生成
 - [x] Academy_Courtyard シーンをUnityメニューから生成
+- [x] プレイヤー初期化時にSceneSpawnResolverを保証する（PlayerController.Awake で自動追加）
+- [x] Build Settingsの遷移確認
+- [x] Academy_Classroom は類似タイル・小物で先に完成させ、不足素材は後で差し替える
+- [x] Academy_Library は類似タイルで仮実装し、不足素材は後で差し替える
+
+## 自動検証
+
+- [x] SceneTransitionData の Set/Get/Remove/Clear を EditMode で検証
+- [x] ScenePortal2D の player 判定と spawnPointId 設定を EditMode で検証
+- [x] SceneSpawnResolver のスポーン着地とキー削除を EditMode で検証
+- [x] SceneSpawnPoint の正規化ルールを EditMode で検証
+- [x] PlayerController が SceneSpawnResolver を自動追加することを EditMode で検証
+
+## 残タスク
+
 - [ ] 各シーンにタイル配置（Ground/Decoration/Collision）
 - [ ] NPC配置スポット配置
 - [ ] イベントトリガー配置
 - [ ] ポータル位置の微調整
-- [ ] プレイヤーPrefabにSceneSpawnResolverを追加
-- [ ] Build Settingsの遷移確認
-- [x] Academy_Classroom は類似タイル・小物で先に完成させ、不足素材は後で差し替える
-- [x] Academy_Library は類似タイルで仮実装し、不足素材は後で差し替える
 - [ ] Academy_Cafeteria は類似タイル・小物で先に完成させ、不足素材は後で差し替える
 
 ## 遷移ネットワーク（初期案）
