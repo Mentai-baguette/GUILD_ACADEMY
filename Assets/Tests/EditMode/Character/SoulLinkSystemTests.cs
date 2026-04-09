@@ -16,6 +16,8 @@ namespace GuildAcademy.Tests.EditMode.Character
             _system = new SoulLinkSystem();
         }
 
+        // ===== Existing Tests (unchanged) =====
+
         [Test]
         public void NewSystem_AllBondPointsZero()
         {
@@ -166,6 +168,171 @@ namespace GuildAcademy.Tests.EditMode.Character
         public void IsLinkTarget_Ray_False()
         {
             Assert.IsFalse(_system.IsLinkTarget(CharacterId.Ray));
+        }
+
+        // ===== New Character Tests (GA-73) =====
+
+        [Test]
+        public void NewSystem_NewCharacters_AllBondPointsZero()
+        {
+            Assert.AreEqual(0, _system.GetBondPoints(CharacterId.Shion));
+            Assert.AreEqual(0, _system.GetBondPoints(CharacterId.Rin));
+            Assert.AreEqual(0, _system.GetBondPoints(CharacterId.Vein));
+            Assert.AreEqual(0, _system.GetBondPoints(CharacterId.Mel));
+            Assert.AreEqual(0, _system.GetBondPoints(CharacterId.Jin));
+            Assert.AreEqual(0, _system.GetBondPoints(CharacterId.Setsuna));
+            Assert.AreEqual(0, _system.GetBondPoints(CharacterId.Renji));
+        }
+
+        [Test]
+        public void AddBondPoints_NewCharacters_IncreasesValue()
+        {
+            _system.AddBondPoints(CharacterId.Rin, 15);
+            Assert.AreEqual(15, _system.GetBondPoints(CharacterId.Rin));
+
+            _system.AddBondPoints(CharacterId.Vein, 25);
+            Assert.AreEqual(25, _system.GetBondPoints(CharacterId.Vein));
+
+            _system.AddBondPoints(CharacterId.Mel, 35);
+            Assert.AreEqual(35, _system.GetBondPoints(CharacterId.Mel));
+
+            _system.AddBondPoints(CharacterId.Jin, 45);
+            Assert.AreEqual(45, _system.GetBondPoints(CharacterId.Jin));
+
+            _system.AddBondPoints(CharacterId.Setsuna, 55);
+            Assert.AreEqual(55, _system.GetBondPoints(CharacterId.Setsuna));
+
+            _system.AddBondPoints(CharacterId.Renji, 65);
+            Assert.AreEqual(65, _system.GetBondPoints(CharacterId.Renji));
+        }
+
+        [Test]
+        public void IsLinkTarget_AllNewCharacters_True()
+        {
+            Assert.IsTrue(_system.IsLinkTarget(CharacterId.Shion));
+            Assert.IsTrue(_system.IsLinkTarget(CharacterId.Rin));
+            Assert.IsTrue(_system.IsLinkTarget(CharacterId.Vein));
+            Assert.IsTrue(_system.IsLinkTarget(CharacterId.Mel));
+            Assert.IsTrue(_system.IsLinkTarget(CharacterId.Jin));
+            Assert.IsTrue(_system.IsLinkTarget(CharacterId.Setsuna));
+            Assert.IsTrue(_system.IsLinkTarget(CharacterId.Renji));
+        }
+
+        // ===== Shion Freeze Tests =====
+
+        [Test]
+        public void FreezeShion_PreventsAddBondPoints()
+        {
+            _system.AddBondPoints(CharacterId.Shion, 10);
+            Assert.AreEqual(10, _system.GetBondPoints(CharacterId.Shion));
+
+            _system.FreezeShion();
+            Assert.IsTrue(_system.IsShionFrozen);
+
+            _system.AddBondPoints(CharacterId.Shion, 20);
+            Assert.AreEqual(10, _system.GetBondPoints(CharacterId.Shion));
+        }
+
+        [Test]
+        public void UnfreezeShion_AllowsAddBondPoints()
+        {
+            _system.FreezeShion();
+            _system.AddBondPoints(CharacterId.Shion, 10);
+            Assert.AreEqual(0, _system.GetBondPoints(CharacterId.Shion));
+
+            _system.UnfreezeShion();
+            Assert.IsFalse(_system.IsShionFrozen);
+
+            _system.AddBondPoints(CharacterId.Shion, 30);
+            Assert.AreEqual(30, _system.GetBondPoints(CharacterId.Shion));
+        }
+
+        [Test]
+        public void FreezeShion_DoesNotAffectOtherCharacters()
+        {
+            _system.FreezeShion();
+            _system.AddBondPoints(CharacterId.Yuna, 50);
+            _system.AddBondPoints(CharacterId.Rin, 50);
+            Assert.AreEqual(50, _system.GetBondPoints(CharacterId.Yuna));
+            Assert.AreEqual(50, _system.GetBondPoints(CharacterId.Rin));
+        }
+
+        [Test]
+        public void IsShionFrozen_DefaultFalse()
+        {
+            Assert.IsFalse(_system.IsShionFrozen);
+        }
+
+        // ===== 10-member Max Level Test =====
+
+        [Test]
+        public void AllTenMembers_CanReachMaxLevel()
+        {
+            CharacterId[] allTargets =
+            {
+                CharacterId.Yuna, CharacterId.Mio, CharacterId.Kaito,
+                CharacterId.Shion, CharacterId.Rin, CharacterId.Vein,
+                CharacterId.Mel, CharacterId.Jin, CharacterId.Setsuna,
+                CharacterId.Renji
+            };
+
+            foreach (var id in allTargets)
+            {
+                _system.AddBondPoints(id, 100);
+                Assert.AreEqual(SoulLinkLevel.Max, _system.GetLevel(id),
+                    $"{id} should reach Max level");
+                Assert.IsTrue(_system.IsMaxBond(id),
+                    $"{id} should be max bond");
+            }
+        }
+
+        // ===== Ray Error Handling =====
+
+        [Test]
+        public void GetBondPoints_Ray_ThrowsNotSupportedException()
+        {
+            Assert.Throws<NotSupportedException>(() => _system.GetBondPoints(CharacterId.Ray));
+        }
+
+        [Test]
+        public void GetLevel_Ray_ThrowsNotSupportedException()
+        {
+            Assert.Throws<NotSupportedException>(() => _system.GetLevel(CharacterId.Ray));
+        }
+
+        [Test]
+        public void IsDualArtsAvailable_Ray_ThrowsNotSupportedException()
+        {
+            Assert.Throws<NotSupportedException>(() => _system.IsDualArtsAvailable(CharacterId.Ray));
+        }
+
+        [Test]
+        public void IsDualArtsAvailable_ShionFrozen_ReturnsFalse()
+        {
+            _system.AddBondPoints(CharacterId.Shion, 30);
+            Assert.IsTrue(_system.IsDualArtsAvailable(CharacterId.Shion));
+
+            _system.FreezeShion();
+            Assert.IsFalse(_system.IsDualArtsAvailable(CharacterId.Shion));
+        }
+
+        [Test]
+        public void IsDualArtsAvailable_ShionUnfrozen_ReturnsTrue()
+        {
+            _system.AddBondPoints(CharacterId.Shion, 30);
+            _system.FreezeShion();
+            Assert.IsFalse(_system.IsDualArtsAvailable(CharacterId.Shion));
+
+            _system.UnfreezeShion();
+            Assert.IsTrue(_system.IsDualArtsAvailable(CharacterId.Shion));
+        }
+
+        [Test]
+        public void IsDualArtsAvailable_OtherCharacterNotAffectedByShionFreeze()
+        {
+            _system.AddBondPoints(CharacterId.Yuna, 30);
+            _system.FreezeShion();
+            Assert.IsTrue(_system.IsDualArtsAvailable(CharacterId.Yuna));
         }
     }
 }

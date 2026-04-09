@@ -6,6 +6,12 @@ namespace GuildAcademy.Core.Data
         Yuna,
         Mio,
         Kaito,
-        Shion
+        Shion,
+        Rin,
+        Vein,
+        Mel,
+        Jin,
+        Setsuna,
+        Renji
     }
 }
