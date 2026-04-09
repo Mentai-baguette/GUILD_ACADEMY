@@ -103,6 +103,10 @@ namespace GuildAcademy.Core.Character
 
         public bool IsDualArtsAvailable(CharacterId id)
         {
+            // Shion cannot use Dual Arts while frozen
+            if (id == CharacterId.Shion && _shionFrozen)
+                return false;
+
             return GetLevel(id) >= SoulLinkLevel.Level1;
         }
 

@@ -305,5 +305,34 @@ namespace GuildAcademy.Tests.EditMode.Character
         {
             Assert.Throws<NotSupportedException>(() => _system.IsDualArtsAvailable(CharacterId.Ray));
         }
+
+        [Test]
+        public void IsDualArtsAvailable_ShionFrozen_ReturnsFalse()
+        {
+            _system.AddBondPoints(CharacterId.Shion, 30);
+            Assert.IsTrue(_system.IsDualArtsAvailable(CharacterId.Shion));
+
+            _system.FreezeShion();
+            Assert.IsFalse(_system.IsDualArtsAvailable(CharacterId.Shion));
+        }
+
+        [Test]
+        public void IsDualArtsAvailable_ShionUnfrozen_ReturnsTrue()
+        {
+            _system.AddBondPoints(CharacterId.Shion, 30);
+            _system.FreezeShion();
+            Assert.IsFalse(_system.IsDualArtsAvailable(CharacterId.Shion));
+
+            _system.UnfreezeShion();
+            Assert.IsTrue(_system.IsDualArtsAvailable(CharacterId.Shion));
+        }
+
+        [Test]
+        public void IsDualArtsAvailable_OtherCharacterNotAffectedByShionFreeze()
+        {
+            _system.AddBondPoints(CharacterId.Yuna, 30);
+            _system.FreezeShion();
+            Assert.IsTrue(_system.IsDualArtsAvailable(CharacterId.Yuna));
+        }
     }
 }
