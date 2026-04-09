@@ -13,7 +13,8 @@ namespace GuildAcademy.UI
     /// NEW GAME → 難易度選択パネル表示 → 選択後にフィールドへ遷移
     /// CONTINUE → セーブスロット選択（未実装時はログ出力）
     /// GALLERY → ギャラリー画面（未実装時はログ出力）
-    /// CONFIG → 設定画面（未実装時はログ出力）
+    /// SETTING → 設定画面（未実装時はログ出力）
+    /// EXIT → アプリ終了
     /// 上下キーで選択移動、Enter/Spaceで決定。
     /// </summary>
     public class TitleUI : MonoBehaviour
@@ -21,8 +22,8 @@ namespace GuildAcademy.UI
         [Header("タイトルメニューボタン")]
         [SerializeField] private Button newGameButton;
         [SerializeField] private Button continueButton;
-        // [SerializeField] private Button galleryButton;
-        // [SerializeField] private Button configButton;
+        [SerializeField] private Button galleryButton;
+        [SerializeField] private Button settingButton;
         [SerializeField] private Button exitButton;
 
         [Header("難易度選択パネル（§3）")]
@@ -55,15 +56,15 @@ namespace GuildAcademy.UI
 
         private void Start()
         {
-            _titleButtons = new[] { newGameButton, continueButton, /* galleryButton, configButton, */ exitButton };
+            _titleButtons = new[] { newGameButton, continueButton, galleryButton, settingButton, exitButton };
             _difficultyButtons = new[] { easyButton, normalButton, hardButton, nightmareButton };
             _currentButtons = _titleButtons;
 
             // タイトルメニューのクリックイベント
             newGameButton.onClick.AddListener(OnNewGame);
             continueButton.onClick.AddListener(OnContinue);
-            // if (galleryButton != null) galleryButton.onClick.AddListener(OnGallery);
-            // if (configButton != null) configButton.onClick.AddListener(OnConfig);
+            if (galleryButton != null) galleryButton.onClick.AddListener(OnGallery);
+            if (settingButton != null) settingButton.onClick.AddListener(OnSetting);
             if (exitButton != null) exitButton.onClick.AddListener(OnExit);
 
             // 難易度選択のクリックイベント
@@ -195,17 +196,17 @@ namespace GuildAcademy.UI
             Debug.Log("セーブデータ読み込み：未実装");
         }
 
-        // private void OnGallery()
-        // {
-        //     // TODO: ギャラリー画面を表示する
-        //     Debug.Log("ギャラリー：未実装");
-        // }
+        private void OnGallery()
+        {
+            // TODO: ギャラリー画面を表示する
+            Debug.Log("ギャラリー：未実装");
+        }
 
-        // private void OnConfig()
-        // {
-        //     // TODO: 設定画面を表示する
-        //     Debug.Log("設定画面：未実装");
-        // }
+        private void OnSetting()
+        {
+            // TODO: 設定画面を表示する
+            Debug.Log("設定画面：未実装");
+        }
 
         private void OnExit()
         {
