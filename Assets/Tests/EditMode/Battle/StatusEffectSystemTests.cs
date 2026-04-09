@@ -1,57 +1,18 @@
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using GuildAcademy.Core.Battle;
 using GuildAcademy.Core.Data;
+using GuildAcademy.Tests.EditMode.TestHelpers;
 
 namespace GuildAcademy.Tests.EditMode.Battle
 {
-    /// <summary>
-    /// テスト用の固定値IRandom実装
-    /// </summary>
-    public class FixedRandom : IRandom
-    {
-        private readonly int _value;
-
-        public FixedRandom(int value)
-        {
-            _value = value;
-        }
-
-        public int Range(int minInclusive, int maxExclusive)
-        {
-            return _value;
-        }
-    }
-
-    /// <summary>
-    /// テスト用の順序値IRandom実装
-    /// </summary>
-    public class SequenceRandom : IRandom
-    {
-        private readonly int[] _values;
-        private int _index;
-
-        public SequenceRandom(params int[] values)
-        {
-            _values = values;
-            _index = 0;
-        }
-
-        public int Range(int minInclusive, int maxExclusive)
-        {
-            var value = _values[_index % _values.Length];
-            _index++;
-            return value;
-        }
-    }
-
     [TestFixture]
     public class StatusEffectSystemTests
     {
         private StatusEffectSystem _system;
         private CharacterStats _target;
         private IRandom _alwaysSucceed; // roll=0 → 常に成功
-        private IRandom _alwaysFail;    // roll=99 → 常に失敗
 
         [SetUp]
         public void SetUp()
@@ -59,7 +20,6 @@ namespace GuildAcademy.Tests.EditMode.Battle
             _system = new StatusEffectSystem();
             _target = new CharacterStats("TestChar", 1000, 100, 50, 30, 20);
             _alwaysSucceed = new FixedRandom(0);
-            _alwaysFail = new FixedRandom(99);
         }
 
         // ===== 毒 =====
@@ -362,7 +322,7 @@ namespace GuildAcademy.Tests.EditMode.Battle
             _system.TryApply(_target, StatusEffectType.AtkUp, 100, 0f, _alwaysSucceed, isEnhanced: true);
 
             var effects = _system.GetEffects(_target);
-            var atkUp = effects.Find(e => e.Type == StatusEffectType.AtkUp);
+            var atkUp = effects.FirstOrDefault(e => e.Type == StatusEffectType.AtkUp);
 
             Assert.AreEqual(2, atkUp.StackCount);
         }
@@ -417,7 +377,7 @@ namespace GuildAcademy.Tests.EditMode.Battle
             _system.TryApply(_target, StatusEffectType.AtkUp, 100, 0f, _alwaysSucceed); // エンハンスなし
 
             var effects = _system.GetEffects(_target);
-            var atkUp = effects.Find(e => e.Type == StatusEffectType.AtkUp);
+            var atkUp = effects.FirstOrDefault(e => e.Type == StatusEffectType.AtkUp);
 
             Assert.AreEqual(1, atkUp.StackCount);
             Assert.AreEqual(1.2f, _system.GetAtkMultiplier(_target), 0.001f);
