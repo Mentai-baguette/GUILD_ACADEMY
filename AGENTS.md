@@ -168,8 +168,8 @@ feature/* or fix/*  →  PR  →  develop  →  テスト確認  →  PR  →  m
 ### 方針
 
 - **EditMode テスト（Pure C#）**：32個の TestFixture で網羅。全テスト通過 ✅
-- **PlayMode テスト**：完了 ✅（シーン・UI・ゲームフロー動作確認済み）
-- テストファイル: `Assets/Tests/EditMode/`, `Assets/Tests/PlayMode/`
+- **PlayMode テスト**：未実施（要追加）
+- テストファイル: `Assets/Tests/EditMode/`
 - 現在 **176テスト以上通過**（新規テストクラス対応により増加）
 
 ### テスト対象クラス
@@ -201,14 +201,14 @@ feature/* or fix/*  →  PR  →  develop  →  テスト確認  →  PR  →  m
 # GitHub Actions では game-ci/unity-test-runner を使用
 ```
 
-## コード改修完了・進行中の項目
+## コード改修状況（要再検証）
 
 | # | 対象 | 内容 | 状態 |
 |---|------|------|------|
-| 1 | `CharacterStats.cs` | HP/MP/ATK/DEF/SPD → +INT/RES/AGI/DEX/LUK 追加 | ✅ 完成（2026/4/10） |
-| 2 | `DamageCalculator.cs` | INT vs RES の魔法ダメージ追加、クリティカルを DEX 依存に | ✅ 完成（ActionExecutor で実装） |
-| 3 | `EndingResolver` | 6END → 7END（END4.5 追加）HalfLight エンディング実装 | ✅ 完成（2026/4/10） |
-| 4 | `SoulLinkSystem` | 3人 → 10人対応（Yuna, Mio, Kaito, Shion, Rin, Vein, Mel, Jin, Setsuna, Renji） | ✅ 完成（2026/4/10） |
+| 1 | `CharacterStats.cs` | HP/MP/ATK/DEF/SPD → +INT/RES/AGI/DEX/LUK 追加 | 実装済み（要再検証） |
+| 2 | `DamageCalculator.cs` | INT vs RES の魔法ダメージ追加、クリティカルを DEX 依存に | 実装済み（要再検証） |
+| 3 | `EndingResolver` | 6END → 7END（END4.5 追加）HalfLight エンディング実装 | 実装済み（要再検証） |
+| 4 | `SoulLinkSystem` | 3人 → 10人対応（Yuna, Mio, Kaito, Shion, Rin, Vein, Mel, Jin, Setsuna, Renji） | 実装済み（要再検証） |
 | 5 | `chapter1_dialogue.json` | 現在の設計に合わせて書き直し | 🟡 進行中（PR#36） |
 
 ## ゲームシステム概要
