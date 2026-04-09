@@ -19,12 +19,35 @@ namespace GuildAcademy.MonoBehaviours.Events
             }
             Instance = this;
             DontDestroyOnLoad(gameObject);
+        }
 
-            var flagSystem = BranchManager.Instance?.Service?.Flags ?? new FlagSystem();
+        /// <summary>
+        /// BranchManager初期化後に呼ぶ。Awake順に依存しないよう遅延初期化。
+        /// </summary>
+        public void Initialize(FlagSystem flagSystem)
+        {
+            if (flagSystem == null)
+                throw new System.ArgumentNullException(nameof(flagSystem));
+
             Registry = new InfoFlagEventRegistry(flagSystem);
-
             foreach (var evt in InfoFlagEventDefinitions.CreateAll())
                 Registry.Register(evt);
+        }
+
+        /// <summary>
+        /// 未初期化の場合、BranchManagerから自動初期化を試みる。
+        /// </summary>
+        private void Start()
+        {
+            if (Registry == null && BranchManager.Instance?.Service != null)
+            {
+                Initialize(BranchManager.Instance.Service.Flags);
+            }
+
+            if (Registry == null)
+            {
+                Debug.LogError("[InfoFlagEventManager] BranchManager not found. Initialize() must be called manually.");
+            }
         }
 
         private void OnDestroy()
