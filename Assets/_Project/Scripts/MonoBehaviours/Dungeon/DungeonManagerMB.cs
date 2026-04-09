@@ -3,7 +3,6 @@ using UnityEngine;
 using GuildAcademy.Core.Data;
 using GuildAcademy.Core.Dungeon;
 using GuildAcademy.Data;
-using GuildAcademy.MonoBehaviours.Party;
 using GuildAcademy.MonoBehaviours.Schedule;
 using GuildAcademy.MonoBehaviours.UI;
 
@@ -14,6 +13,9 @@ namespace GuildAcademy.MonoBehaviours.Dungeon
         public static DungeonManagerMB Instance { get; private set; }
 
         [SerializeField] private DungeonDataSO _dungeonData;
+
+        [Header("Default Party (used when PartyManagerMB is not available)")]
+        [SerializeField] private CharacterDataSO[] _fallbackParty;
 
         public DungeonManager Dungeon { get; private set; }
         public DungeonDataSO CurrentDungeonSO => _dungeonData;
@@ -141,13 +143,20 @@ namespace GuildAcademy.MonoBehaviours.Dungeon
 
         private List<CharacterStats> GetBattleParty()
         {
-            if (PartyManagerMB.Instance != null)
+            // _fallbackParty(Inspector設定)からパーティを構築
+            if (_fallbackParty != null && _fallbackParty.Length > 0)
             {
-                var party = PartyManagerMB.Instance.Party.GetBattleParty();
+                var party = new List<CharacterStats>();
+                int count = System.Math.Min(_fallbackParty.Length, 5);
+                for (int i = 0; i < count; i++)
+                {
+                    if (_fallbackParty[i] != null)
+                        party.Add(_fallbackParty[i].ToCharacterStats());
+                }
                 if (party.Count > 0) return party;
             }
 
-            Debug.LogWarning("[DungeonManagerMB] PartyManager not found or empty. Using fallback.");
+            Debug.LogWarning("[DungeonManagerMB] No party configured. Using fallback.");
             return new List<CharacterStats>
             {
                 new CharacterStats("レイ", 105, 25, 12, 10, 10, ElementType.Dark)
