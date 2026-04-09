@@ -68,7 +68,7 @@ UnityメニューからMCPのプロセス検証だけを無効化できます。
 
 実装ファイル:
 
-- `Assets/_Project/Scripts/Editor/UnityAiMcpStabilityPatch.cs`
+- MCP/AI のローカル設定はリポジトリコードから自動変更しない
 
 ## 5. 判定基準
 

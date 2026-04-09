@@ -168,8 +168,8 @@ feature/* or fix/*  →  PR  →  develop  →  テスト確認  →  PR  →  m
 ### 方針
 
 - **EditMode テスト（Pure C#）**：32個の TestFixture で網羅。全テスト通過 ✅
-- **PlayMode テスト**：未実施（要追加）
-- テストファイル: `Assets/Tests/EditMode/`
+- **PlayMode テスト**：最小統合テストを追加中（SceneTransitionFlowTests）
+- テストファイル: `Assets/Tests/EditMode/`, `Assets/Tests/PlayMode/`
 - 現在 **176テスト以上通過**（新規テストクラス対応により増加）
 
 ### テスト対象クラス

@@ -1,6 +1,6 @@
 # 学園9エリア実装 明日用ランブック
 
-このメモは、`GuildAcademy/Maps/Bootstrap Academy 9 Areas` を実行したあとに、9エリアのTilemap・遷移・コリジョンをすんなり仕上げるための手順書です。
+このメモは、`GuildAcademy/Maps/Create Academy Scene Scaffolds` を実行したあとに、9エリアのTilemap・遷移・コリジョンをすんなり仕上げるための手順書です。
 
 ## 現在ステータス（2026-04-09時点）
 
@@ -45,11 +45,11 @@
 2. 書架間通路のコリジョンを確認する。
 3. EventTriggersを書架前や調査ポイントに配置する。
 
-### 5. Academy_Infirmary
+### 5. Academy_dormitory
 
 1. Hallway向けポータル位置を入口へ合わせる。
-2. ベッド列の横移動で引っかからないか確認する。
-3. NPCSpotsをベッド脇・受付位置へ寄せる。
+2. 共用ラウンジと個室導線で引っかからないか確認する。
+3. NPCSpotsをラウンジ・廊下・入口へ寄せる。
 
 ### 6. Academy_StudentCouncilRoom
 
@@ -57,11 +57,11 @@
 2. 中央机周りの回り込み導線を確認する。
 3. EventTriggersを会議机近辺へ配置する。
 
-### 7. Academy_Rooftop
+### 7. Academy_TrainingGround
 
-1. Hallway向けポータル位置を階段出口に合わせる。
-2. 外周で落下しないよう境界コリジョンを再確認する。
-3. 屋上中央の会話ポイントを1つ確保する。
+1. Hallway向けポータル位置を入口へ合わせる。
+2. 訓練導線と外周コリジョンを再確認する。
+3. チュートリアル用のEventTriggersを配置する。
 
 ### 8. Academy_Schoolyard
 
@@ -104,7 +104,7 @@
 - スポーン基盤: [SceneSpawnPoint.cs](../../Assets/_Project/Scripts/MonoBehaviours/Field/SceneSpawnPoint.cs)
 - スポーン解決: [SceneSpawnResolver.cs](../../Assets/_Project/Scripts/MonoBehaviours/Field/SceneSpawnResolver.cs)
 - イベントトリガー: [AreaEventTrigger2D.cs](../../Assets/_Project/Scripts/MonoBehaviours/Field/AreaEventTrigger2D.cs)
-- 9エリア一括配置: [AcademyMapBootstrapper.cs](../../Assets/_Project/Scripts/Editor/AcademyMapBootstrapper.cs)
+- 9エリア一括配置: [AcademyMapScaffolder.cs](../../Assets/_Project/Scripts/Editor/AcademyMapScaffolder.cs)
 
 ## 進め方
 
@@ -118,12 +118,12 @@
 ### 2. Bootstrap を実行する
 
 1. Unity を起動してプロジェクトを開く。
-2. メニューから `GuildAcademy/Maps/Bootstrap Academy 9 Areas` を実行する。
+2. メニューから `GuildAcademy/Maps/Create Academy Scene Scaffolds` を実行する。
 3. 失敗したら、まず以下を確認する。
 4. `TileBase が見つかりません` が出る場合は、共通タイル素材のImportが済んでいない。
 5. `Grid が見つかりません` が出る場合は、シーン雛形が壊れているか、手で構造を変更している。
 6. 実行後、各シーンに `NPCSpots` と `EventTriggers` が作られているか確認する。
-7. Console に出る `AcademyMapBootstrapper` のサマリログを確認する。
+7. Console に出る `AcademyMapScaffolder` のサマリログを確認する。
 8. `GroundCenterTile=False` が出たシーンは、Tile配置失敗として再確認する。
 9. `CollisionBoundsColliders=0` が出たシーンは、境界コライダーが欠損しているので先に復旧する。
 
@@ -146,10 +146,8 @@
 3. `Academy_Cafeteria`
 4. `Academy_Library`
 5. `Academy_Schoolyard`
-6. `Academy_Rooftop`
-7. `Academy_StudentCouncilRoom`
-8. `Academy_Infirmary`
-9. `Academy_SchoolGate`
+6. `Academy_StudentCouncilRoom`
+7. `Academy_SchoolGate`
 
 各シーンで見るのは次の4点だけ。
 
@@ -220,7 +218,7 @@
 
 - [docs/maps/area-list.md](./area-list.md)
 - [docs/maps/academy-9areas-implementation-checklist.md](./academy-9areas-implementation-checklist.md)
-- [Assets/_Project/Scripts/Editor/AcademyMapBootstrapper.cs](../../Assets/_Project/Scripts/Editor/AcademyMapBootstrapper.cs)
+- [Assets/_Project/Scripts/Editor/AcademyMapScaffolder.cs](../../Assets/_Project/Scripts/Editor/AcademyMapScaffolder.cs)
 - [Assets/_Project/Scripts/MonoBehaviours/Field/ScenePortal2D.cs](../../Assets/_Project/Scripts/MonoBehaviours/Field/ScenePortal2D.cs)
 - [Assets/_Project/Scripts/MonoBehaviours/Field/SceneSpawnResolver.cs](../../Assets/_Project/Scripts/MonoBehaviours/Field/SceneSpawnResolver.cs)
 - [Assets/_Project/Scripts/MonoBehaviours/Field/AreaEventTrigger2D.cs](../../Assets/_Project/Scripts/MonoBehaviours/Field/AreaEventTrigger2D.cs)
