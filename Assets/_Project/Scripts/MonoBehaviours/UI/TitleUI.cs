@@ -21,8 +21,9 @@ namespace GuildAcademy.UI
         [Header("タイトルメニューボタン")]
         [SerializeField] private Button newGameButton;
         [SerializeField] private Button continueButton;
-        [SerializeField] private Button galleryButton;
-        [SerializeField] private Button configButton;
+        // [SerializeField] private Button galleryButton;
+        // [SerializeField] private Button configButton;
+        [SerializeField] private Button exitButton;
 
         [Header("難易度選択パネル（§3）")]
         [SerializeField] private GameObject difficultyPanel;
@@ -50,18 +51,20 @@ namespace GuildAcademy.UI
         private Button[] _difficultyButtons;
         private int _selectedIndex = 0;
         private bool _isInDifficultySelect = false;
+        private bool _inputLocked = false;
 
         private void Start()
         {
-            _titleButtons = new[] { newGameButton, continueButton, galleryButton, configButton };
+            _titleButtons = new[] { newGameButton, continueButton, /* galleryButton, configButton, */ exitButton };
             _difficultyButtons = new[] { easyButton, normalButton, hardButton, nightmareButton };
             _currentButtons = _titleButtons;
 
             // タイトルメニューのクリックイベント
             newGameButton.onClick.AddListener(OnNewGame);
             continueButton.onClick.AddListener(OnContinue);
-            if (galleryButton != null) galleryButton.onClick.AddListener(OnGallery);
-            if (configButton != null) configButton.onClick.AddListener(OnConfig);
+            // if (galleryButton != null) galleryButton.onClick.AddListener(OnGallery);
+            // if (configButton != null) configButton.onClick.AddListener(OnConfig);
+            if (exitButton != null) exitButton.onClick.AddListener(OnExit);
 
             // 難易度選択のクリックイベント
             if (easyButton != null) easyButton.onClick.AddListener(() => OnDifficultySelected(0));
@@ -93,6 +96,13 @@ namespace GuildAcademy.UI
         private void Update()
         {
             if (Keyboard.current == null) return;
+
+            // パネル切替直後は1フレーム入力を無視
+            if (_inputLocked)
+            {
+                _inputLocked = false;
+                return;
+            }
 
             // 上下キーで選択移動
             if (Keyboard.current.downArrowKey.wasPressedThisFrame ||
@@ -185,22 +195,33 @@ namespace GuildAcademy.UI
             Debug.Log("セーブデータ読み込み：未実装");
         }
 
-        private void OnGallery()
-        {
-            // TODO: ギャラリー画面を表示する
-            Debug.Log("ギャラリー：未実装");
-        }
+        // private void OnGallery()
+        // {
+        //     // TODO: ギャラリー画面を表示する
+        //     Debug.Log("ギャラリー：未実装");
+        // }
 
-        private void OnConfig()
+        // private void OnConfig()
+        // {
+        //     // TODO: 設定画面を表示する
+        //     Debug.Log("設定画面：未実装");
+        // }
+
+        private void OnExit()
         {
-            // TODO: 設定画面を表示する
-            Debug.Log("設定画面：未実装");
+            Debug.Log("ゲーム終了");
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #else
+            Application.Quit();
+            #endif
         }
 
         // === 難易度選択（§3） ===
 
         private void OpenDifficultyPanel()
         {
+            _inputLocked = true;
             _isInDifficultySelect = true;
             difficultyPanel.SetActive(true);
             _currentButtons = _difficultyButtons;
@@ -210,6 +231,7 @@ namespace GuildAcademy.UI
 
         private void CloseDifficultyPanel()
         {
+            _inputLocked = true;
             _isInDifficultySelect = false;
             difficultyPanel.SetActive(false);
             _currentButtons = _titleButtons;
