@@ -50,6 +50,7 @@ namespace GuildAcademy.Core.Data
             Luk = luk;
             Lv = lv;
             Exp = 0;
+            Sp = 0;
             Element = element;
             WeakElement = ElementType.None;
             ResistElement = ElementType.None;

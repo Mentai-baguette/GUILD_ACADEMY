@@ -67,10 +67,15 @@ namespace GuildAcademy.Core.Character
         /// </summary>
         public LevelUpResult AddExp(CharacterStats stats, GrowthRates rates, int expGained, IRandom random)
         {
+            if (stats == null) throw new System.ArgumentNullException(nameof(stats));
+            if (rates == null) throw new System.ArgumentNullException(nameof(rates));
+            if (random == null) throw new System.ArgumentNullException(nameof(random));
+
             var result = new LevelUpResult();
 
             if (stats.Lv >= MAX_LEVEL)
             {
+                stats.Exp = 0;
                 result.NewLevel = stats.Lv;
                 return result;
             }

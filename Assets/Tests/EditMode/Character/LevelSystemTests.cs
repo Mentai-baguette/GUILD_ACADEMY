@@ -288,6 +288,36 @@ namespace GuildAcademy.Tests.EditMode.Character
             }
         }
 
+        // --- 0/負EXP境界テスト ---
+
+        [Test]
+        public void AddExp_ZeroExp_DoesNotChangeLevel()
+        {
+            var stats = CreateStats(lv: 1);
+            stats.Exp = 7;
+            var random = new FixedRandom(99);
+
+            var result = _levelSystem.AddExp(stats, _defaultRates, 0, random);
+
+            Assert.AreEqual(1, result.NewLevel);
+            Assert.AreEqual(1, stats.Lv);
+            Assert.AreEqual(7, stats.Exp);
+        }
+
+        [Test]
+        public void AddExp_NegativeExp_DoesNotChangeLevel()
+        {
+            var stats = CreateStats(lv: 1);
+            stats.Exp = 7;
+            var random = new FixedRandom(99);
+
+            var result = _levelSystem.AddExp(stats, _defaultRates, -5, random);
+
+            Assert.AreEqual(1, result.NewLevel);
+            Assert.AreEqual(1, stats.Lv);
+            Assert.AreEqual(7, stats.Exp);
+        }
+
         // --- ヘルパー ---
 
         private CharacterStats CreateStats(int lv = 1)
