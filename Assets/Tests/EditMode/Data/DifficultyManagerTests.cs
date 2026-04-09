@@ -37,7 +37,7 @@ namespace GuildAcademy.Tests.EditMode.Data
             Assert.AreEqual(expected, settings.SaveRule);
         }
 
-        [TestCase(Difficulty.Easy, DefeatPenalty.Retry)]
+        [TestCase(Difficulty.Easy, DefeatPenalty.RetryWithHp1)]
         [TestCase(Difficulty.Normal, DefeatPenalty.Retry)]
         [TestCase(Difficulty.Hard, DefeatPenalty.LastSave)]
         [TestCase(Difficulty.Nightmare, DefeatPenalty.ChapterStart)]
@@ -45,6 +45,26 @@ namespace GuildAcademy.Tests.EditMode.Data
         {
             var settings = DifficultyManager.GetSettings(difficulty);
             Assert.AreEqual(expected, settings.MobDefeatPenalty);
+        }
+
+        [TestCase(Difficulty.Easy, true)]
+        [TestCase(Difficulty.Normal, true)]
+        [TestCase(Difficulty.Hard, false)]
+        [TestCase(Difficulty.Nightmare, false)]
+        public void HasAutoSave_ReturnsCorrectValue(Difficulty difficulty, bool expected)
+        {
+            var settings = DifficultyManager.GetSettings(difficulty);
+            Assert.AreEqual(expected, settings.HasAutoSave);
+        }
+
+        [TestCase(Difficulty.Easy, true)]
+        [TestCase(Difficulty.Normal, true)]
+        [TestCase(Difficulty.Hard, true)]
+        [TestCase(Difficulty.Nightmare, true)]
+        public void HasSuspendSave_AllDifficulties_ReturnsTrue(Difficulty difficulty, bool expected)
+        {
+            var settings = DifficultyManager.GetSettings(difficulty);
+            Assert.AreEqual(expected, settings.HasSuspendSave);
         }
 
         [Test]
