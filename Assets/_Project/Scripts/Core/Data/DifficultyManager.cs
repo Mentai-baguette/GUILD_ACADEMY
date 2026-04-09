@@ -84,7 +84,10 @@ namespace GuildAcademy.Core.Data
         {
             if (!CanUseGoddessBlessing())
             {
-                throw new InvalidOperationException("Cannot use Goddess Blessing.");
+                throw new InvalidOperationException(
+                    $"Cannot use Goddess Blessing. CurrentDifficulty={CurrentDifficulty}, " +
+                    $"HasGoddessBlessing={CurrentSettings.HasGoddessBlessing}, " +
+                    $"AlreadyUsed={_goddessBlessingUsed}.");
             }
             _goddessBlessingUsed = true;
         }
@@ -96,7 +99,9 @@ namespace GuildAcademy.Core.Data
 
         public static DifficultySettings GetSettings(Difficulty difficulty)
         {
-            return SettingsMap[difficulty];
+            if (SettingsMap.TryGetValue(difficulty, out var settings))
+                return settings;
+            throw new System.ArgumentOutOfRangeException(nameof(difficulty), difficulty, "Unsupported difficulty.");
         }
     }
 }
