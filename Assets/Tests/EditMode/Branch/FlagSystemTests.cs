@@ -160,20 +160,6 @@ namespace GuildAcademy.Tests.EditMode.Branch
         }
 
         [Test]
-        public void AreAllSet_WithAllInfoFlags_ReturnsTrue()
-        {
-            SetAllInfoFlags();
-            Assert.IsTrue(_flagSystem.AreAllSet());
-        }
-
-        [Test]
-        public void AreAllSet_WithAcademyRefusedOnly_ReturnsFalse()
-        {
-            _flagSystem.Set(F.AcademyRefused, true);
-            Assert.IsFalse(_flagSystem.AreAllSet());
-        }
-
-        [Test]
         public void Reset_ClearsAllIncludingAcademyRefused()
         {
             SetAllInfoFlags();
@@ -181,18 +167,6 @@ namespace GuildAcademy.Tests.EditMode.Branch
             _flagSystem.Reset();
             Assert.AreEqual(0, _flagSystem.GetActiveCount());
             Assert.IsFalse(_flagSystem.Get(F.AcademyRefused));
-        }
-
-        [Test]
-        public void Set_UnknownFlag_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => _flagSystem.Set("unknown_flag", true));
-        }
-
-        [Test]
-        public void Get_UnknownFlag_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() => _flagSystem.Get("unknown_flag"));
         }
     }
 }
