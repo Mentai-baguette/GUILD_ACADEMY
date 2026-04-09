@@ -3,6 +3,7 @@ using UnityEngine;
 using GuildAcademy.Core.Data;
 using GuildAcademy.Core.Dungeon;
 using GuildAcademy.Data;
+using GuildAcademy.MonoBehaviours.Party;
 using GuildAcademy.MonoBehaviours.Schedule;
 using GuildAcademy.MonoBehaviours.UI;
 
@@ -29,14 +30,39 @@ namespace GuildAcademy.MonoBehaviours.Dungeon
 
         private void Start()
         {
+            InitializeDungeonManager();
+        }
+
+        private void InitializeDungeonManager()
+        {
             var scheduleMB = ScheduleManagerMB.Instance;
             if (scheduleMB == null)
             {
-                Debug.LogWarning("[DungeonManagerMB] ScheduleManagerMB not found.");
+                Debug.LogWarning("[DungeonManagerMB] ScheduleManagerMB not found. DungeonManager will be initialized on first use.");
                 return;
             }
 
             Dungeon = new DungeonManager(scheduleMB.Schedule);
+            SubscribeEvents();
+        }
+
+        private void EnsureInitialized()
+        {
+            if (Dungeon != null) return;
+
+            var scheduleMB = ScheduleManagerMB.Instance;
+            if (scheduleMB == null)
+            {
+                Debug.LogError("[DungeonManagerMB] ScheduleManagerMB is required but not found.");
+                return;
+            }
+
+            Dungeon = new DungeonManager(scheduleMB.Schedule);
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
             Dungeon.OnEncounterTriggered += HandleEncounter;
             Dungeon.OnBossFloorReached += HandleBossFloor;
             Dungeon.OnDungeonExited += HandleDungeonExited;
@@ -44,6 +70,13 @@ namespace GuildAcademy.MonoBehaviours.Dungeon
 
         public void EnterDungeon(DungeonDataSO dungeonSO, int startFloor = 1)
         {
+            EnsureInitialized();
+            if (Dungeon == null)
+            {
+                Debug.LogError("[DungeonManagerMB] Cannot enter dungeon: DungeonManager not initialized.");
+                return;
+            }
+
             _dungeonData = dungeonSO;
             var data = dungeonSO.ToDungeonData();
             Dungeon.EnterDungeon(data, startFloor);
@@ -53,7 +86,6 @@ namespace GuildAcademy.MonoBehaviours.Dungeon
         {
             if (_dungeonData == null) return;
 
-            // Pick a random enemy from the dungeon's enemy pool
             var enemies = _dungeonData.normalEnemies;
             if (enemies == null || enemies.Length == 0) return;
 
@@ -62,7 +94,6 @@ namespace GuildAcademy.MonoBehaviours.Dungeon
 
             var enemyStats = enemy.ToCharacterStats();
 
-            // Apply night multiplier
             float multiplier = Dungeon.GetCurrentEnemyMultiplier();
             if (multiplier > 1f)
             {
@@ -76,48 +107,30 @@ namespace GuildAcademy.MonoBehaviours.Dungeon
                     enemyStats.Element);
             }
 
-            var enemyList = new List<CharacterStats> { enemyStats };
-
-            // Load default party from resources
-            var partySOs = Resources.LoadAll<CharacterDataSO>("Data/Characters");
-            var party = new List<CharacterStats>();
-            foreach (var so in partySOs)
-            {
-                if (so != null) party.Add(so.ToCharacterStats());
-            }
-
-            var setup = new BattleSetupData(party, enemyList,
-                UnityEngine.SceneManagement.SceneManager.GetActiveScene().name)
-            {
-                IsBossBattle = false,
-                CanFlee = true
-            };
-
-            BattleSetupData.Current = setup;
-
-            if (SceneTransitionManager.Instance != null)
-                SceneTransitionManager.Instance.LoadScene(SceneNames.Battle);
+            StartBattle(new List<CharacterStats> { enemyStats }, isBoss: false);
         }
 
         private void HandleBossFloor(int floor)
         {
             if (_dungeonData == null || _dungeonData.bossEnemy == null) return;
-
             var bossStats = _dungeonData.bossEnemy.ToCharacterStats();
-            var enemyList = new List<CharacterStats> { bossStats };
+            StartBattle(new List<CharacterStats> { bossStats }, isBoss: true);
+        }
 
-            var partySOs = Resources.LoadAll<CharacterDataSO>("Data/Characters");
-            var party = new List<CharacterStats>();
-            foreach (var so in partySOs)
+        private void StartBattle(List<CharacterStats> enemyList, bool isBoss)
+        {
+            var party = GetBattleParty();
+            if (party.Count == 0)
             {
-                if (so != null) party.Add(so.ToCharacterStats());
+                Debug.LogError("[DungeonManagerMB] No party members available for battle.");
+                return;
             }
 
             var setup = new BattleSetupData(party, enemyList,
                 UnityEngine.SceneManagement.SceneManager.GetActiveScene().name)
             {
-                IsBossBattle = true,
-                CanFlee = false
+                IsBossBattle = isBoss,
+                CanFlee = !isBoss
             };
 
             BattleSetupData.Current = setup;
@@ -126,9 +139,23 @@ namespace GuildAcademy.MonoBehaviours.Dungeon
                 SceneTransitionManager.Instance.LoadScene(SceneNames.Battle);
         }
 
+        private List<CharacterStats> GetBattleParty()
+        {
+            if (PartyManagerMB.Instance != null)
+            {
+                var party = PartyManagerMB.Instance.Party.GetBattleParty();
+                if (party.Count > 0) return party;
+            }
+
+            Debug.LogWarning("[DungeonManagerMB] PartyManager not found or empty. Using fallback.");
+            return new List<CharacterStats>
+            {
+                new CharacterStats("レイ", 105, 25, 12, 10, 10, ElementType.Dark)
+            };
+        }
+
         private void HandleDungeonExited()
         {
-            // Return to field scene
             if (SceneTransitionManager.Instance != null)
                 SceneTransitionManager.Instance.LoadScene(SceneNames.Field);
         }
