@@ -82,15 +82,26 @@ namespace GuildAcademy.Core.Character
             _eltDefeated = true;
         }
 
-        /// <summary>暴走判定（Critical時のみ発動可能）</summary>
+        /// <summary>
+        /// 暴走判定（Critical時かつ闇スキル使用時に呼ぶ）
+        /// 暴走確率 = (侵蝕値 - Critical閾値) × 2%
+        /// 通常時: 75%で0%、100%で50%
+        /// エルト撃破後: 85%で0%、100%で30%
+        /// </summary>
         /// <param name="random">乱数生成インターフェース</param>
-        /// <param name="rampageChancePercent">暴走確率（0-100）</param>
+        /// <param name="usedDarkSkill">闇スキルを使用したかどうか</param>
         /// <returns>暴走する場合true</returns>
-        public bool CheckRampage(IRandom random, int rampageChancePercent = 30)
+        public bool CheckRampage(IRandom random, bool usedDarkSkill = true)
         {
             if (CurrentStage != ErosionStage.Critical) return false;
+            if (!usedDarkSkill) return false;
+
+            float criticalThreshold = _eltDefeated ? CRITICAL_THRESHOLD_ENHANCED : CRITICAL_THRESHOLD;
+            int rampageChance = (int)((_currentErosion - criticalThreshold) * 2f);
+            rampageChance = System.Math.Max(0, System.Math.Min(100, rampageChance));
+
             int roll = random.Range(0, 100);
-            return roll < rampageChancePercent;
+            return roll < rampageChance;
         }
 
         private ErosionStage DetermineStage(float erosion)

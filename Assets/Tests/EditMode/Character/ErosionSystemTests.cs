@@ -214,41 +214,74 @@ namespace GuildAcademy.Tests.EditMode.Character
         public void CheckRampage_NotCritical_ReturnsFalse()
         {
             _system.AddErosion(50f); // Dangerous
-            var random = new FixedRandom(0); // Would always trigger
+            var random = new FixedRandom(0);
             Assert.IsFalse(_system.CheckRampage(random));
         }
 
         [Test]
-        public void CheckRampage_Critical_RollUnderChance_ReturnsTrue()
+        public void CheckRampage_NoDarkSkill_ReturnsFalse()
         {
-            _system.AddErosion(80f); // Critical
-            var random = new FixedRandom(10); // 10 < 30 default
+            _system.AddErosion(100f); // Critical, max erosion
+            var random = new FixedRandom(0);
+            Assert.IsFalse(_system.CheckRampage(random, usedDarkSkill: false));
+        }
+
+        [Test]
+        public void CheckRampage_Critical75_ZeroChance()
+        {
+            // 侵蝕75%（Critical閾値ちょうど）→ (75-75)*2 = 0%
+            _system.AddErosion(75f);
+            var random = new FixedRandom(0);
+            Assert.IsFalse(_system.CheckRampage(random));
+        }
+
+        [Test]
+        public void CheckRampage_Critical100_50Percent()
+        {
+            // 侵蝕100% → (100-75)*2 = 50%
+            _system.AddErosion(100f);
+            var random = new FixedRandom(25); // 25 < 50 → true
             Assert.IsTrue(_system.CheckRampage(random));
         }
 
         [Test]
-        public void CheckRampage_Critical_RollOverChance_ReturnsFalse()
+        public void CheckRampage_Critical100_RollOver_ReturnsFalse()
         {
-            _system.AddErosion(80f); // Critical
-            var random = new FixedRandom(50); // 50 >= 30 default
+            // 侵蝕100% → 50% chance, roll=50 → false
+            _system.AddErosion(100f);
+            var random = new FixedRandom(50); // 50 is not < 50
             Assert.IsFalse(_system.CheckRampage(random));
         }
 
         [Test]
-        public void CheckRampage_Critical_ExactBoundary_ReturnsFalse()
+        public void CheckRampage_Critical90_30Percent()
         {
-            _system.AddErosion(80f); // Critical
-            var random = new FixedRandom(30); // 30 is not < 30
-            Assert.IsFalse(_system.CheckRampage(random));
+            // 侵蝕90% → (90-75)*2 = 30%
+            _system.AddErosion(90f);
+            var random = new FixedRandom(15); // 15 < 30 → true
+            Assert.IsTrue(_system.CheckRampage(random));
         }
 
         [Test]
-        public void CheckRampage_CustomChance()
+        public void CheckRampage_EltDefeated_HigherThreshold()
         {
-            _system.AddErosion(80f); // Critical
-            var random = new FixedRandom(49);
-            Assert.IsTrue(_system.CheckRampage(random, 50));
-            Assert.IsFalse(_system.CheckRampage(random, 49));
+            // エルト撃破後: Critical閾値=85%
+            // 侵蝕100% → (100-85)*2 = 30%
+            _system.SetEltDefeated();
+            _system.AddErosion(100f);
+            var random = new FixedRandom(15); // 15 < 30 → true
+            Assert.IsTrue(_system.CheckRampage(random));
+        }
+
+        [Test]
+        public void CheckRampage_EltDefeated_85Percent_ZeroChance()
+        {
+            // エルト撃破後: Critical閾値=85%
+            // 侵蝕85%（Critical閾値ちょうど）→ (85-85)*2 = 0%
+            _system.SetEltDefeated();
+            _system.AddErosion(85f);
+            var random = new FixedRandom(0);
+            Assert.IsFalse(_system.CheckRampage(random));
         }
 
         // === エルト撃破後の閾値変更テスト ===
