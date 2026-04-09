@@ -22,6 +22,8 @@ namespace GuildAcademy.MonoBehaviours.Field
 
         public void OnInteract()
         {
+            if (_examineTexts == null || _examineTexts.Length == 0) return;
+
             _examineCount++;
 
             // After examining bed 3+ times, register bed return flag

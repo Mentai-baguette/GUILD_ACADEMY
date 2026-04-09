@@ -4,7 +4,11 @@ namespace GuildAcademy.Core.Branch
 {
     public class AcademyRefusalChecker
     {
-        public const int RequiredOppositeWalks = 5;
+        /// <summary>
+        /// 警告台詞の回数。この回数の警告後、もう一度歩くとEND1が発動する。
+        /// シナリオ: 5回の警告台詞（walks 1-5） → 6回目の歩行でEND1
+        /// </summary>
+        public const int WarningCount = 5;
 
         private bool _bedReturned;
         private int _oppositeWalkCount;
@@ -13,7 +17,9 @@ namespace GuildAcademy.Core.Branch
         public int OppositeWalkCount => _oppositeWalkCount;
         public bool IsRefusalTriggered { get; private set; }
 
-        public event Action<int> OnOppositeWalk; // fires with current count (1-5)
+        /// <summary>警告歩行時に発火（カウント 1〜WarningCount）。拒否発動時には発火しない。</summary>
+        public event Action<int> OnOppositeWalk;
+        /// <summary>END1拒否が確定した時に発火。</summary>
         public event Action OnRefusalTriggered;
 
         public void RegisterBedReturn()
@@ -22,20 +28,25 @@ namespace GuildAcademy.Core.Branch
         }
 
         /// <summary>
-        /// Called when player walks opposite direction. Returns the walk count (1-5+).
-        /// After 5th walk, if called again, triggers refusal.
+        /// Called when player walks opposite direction. Returns the walk count.
+        /// Bed return flag must be set first (hidden operation 1).
+        /// After WarningCount warnings, the next walk triggers refusal (END1).
         /// </summary>
         public int RegisterOppositeWalk()
         {
             if (IsRefusalTriggered) return _oppositeWalkCount;
+            if (!_bedReturned) return 0;
 
             _oppositeWalkCount++;
-            OnOppositeWalk?.Invoke(_oppositeWalkCount);
 
-            if (_oppositeWalkCount > RequiredOppositeWalks)
+            if (_oppositeWalkCount > WarningCount)
             {
                 IsRefusalTriggered = true;
                 OnRefusalTriggered?.Invoke();
+            }
+            else
+            {
+                OnOppositeWalk?.Invoke(_oppositeWalkCount);
             }
 
             return _oppositeWalkCount;

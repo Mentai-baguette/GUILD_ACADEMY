@@ -6,8 +6,6 @@ namespace GuildAcademy.MonoBehaviours.Field
 {
     public class AcademyPathTracker : MonoBehaviour
     {
-        [SerializeField] private Transform _academyDirection;
-
         private AcademyRefusalChecker _checker;
 
         // Dialogue lines for each opposite walk (indexed 0-4 for walks 1-5)
