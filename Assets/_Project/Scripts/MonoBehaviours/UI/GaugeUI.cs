@@ -130,6 +130,7 @@ namespace GuildAcademy.UI
                     return theme.breakColor;
 
                 case GaugeType.Erosion:
+                    // TODO: ErosionSystem の閾値定数を参照する（現在 ErosionSystem 未実装）
                     if (fillAmount >= 0.75f) return theme.erosionCritical;
                     if (fillAmount >= 0.50f) return theme.erosionDangerous;
                     if (fillAmount >= 0.25f) return theme.erosionUnstable;

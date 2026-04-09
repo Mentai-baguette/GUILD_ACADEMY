@@ -220,7 +220,7 @@ namespace GuildAcademy.UI
         private void OnDifficultySelected(int difficultyIndex)
         {
             // TODO: DifficultyManager.SetDifficulty() に連携（GA-85）
-            // 0=Easy(x0.7), 1=Normal(x1.0), 2=Hard(x1.3), 3=Nightmare(x1.6,NG+専用)
+            // 0=Easy(x1.0), 1=Normal(x1.5), 2=Hard(x2.0), 3=Nightmare(x4.0,NG+専用)
             Debug.Log($"難易度選択: {difficultyIndex}");
             StartGame();
         }
