@@ -1,4 +1,5 @@
 using GuildAcademy.Core.Data;
+using System;
 using UnityEngine;
 
 namespace GuildAcademy.MonoBehaviours.Field
@@ -7,12 +8,16 @@ namespace GuildAcademy.MonoBehaviours.Field
     {
         private const string SpawnPointKey = "spawnPointId";
 
+        public static Func<SceneSpawnPoint[]> SpawnPointProvider { get; set; }
         [SerializeField] private string _fallbackSpawnPointId = "default";
 
         private void Start()
         {
             var targetSpawnId = SceneTransitionData.Get(SpawnPointKey, _fallbackSpawnPointId);
-            var spawnPoints = FindObjectsByType<SceneSpawnPoint>();
+            var spawnPoints = SpawnPointProvider != null ? SpawnPointProvider() : FindObjectsByType<SceneSpawnPoint>();
+
+            if (spawnPoints == null)
+                spawnPoints = Array.Empty<SceneSpawnPoint>();
 
             foreach (var spawnPoint in spawnPoints)
             {
