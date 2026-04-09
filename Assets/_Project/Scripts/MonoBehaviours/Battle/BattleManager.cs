@@ -25,6 +25,8 @@ namespace GuildAcademy.MonoBehaviours.Battle
 
         public event System.Action<BattleResult> OnBattleFinished;
 
+        public bool IsInitialized => _battleFlow != null;
+
         private void Start()
         {
             _setup = BattleSetupData.Current;
@@ -105,6 +107,11 @@ namespace GuildAcademy.MonoBehaviours.Battle
             if (SceneTransitionManager.Instance != null)
             {
                 SceneTransitionManager.Instance.LoadScene(_setup.ReturnSceneName);
+            }
+            else
+            {
+                Debug.LogWarning("[BattleManager] SceneTransitionManager not found. Falling back to direct load.");
+                UnityEngine.SceneManagement.SceneManager.LoadScene(_setup.ReturnSceneName);
             }
         }
 

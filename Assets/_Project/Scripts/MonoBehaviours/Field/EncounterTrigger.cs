@@ -39,7 +39,6 @@ namespace GuildAcademy.MonoBehaviours.Field
                 new CharacterStats(_enemyName, _enemyHp, _enemyMp, _enemyAtk, _enemyDef, _enemyAgi, _enemyElement)
             };
 
-            // Get current party (placeholder - in real implementation, get from PartyManager)
             var party = GetDefaultParty();
 
             var setup = new BattleSetupData(party, enemies,
@@ -54,6 +53,26 @@ namespace GuildAcademy.MonoBehaviours.Field
             if (SceneTransitionManager.Instance != null)
             {
                 SceneTransitionManager.Instance.LoadScene(SceneNames.Battle);
+            }
+            else
+            {
+                Debug.LogWarning("[EncounterTrigger] SceneTransitionManager not found. Falling back to direct load.");
+                UnityEngine.SceneManagement.SceneManager.LoadScene(SceneNames.Battle);
+            }
+        }
+
+        /// <summary>
+        /// バトル終了後に呼ぶ。destroyAfterBattle設定に応じてオブジェクトを処理する。
+        /// </summary>
+        public void OnBattleReturned()
+        {
+            if (_destroyAfterBattle)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _triggered = false;
             }
         }
 

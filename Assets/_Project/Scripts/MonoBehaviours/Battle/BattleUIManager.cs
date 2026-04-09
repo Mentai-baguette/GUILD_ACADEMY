@@ -25,18 +25,33 @@ namespace GuildAcademy.MonoBehaviours.Battle
             if (_battleManager == null)
                 _battleManager = FindObjectOfType<BattleManager>();
 
-            if (_battleManager != null)
-            {
-                _battleManager.BattleFlow.OnCommandRequired += OnCommandRequired;
-                _battleManager.BattleFlow.OnActionExecuted += OnActionExecuted;
-                _battleManager.BattleFlow.OnBattleEnd += OnBattleEnd;
-                _battleManager.BattleFlow.OnBattleStart += OnBattleStart;
-            }
-
             if (_commandPanel != null)
                 _commandPanel.SetActive(false);
 
             SetupButtons();
+            TrySubscribeEvents();
+        }
+
+        private void Update()
+        {
+            // BattleManagerの初期化を待ってからイベント購読（Start順問題の対策）
+            if (_battleManager != null && !_subscribed && _battleManager.IsInitialized)
+            {
+                TrySubscribeEvents();
+            }
+        }
+
+        private bool _subscribed;
+
+        private void TrySubscribeEvents()
+        {
+            if (_subscribed || _battleManager == null || _battleManager.BattleFlow == null) return;
+
+            _battleManager.BattleFlow.OnCommandRequired += OnCommandRequired;
+            _battleManager.BattleFlow.OnActionExecuted += OnActionExecuted;
+            _battleManager.BattleFlow.OnBattleEnd += OnBattleEnd;
+            _battleManager.BattleFlow.OnBattleStart += OnBattleStart;
+            _subscribed = true;
         }
 
         private void SetupButtons()
@@ -116,15 +131,30 @@ namespace GuildAcademy.MonoBehaviours.Battle
 
             // For hackathon, flee always succeeds for non-boss
             Log("逃げた！");
-            if (SceneTransitionManager.Instance != null && _battleManager.Setup != null)
+            if (_battleManager.Setup == null) return;
+
+            BattleSetupData.Current = null;
+            if (SceneTransitionManager.Instance != null)
             {
-                BattleSetupData.Current = null;
                 SceneTransitionManager.Instance.LoadScene(_battleManager.Setup.ReturnSceneName);
+            }
+            else
+            {
+                Debug.LogWarning("[BattleUI] SceneTransitionManager not found. Falling back to direct load.");
+                UnityEngine.SceneManagement.SceneManager.LoadScene(_battleManager.Setup.ReturnSceneName);
             }
         }
 
         private void OnActionExecuted(ActionResult result)
         {
+            // Defend produces no damage/heal — show separate message
+            if (result.DamageDealt == 0 && result.HealAmount == 0
+                && !result.WasCritical && !result.WasWeakHit)
+            {
+                Log($"{result.Attacker.Name}は防御した");
+                return;
+            }
+
             string msg = $"{result.Attacker.Name}の攻撃！ ";
             if (result.WasCritical) msg += "クリティカル！ ";
             if (result.WasWeakHit) msg += "弱点！ ";
