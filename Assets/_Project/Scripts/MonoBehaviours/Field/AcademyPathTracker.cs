@@ -45,6 +45,9 @@ namespace GuildAcademy.MonoBehaviours.Field
 
             int walkCount = _checker.RegisterOppositeWalk();
 
+            // Bed not yet examined — walks don't count, no dialogue
+            if (walkCount <= 0) return null;
+
             if (_checker.IsRefusalTriggered)
             {
                 // Trigger END1
