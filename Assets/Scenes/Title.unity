@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 204355025}
   - component: {fileID: 204355024}
   m_Layer: 5
-  m_Name: ContinuButton
+  m_Name: ContinueButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -879,7 +879,7 @@ MonoBehaviour:
   newGameButton: {fileID: 198816247}
   continueButton: {fileID: 204355025}
   galleryButton: {fileID: 0}
-  configButton: {fileID: 0}
+  settingButton: {fileID: 0}
   exitButton: {fileID: 2119735820}
   difficultyPanel: {fileID: 266677201}
   easyButton: {fileID: 1965205197}

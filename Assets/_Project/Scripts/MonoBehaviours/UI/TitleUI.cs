@@ -56,8 +56,8 @@ namespace GuildAcademy.UI
 
         private void Start()
         {
-            _titleButtons = new[] { newGameButton, continueButton, galleryButton, settingButton, exitButton };
-            _difficultyButtons = new[] { easyButton, normalButton, hardButton, nightmareButton };
+            _titleButtons = BuildButtonArray(newGameButton, continueButton, galleryButton, settingButton, exitButton);
+            _difficultyButtons = BuildButtonArray(easyButton, normalButton, hardButton, nightmareButton);
             _currentButtons = _titleButtons;
 
             // タイトルメニューのクリックイベント
@@ -135,6 +135,8 @@ namespace GuildAcademy.UI
 
         private void MoveSelection(int direction)
         {
+            if (_currentButtons.Length == 0) return;
+
             int nextIndex = _selectedIndex;
             int attempts = 0;
             do
@@ -142,8 +144,8 @@ namespace GuildAcademy.UI
                 nextIndex = (nextIndex + direction + _currentButtons.Length) % _currentButtons.Length;
                 attempts++;
             }
-            while (_currentButtons[nextIndex] != null &&
-                   !_currentButtons[nextIndex].interactable &&
+            while ((_currentButtons[nextIndex] == null ||
+                    !_currentButtons[nextIndex].interactable) &&
                    attempts < _currentButtons.Length);
 
             if (_currentButtons[nextIndex] != null && _currentButtons[nextIndex].interactable)
@@ -211,11 +213,7 @@ namespace GuildAcademy.UI
         private void OnExit()
         {
             Debug.Log("ゲーム終了");
-            #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-            #else
             Application.Quit();
-            #endif
         }
 
         // === 難易度選択（§3） ===
@@ -261,7 +259,17 @@ namespace GuildAcademy.UI
             }
         }
 
-        // === SE再生 ===
+        // === ユーティリティ ===
+
+        private static Button[] BuildButtonArray(params Button[] buttons)
+        {
+            var list = new System.Collections.Generic.List<Button>();
+            foreach (var btn in buttons)
+            {
+                if (btn != null) list.Add(btn);
+            }
+            return list.ToArray();
+        }
 
         private void PlaySE(AudioClip clip)
         {
