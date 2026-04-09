@@ -32,13 +32,10 @@ namespace GuildAcademy.UI
             Instance = this;
         }
 
-        private void Start()
+        private void EnsureInitialized()
         {
-            InitializeManager();
-        }
+            if (_dialogueManager != null) return;
 
-        private void InitializeManager()
-        {
             var source = new ResourcesDialogueJsonLoader();
             var branchManager = BranchManager.Instance;
 
@@ -58,7 +55,7 @@ namespace GuildAcademy.UI
 
         public void StartDialogue(string sourceKey, string entryId)
         {
-            if (_dialogueManager == null) InitializeManager();
+            EnsureInitialized();
 
             _dialogueManager.LoadFromSource(sourceKey);
             _dialogueManager.Start(entryId);
@@ -110,6 +107,13 @@ namespace GuildAcademy.UI
         {
             if (_dialogueManager == null || !_dialogueManager.IsActive) return;
             if (_waitingForChoice) return;
+
+            // タイプライタ演出中はスキップ（全文即表示）、完了後にAdvance
+            if (_dialogueUI != null && !_dialogueUI.IsTypingComplete)
+            {
+                _dialogueUI.SkipTyping();
+                return;
+            }
 
             _dialogueManager.Advance();
         }
