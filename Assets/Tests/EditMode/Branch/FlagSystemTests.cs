@@ -129,5 +129,70 @@ namespace GuildAcademy.Tests.EditMode.Branch
             Assert.AreEqual(0, _flagSystem.GetActiveCount());
             Assert.IsFalse(_flagSystem.AreAllSet());
         }
+
+        // === 追加テスト ===
+
+        [Test]
+        public void GetActiveCount_ExcludesAcademyRefused()
+        {
+            _flagSystem.Set(F.AcademyRefused, true);
+            Assert.AreEqual(0, _flagSystem.GetActiveCount());
+        }
+
+        [Test]
+        public void GetActiveCount_CountsOnlyActiveInfoFlags()
+        {
+            _flagSystem.Set(F.ShionPast, true);
+            _flagSystem.Set(F.CarlosPlan, true);
+            _flagSystem.Set(F.AcademyRefused, true);
+            Assert.AreEqual(2, _flagSystem.GetActiveCount());
+        }
+
+        [Test]
+        public void ToggleFlag_OnOffOn_ReturnsCorrectState()
+        {
+            _flagSystem.Set(F.ShionPast, true);
+            Assert.IsTrue(_flagSystem.Get(F.ShionPast));
+            _flagSystem.Set(F.ShionPast, false);
+            Assert.IsFalse(_flagSystem.Get(F.ShionPast));
+            _flagSystem.Set(F.ShionPast, true);
+            Assert.IsTrue(_flagSystem.Get(F.ShionPast));
+        }
+
+        [Test]
+        public void AreAllSet_WithAllInfoFlags_ReturnsTrue()
+        {
+            SetAllInfoFlags();
+            Assert.IsTrue(_flagSystem.AreAllSet());
+        }
+
+        [Test]
+        public void AreAllSet_WithAcademyRefusedOnly_ReturnsFalse()
+        {
+            _flagSystem.Set(F.AcademyRefused, true);
+            Assert.IsFalse(_flagSystem.AreAllSet());
+        }
+
+        [Test]
+        public void Reset_ClearsAllIncludingAcademyRefused()
+        {
+            SetAllInfoFlags();
+            _flagSystem.Set(F.AcademyRefused, true);
+            _flagSystem.Reset();
+            Assert.AreEqual(0, _flagSystem.GetActiveCount());
+            Assert.IsFalse(_flagSystem.Get(F.AcademyRefused));
+        }
+
+        [Test]
+        public void Set_UnknownFlag_ThrowsArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() => _flagSystem.Set("unknown_flag", true));
+        }
+
+        [Test]
+        public void Get_UnknownFlag_ThrowsArgumentException()
+        {
+            Assert.Throws<ArgumentException>(() => _flagSystem.Get("unknown_flag"));
+        }
     }
 }
