@@ -2,6 +2,16 @@
 
 このチェックリストは docs/maps/area-list.md を参照しつつ、今回の対象9エリアを実装するための作業用メモ。
 
+## このPRの受け入れ条件（コード/遷移検証スコープ）
+
+このPRでは「学園マップ遷移の実装整合」と「Field 遷移系の自動検証」を完了条件とする。
+タイル演出の作り込みや素材差し替えは、下部の継続タスクで管理する。
+
+- [x] ScenePortal2D / SceneSpawnResolver / SceneSpawnPoint の遷移実装を反映
+- [x] Build Settings と SceneNames の整合を反映
+- [x] Field 遷移系 EditMode テストを追加し、結果を取得
+- [x] ライセンス表記と実装チェックリストの整合を更新
+
 ## 対象シーン
 
 - Academy_Classroom
@@ -42,7 +52,7 @@
 - [x] SceneSpawnPoint の正規化ルールを EditMode で検証
 - [x] PlayerController が SceneSpawnResolver を自動追加することを EditMode で検証
 
-## 残タスク
+## 継続タスク（次スプリント）
 - [ ] 各シーンにタイル配置（Ground/Decoration/Collision）
 - [ ] NPC配置スポット配置
 - [ ] イベントトリガー配置
