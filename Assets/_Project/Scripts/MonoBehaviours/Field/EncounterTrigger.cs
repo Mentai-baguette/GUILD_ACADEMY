@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using GuildAcademy.Core.Data;
 using GuildAcademy.Data;
+using GuildAcademy.MonoBehaviours.Party;
 using GuildAcademy.MonoBehaviours.UI;
 
 namespace GuildAcademy.MonoBehaviours.Field
@@ -11,15 +12,10 @@ namespace GuildAcademy.MonoBehaviours.Field
         [Header("Enemy Configuration")]
         [SerializeField] private EnemyDataSO[] _enemies;
 
-        [Header("Party (leave empty to use default party SO)")]
-        [SerializeField] private CharacterDataSO[] _partyOverride;
-
         [Header("Battle Settings")]
         [SerializeField] private bool _isBossBattle;
         [SerializeField] private bool _canFlee = true;
         [SerializeField] private bool _destroyAfterBattle = true;
-
-        private const string DefaultPartyPath = "Data/Characters";
 
         private bool _triggered;
 
@@ -87,24 +83,17 @@ namespace GuildAcademy.MonoBehaviours.Field
 
         private List<CharacterStats> GetParty()
         {
-            var sources = (_partyOverride != null && _partyOverride.Length > 0)
-                ? _partyOverride
-                : Resources.LoadAll<CharacterDataSO>(DefaultPartyPath);
-
-            var party = new List<CharacterStats>();
-            foreach (var so in sources)
+            if (PartyManagerMB.Instance != null)
             {
-                if (so != null)
-                    party.Add(so.ToCharacterStats());
+                var party = PartyManagerMB.Instance.Party.GetBattleParty();
+                if (party.Count > 0) return party;
             }
 
-            if (party.Count == 0)
+            Debug.LogWarning("[EncounterTrigger] PartyManager not found or empty. Using fallback.");
+            return new List<CharacterStats>
             {
-                Debug.LogWarning("[EncounterTrigger] No party data found. Using fallback.");
-                party.Add(new CharacterStats("レイ", 105, 25, 12, 10, 10, ElementType.Dark));
-            }
-
-            return party;
+                new CharacterStats("レイ", 105, 25, 12, 10, 10, ElementType.Dark)
+            };
         }
     }
 }
