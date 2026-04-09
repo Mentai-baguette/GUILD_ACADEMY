@@ -100,11 +100,18 @@ namespace GuildAcademy.MonoBehaviours.Field
             if (_chapterDialogues != null && _chapterDialogues.Length > 0)
             {
                 int currentChapter = GetCurrentChapter();
-                for (int i = _chapterDialogues.Length - 1; i >= 0; i--)
+                // Inspector配列の並び順に依存しない: chapter <= currentChapterの最大値を選択
+                int bestChapter = -1;
+                string bestEntryId = null;
+                foreach (var cd in _chapterDialogues)
                 {
-                    if (_chapterDialogues[i].chapter <= currentChapter)
-                        return _chapterDialogues[i].entryId;
+                    if (cd.chapter <= currentChapter && cd.chapter > bestChapter)
+                    {
+                        bestChapter = cd.chapter;
+                        bestEntryId = cd.entryId;
+                    }
                 }
+                if (bestEntryId != null) return bestEntryId;
             }
             return _dialogueEntryId;
         }
@@ -127,6 +134,10 @@ namespace GuildAcademy.MonoBehaviours.Field
             _inConversation = false;
             if (_infoFlagTrigger != null)
                 _infoFlagTrigger.TryComplete();
+
+            // 会話終了後、player がまだ範囲内ならプロンプトを再表示
+            if (_playerInRange && _prompt != null)
+                _prompt.Show();
         }
     }
 }
