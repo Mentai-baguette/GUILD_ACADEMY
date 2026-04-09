@@ -56,11 +56,12 @@ namespace GuildAcademy.Core.Data
                 },
                 {
                     Difficulty.Hard,
-                    new DifficultySettings(2.0f, 0.9f, SaveRestriction.DormOnly, DefeatPenalty.LastSave, false, false, true)
+                    new DifficultySettings(2.0f, 0.9f, SaveRestriction.DormOnly, DefeatPenalty.LastSave, false, true, true)
                 },
                 {
+                    // セーブポイントのみ+中断セーブ(HasSuspendSave)あり
                     Difficulty.Nightmare,
-                    new DifficultySettings(4.0f, 0.75f, SaveRestriction.Disabled, DefeatPenalty.ChapterStart, true, false, true)
+                    new DifficultySettings(4.0f, 0.75f, SaveRestriction.SavePointOnly, DefeatPenalty.ChapterStart, true, false, true)
                 }
             };
 

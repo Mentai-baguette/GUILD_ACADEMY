@@ -30,7 +30,7 @@ namespace GuildAcademy.Tests.EditMode.Data
         [TestCase(Difficulty.Easy, SaveRestriction.Anywhere)]
         [TestCase(Difficulty.Normal, SaveRestriction.Anywhere)]
         [TestCase(Difficulty.Hard, SaveRestriction.DormOnly)]
-        [TestCase(Difficulty.Nightmare, SaveRestriction.Disabled)]
+        [TestCase(Difficulty.Nightmare, SaveRestriction.SavePointOnly)]
         public void SaveRule_ReturnsCorrectRestriction(Difficulty difficulty, SaveRestriction expected)
         {
             var settings = DifficultyManager.GetSettings(difficulty);
@@ -49,7 +49,7 @@ namespace GuildAcademy.Tests.EditMode.Data
 
         [TestCase(Difficulty.Easy, true)]
         [TestCase(Difficulty.Normal, true)]
-        [TestCase(Difficulty.Hard, false)]
+        [TestCase(Difficulty.Hard, true)]
         [TestCase(Difficulty.Nightmare, false)]
         public void HasAutoSave_ReturnsCorrectValue(Difficulty difficulty, bool expected)
         {
