@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GuildAcademy.Core.Data;
 using GuildAcademy.MonoBehaviours.Field;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -27,15 +28,15 @@ namespace GuildAcademy.EditorTools
 
             var sceneNames = new[]
             {
-                "Academy_Classroom",
-                "Academy_Hallway",
-                "Academy_Cafeteria",
-                "Academy_Library",
-                "Academy_Schoolyard",
-                "Academy_Rooftop",
-                "Academy_StudentCouncilRoom",
-                "Academy_Infirmary",
-                "Academy_SchoolGate",
+                SceneNames.AcademyClassroom,
+                SceneNames.AcademyHallway,
+                SceneNames.AcademyCafeteria,
+                SceneNames.AcademyLibrary,
+                SceneNames.AcademySchoolyard,
+                SceneNames.AcademyRooftop,
+                SceneNames.AcademyStudentCouncilRoom,
+                SceneNames.AcademyInfirmary,
+                SceneNames.AcademySchoolGate,
             };
 
             var links = BuildLinks();
@@ -147,73 +148,73 @@ namespace GuildAcademy.EditorTools
             return new Dictionary<string, List<PortalLink>>
             {
                 {
-                    "Academy_Classroom",
+                    SceneNames.AcademyClassroom,
                     new List<PortalLink>
                     {
-                        new PortalLink { Name = "ToHallway", Position = new Vector2(0f, -7f), TargetScene = "Academy_Hallway", TargetSpawn = "from_classroom" },
+                        new PortalLink { Name = "ToHallway", Position = new Vector2(0f, -7f), TargetScene = SceneNames.AcademyHallway, TargetSpawn = "from_classroom" },
                     }
                 },
                 {
-                    "Academy_Hallway",
+                    SceneNames.AcademyHallway,
                     new List<PortalLink>
                     {
-                        new PortalLink { Name = "ToClassroom", Position = new Vector2(0f, 7f), TargetScene = "Academy_Classroom", TargetSpawn = "from_hallway" },
-                        new PortalLink { Name = "ToCafeteria", Position = new Vector2(-7f, 0f), TargetScene = "Academy_Cafeteria", TargetSpawn = "from_hallway" },
-                        new PortalLink { Name = "ToLibrary", Position = new Vector2(7f, 0f), TargetScene = "Academy_Library", TargetSpawn = "from_hallway" },
-                        new PortalLink { Name = "ToInfirmary", Position = new Vector2(-7f, 5f), TargetScene = "Academy_Infirmary", TargetSpawn = "from_hallway" },
-                        new PortalLink { Name = "ToStudentCouncil", Position = new Vector2(7f, 5f), TargetScene = "Academy_StudentCouncilRoom", TargetSpawn = "from_hallway" },
-                        new PortalLink { Name = "ToRooftop", Position = new Vector2(0f, 9f), TargetScene = "Academy_Rooftop", TargetSpawn = "from_hallway" },
-                        new PortalLink { Name = "ToSchoolyard", Position = new Vector2(0f, -9f), TargetScene = "Academy_Schoolyard", TargetSpawn = "from_hallway" },
+                        new PortalLink { Name = "ToClassroom", Position = new Vector2(0f, 7f), TargetScene = SceneNames.AcademyClassroom, TargetSpawn = "from_hallway" },
+                        new PortalLink { Name = "ToCafeteria", Position = new Vector2(-7f, 0f), TargetScene = SceneNames.AcademyCafeteria, TargetSpawn = "from_hallway" },
+                        new PortalLink { Name = "ToLibrary", Position = new Vector2(7f, 0f), TargetScene = SceneNames.AcademyLibrary, TargetSpawn = "from_hallway" },
+                        new PortalLink { Name = "ToInfirmary", Position = new Vector2(-7f, 5f), TargetScene = SceneNames.AcademyInfirmary, TargetSpawn = "from_hallway" },
+                        new PortalLink { Name = "ToStudentCouncil", Position = new Vector2(7f, 5f), TargetScene = SceneNames.AcademyStudentCouncilRoom, TargetSpawn = "from_hallway" },
+                        new PortalLink { Name = "ToRooftop", Position = new Vector2(0f, 9f), TargetScene = SceneNames.AcademyRooftop, TargetSpawn = "from_hallway" },
+                        new PortalLink { Name = "ToSchoolyard", Position = new Vector2(0f, -9f), TargetScene = SceneNames.AcademySchoolyard, TargetSpawn = "from_hallway" },
                     }
                 },
                 {
-                    "Academy_Cafeteria",
+                    SceneNames.AcademyCafeteria,
                     new List<PortalLink>
                     {
-                        new PortalLink { Name = "ToHallway", Position = new Vector2(7f, 0f), TargetScene = "Academy_Hallway", TargetSpawn = "from_cafeteria" },
+                        new PortalLink { Name = "ToHallway", Position = new Vector2(7f, 0f), TargetScene = SceneNames.AcademyHallway, TargetSpawn = "from_cafeteria" },
                     }
                 },
                 {
-                    "Academy_Library",
+                    SceneNames.AcademyLibrary,
                     new List<PortalLink>
                     {
-                        new PortalLink { Name = "ToHallway", Position = new Vector2(-7f, 0f), TargetScene = "Academy_Hallway", TargetSpawn = "from_library" },
+                        new PortalLink { Name = "ToHallway", Position = new Vector2(-7f, 0f), TargetScene = SceneNames.AcademyHallway, TargetSpawn = "from_library" },
                     }
                 },
                 {
-                    "Academy_Schoolyard",
+                    SceneNames.AcademySchoolyard,
                     new List<PortalLink>
                     {
-                        new PortalLink { Name = "ToHallway", Position = new Vector2(0f, 8f), TargetScene = "Academy_Hallway", TargetSpawn = "from_schoolyard" },
-                        new PortalLink { Name = "ToSchoolGate", Position = new Vector2(0f, -8f), TargetScene = "Academy_SchoolGate", TargetSpawn = "from_schoolyard" },
+                        new PortalLink { Name = "ToHallway", Position = new Vector2(0f, 8f), TargetScene = SceneNames.AcademyHallway, TargetSpawn = "from_schoolyard" },
+                        new PortalLink { Name = "ToSchoolGate", Position = new Vector2(0f, -8f), TargetScene = SceneNames.AcademySchoolGate, TargetSpawn = "from_schoolyard" },
                     }
                 },
                 {
-                    "Academy_Rooftop",
+                    SceneNames.AcademyRooftop,
                     new List<PortalLink>
                     {
-                        new PortalLink { Name = "ToHallway", Position = new Vector2(0f, -8f), TargetScene = "Academy_Hallway", TargetSpawn = "from_rooftop" },
+                        new PortalLink { Name = "ToHallway", Position = new Vector2(0f, -8f), TargetScene = SceneNames.AcademyHallway, TargetSpawn = "from_rooftop" },
                     }
                 },
                 {
-                    "Academy_StudentCouncilRoom",
+                    SceneNames.AcademyStudentCouncilRoom,
                     new List<PortalLink>
                     {
-                        new PortalLink { Name = "ToHallway", Position = new Vector2(-8f, 0f), TargetScene = "Academy_Hallway", TargetSpawn = "from_student_council" },
+                        new PortalLink { Name = "ToHallway", Position = new Vector2(-8f, 0f), TargetScene = SceneNames.AcademyHallway, TargetSpawn = "from_student_council" },
                     }
                 },
                 {
-                    "Academy_Infirmary",
+                    SceneNames.AcademyInfirmary,
                     new List<PortalLink>
                     {
-                        new PortalLink { Name = "ToHallway", Position = new Vector2(8f, 0f), TargetScene = "Academy_Hallway", TargetSpawn = "from_infirmary" },
+                        new PortalLink { Name = "ToHallway", Position = new Vector2(8f, 0f), TargetScene = SceneNames.AcademyHallway, TargetSpawn = "from_infirmary" },
                     }
                 },
                 {
-                    "Academy_SchoolGate",
+                    SceneNames.AcademySchoolGate,
                     new List<PortalLink>
                     {
-                        new PortalLink { Name = "ToSchoolyard", Position = new Vector2(0f, 8f), TargetScene = "Academy_Schoolyard", TargetSpawn = "from_school_gate" },
+                        new PortalLink { Name = "ToSchoolyard", Position = new Vector2(0f, 8f), TargetScene = SceneNames.AcademySchoolyard, TargetSpawn = "from_school_gate" },
                     }
                 },
             };
