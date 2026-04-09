@@ -14,6 +14,10 @@ namespace GuildAcademy.Core.Battle
         public const float WEAK_MULTIPLIER = 1.5f;
         public const float RESIST_MULTIPLIER = 0.5f;
         public const float NULL_MULTIPLIER = 0.0f;
+        /// <summary>
+        /// 吸収倍率（負値）。呼び出し側で負の倍率を吸収/回復として処理し、
+        /// HPの上限管理（最大HPを超えない）も行う必要がある。
+        /// </summary>
         public const float ABSORB_MULTIPLIER = -1.0f;
         public const float NEUTRAL_MULTIPLIER = 1.0f;
 
