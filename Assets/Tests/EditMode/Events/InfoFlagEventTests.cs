@@ -42,7 +42,7 @@ namespace GuildAcademy.Tests.EditMode.Events
             _registry.Register(new InfoFlagEventData("evt1", F.ShionPast, "dlg1"));
             _registry.Register(new InfoFlagEventData("evt2", F.AcademySecret, "dlg2"));
 
-            _flags.Set(F.ShionPast, true); // Complete evt1
+            _flags.Set(F.ShionPast, true);
 
             var available = _registry.GetAvailableEvents();
             Assert.AreEqual(1, available.Count);
@@ -58,7 +58,7 @@ namespace GuildAcademy.Tests.EditMode.Events
             var available = _registry.GetAvailableEvents();
             Assert.AreEqual(0, available.Count);
 
-            _flags.Set(F.AcademySecret, true); // Meet prerequisite
+            _flags.Set(F.AcademySecret, true);
             available = _registry.GetAvailableEvents();
             Assert.AreEqual(1, available.Count);
         }
@@ -88,6 +88,22 @@ namespace GuildAcademy.Tests.EditMode.Events
         public void CompleteEvent_UnknownId_Throws()
         {
             Assert.Throws<System.ArgumentException>(() => _registry.CompleteEvent("nonexistent"));
+        }
+
+        [Test]
+        public void CompleteEvent_AlreadyCompleted_Throws()
+        {
+            _registry.Register(new InfoFlagEventData("evt1", F.ShionPast, "dlg1"));
+            _registry.CompleteEvent("evt1");
+            Assert.Throws<System.InvalidOperationException>(() => _registry.CompleteEvent("evt1"));
+        }
+
+        [Test]
+        public void CompleteEvent_PrerequisitesUnmet_Throws()
+        {
+            _registry.Register(new InfoFlagEventData("evt1", F.CarlosPlan, "dlg1",
+                prerequisites: new List<string> { F.AcademySecret }));
+            Assert.Throws<System.InvalidOperationException>(() => _registry.CompleteEvent("evt1"));
         }
 
         [Test]
@@ -146,18 +162,14 @@ namespace GuildAcademy.Tests.EditMode.Events
 
             Assert.AreEqual(8, _registry.TotalCount);
 
-            // ShionPast and AcademySecret have no prerequisites
             _registry.CompleteEvent("evt_shion_past");
             _registry.CompleteEvent("evt_academy_secret");
 
             Assert.AreEqual(2, _registry.CompletedCount);
             Assert.AreEqual(2, _flags.GetActiveCount());
 
-            // CarlosPlan requires AcademySecret (now met)
             Assert.IsTrue(_registry.IsEventAvailable("evt_carlos_plan"));
-            // VesselTruth requires ShionPast (now met)
             Assert.IsTrue(_registry.IsEventAvailable("evt_vessel_truth"));
-            // SealMethod requires VesselTruth (not yet)
             Assert.IsFalse(_registry.IsEventAvailable("evt_seal_method"));
         }
     }

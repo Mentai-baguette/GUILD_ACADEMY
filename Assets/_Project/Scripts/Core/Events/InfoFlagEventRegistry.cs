@@ -54,6 +54,10 @@ namespace GuildAcademy.Core.Events
             if (evt == null)
                 throw new ArgumentException($"Unknown event: {eventId}");
 
+            if (!IsEventAvailable(eventId))
+                throw new InvalidOperationException(
+                    $"Event '{eventId}' is not available (already completed or prerequisites unmet).");
+
             _flagSystem.Set(evt.FlagName, true);
             OnFlagEventCompleted?.Invoke(evt);
         }

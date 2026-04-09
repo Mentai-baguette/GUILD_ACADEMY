@@ -5,11 +5,11 @@ namespace GuildAcademy.Core.Events
 {
     public class InfoFlagEventData
     {
-        public string EventId { get; set; }
-        public string FlagName { get; set; }
-        public string DialogueEntryId { get; set; }
-        public string Description { get; set; }
-        public List<string> Prerequisites { get; set; }
+        public string EventId { get; }
+        public string FlagName { get; }
+        public string DialogueEntryId { get; }
+        public string Description { get; }
+        public IReadOnlyList<string> Prerequisites { get; }
 
         public InfoFlagEventData(string eventId, string flagName, string dialogueEntryId,
             string description = "", List<string> prerequisites = null)
@@ -18,7 +18,7 @@ namespace GuildAcademy.Core.Events
             FlagName = flagName ?? throw new ArgumentNullException(nameof(flagName));
             DialogueEntryId = dialogueEntryId ?? throw new ArgumentNullException(nameof(dialogueEntryId));
             Description = description ?? "";
-            Prerequisites = prerequisites ?? new List<string>();
+            Prerequisites = new List<string>(prerequisites ?? new List<string>()).AsReadOnly();
         }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 using GuildAcademy.Core.Events;
-using GuildAcademy.MonoBehaviours.Branch;
+using GuildAcademy.MonoBehaviours.Events;
 
 namespace GuildAcademy.MonoBehaviours.Field
 {
@@ -15,6 +15,12 @@ namespace GuildAcademy.MonoBehaviours.Field
         public void Initialize(InfoFlagEventRegistry registry)
         {
             _registry = registry;
+        }
+
+        private void Start()
+        {
+            if (_registry == null && InfoFlagEventManager.Instance != null)
+                _registry = InfoFlagEventManager.Instance.Registry;
         }
 
         public bool IsAvailable()
