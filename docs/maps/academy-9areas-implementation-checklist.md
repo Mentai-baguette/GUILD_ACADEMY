@@ -24,7 +24,7 @@
 - Academy_Infirmary
 - Academy_SchoolGate
 - Academy_TrainingGround
-- Academy_Courtyard
+- Academy_Courtyard（現ブランチ未反映）
 
 ## 進捗
 
@@ -35,10 +35,10 @@
 - [x] 9シーンにNPCスポットを配置するEditorスクリプトを追加
 - [x] Academy_TrainingGround の雛形シーンを新規作成
 - [x] Hallway <-> TrainingGround 往復接続のEditorスクリプトを追加（GuildAcademy/Maps/Connect Hallway <-> TrainingGround）
-- [x] Academy_Courtyard を新規生成するEditorスクリプトを追加（GuildAcademy/Maps/Create Academy Courtyard）
-- [x] SceneNames に Academy_Courtyard 定数を追加
+- [ ] Academy_Courtyard を新規生成するEditorスクリプトを追加（GuildAcademy/Maps/Create Academy Courtyard）※現ブランチ未反映
+- [ ] SceneNames に Academy_Courtyard 定数を追加 ※現ブランチ未反映
 - [x] 9シーン雛形をUnityメニューから生成
-- [x] Academy_Courtyard シーンをUnityメニューから生成
+- [ ] Academy_Courtyard シーンをUnityメニューから生成 ※現ブランチ未反映
 - [x] プレイヤー初期化時にSceneSpawnResolverを保証する（PlayerController.Awake で自動追加）
 - [x] Build Settingsの遷移確認
 - [x] Academy_Classroom は類似タイル・小物で先に完成させ、不足素材は後で差し替える
@@ -72,22 +72,22 @@
 - Schoolyard <-> Courtyard
 - Schoolyard <-> SchoolGate
 
-## 中庭追加実装（area-list 1-6 対応）
+## 中庭追加実装（area-list 1-6 対応 / 現ブランチ未反映）
 
 `docs/maps/area-list.md` の「1-6. 中庭」要件に対する実装チェック。
 
-- [x] Academy_Courtyard を生成し、最低限の構成（Grid/Ground/Decoration/Collision/Camera）を成立させる
-- [x] 開放感を優先した Ground レイアウトにする（中央会話余白を確保）
-- [x] 噴水中心の会話余白を配置する（Fountain_Center + 周辺導線）
-- [x] 花壇スペースを4箇所配置し、会話視認性を阻害しない
-- [x] SLイベント用 EventTriggers を配置する（`courtyard_sl_01`〜）
-- [x] 日曜特殊イベント用 EventTriggers を配置する（`courtyard_sunday_01`〜）
-- [x] 滞在会話向け NPCSpots を複数配置する（噴水前・花壇脇・ベンチ想定）
-- [x] Hallway <-> Courtyard の往復ポータルを成立させる
-- [x] Schoolyard <-> Courtyard の往復ポータルを成立させる
-- [x] SpawnPoint ID を接続先ポータルと一致させる（`from_hallway` / `from_schoolyard`）
-- [x] 放課後想定で「通路よりイベント点が先に見える」カメラ画角に調整する
-- [x] 日曜想定で主要イベント点が1画面目で把握できることを確認する
+- [ ] Academy_Courtyard を生成し、最低限の構成（Grid/Ground/Decoration/Collision/Camera）を成立させる
+- [ ] 開放感を優先した Ground レイアウトにする（中央会話余白を確保）
+- [ ] 噴水中心の会話余白を配置する（Fountain_Center + 周辺導線）
+- [ ] 花壇スペースを4箇所配置し、会話視認性を阻害しない
+- [ ] SLイベント用 EventTriggers を配置する（`courtyard_sl_01`〜）
+- [ ] 日曜特殊イベント用 EventTriggers を配置する（`courtyard_sunday_01`〜）
+- [ ] 滞在会話向け NPCSpots を複数配置する（噴水前・花壇脇・ベンチ想定）
+- [ ] Hallway <-> Courtyard の往復ポータルを成立させる
+- [ ] Schoolyard <-> Courtyard の往復ポータルを成立させる
+- [ ] SpawnPoint ID を接続先ポータルと一致させる（`from_hallway` / `from_schoolyard`）
+- [ ] 放課後想定で「通路よりイベント点が先に見える」カメラ画角に調整する
+- [ ] 日曜想定で主要イベント点が1画面目で把握できることを確認する
 
 ## 実装メモ
 
