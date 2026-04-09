@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using GuildAcademy.Core.Calendar;
 using GuildAcademy.UI;
 
 namespace GuildAcademy.MonoBehaviours.Field
@@ -23,10 +24,10 @@ namespace GuildAcademy.MonoBehaviours.Field
         [SerializeField] private InfoFlagTrigger _infoFlagTrigger;
 
         /// <summary>
-        /// 他システム（ScheduleManagerMB等）から現在の章を一括設定する用。
-        /// デフォルト1。ScheduleManagerMBが別PRでマージされたらそちらから更新する。
+        /// 章取得用のCalendarManager参照。外部から設定する。
+        /// ScheduleManagerMBのAwake等で NPCController.SharedCalendar = calendar; とする。
         /// </summary>
-        public static int CurrentChapterOverride { get; set; } = 1;
+        public static CalendarManager SharedCalendar { get; set; }
 
         private bool _playerInRange;
         private bool _inConversation;
@@ -102,9 +103,16 @@ namespace GuildAcademy.MonoBehaviours.Field
             return _dialogueEntryId;
         }
 
+        /// <summary>
+        /// 現在の章番号を取得する（1-indexed）。
+        /// SharedCalendarが設定されていればCalendarManager.CurrentChapterから動的取得。
+        /// </summary>
         private int GetCurrentChapter()
         {
-            return CurrentChapterOverride;
+            if (SharedCalendar != null)
+                return (int)SharedCalendar.CurrentChapter + 1;
+
+            return 1;
         }
 
         private System.Collections.IEnumerator WaitForDialogueEnd(DialogueUIBridge bridge)
