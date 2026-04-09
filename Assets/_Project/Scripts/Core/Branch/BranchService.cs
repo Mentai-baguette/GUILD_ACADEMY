@@ -5,6 +5,8 @@ namespace GuildAcademy.Core.Branch
 {
     public class BranchService
     {
+        // NOTE: Flags/Trust are public because EndingContext references them directly.
+        // Mutations should go through BranchService methods (SetFlag, AddTrust) to ensure events fire.
         public FlagSystem Flags { get; }
         public TrustSystem Trust { get; }
 
@@ -35,6 +37,10 @@ namespace GuildAcademy.Core.Branch
 
         public int GetTrust(CharacterId id) => Trust.GetTrust(id);
 
+        public int GetActiveInfoFlagCount() => Flags.GetActiveCount();
+        public bool AreAllInfoFlagsSet() => Flags.AreAllSet();
+        public bool TrustMeetsThreshold(CharacterId id, int threshold) => Trust.MeetsThreshold(id, threshold);
+
         public EndingType CheckEnding(EndingContext context)
         {
             return EndingResolver.Resolve(context);
@@ -43,7 +49,7 @@ namespace GuildAcademy.Core.Branch
         public EndingContext CreateEndingContext(
             BattlePhase phase, BattleResult result,
             bool shionRescued, bool carlosDefeated,
-            int erosionPercent, int shionTrust = 0,
+            int erosionPercent, int shionTrust = -1,
             bool greyveEventCleared = false, int setsunaTrust = 0)
         {
             return new EndingContext
@@ -55,7 +61,7 @@ namespace GuildAcademy.Core.Branch
                 ShionRescued = shionRescued,
                 CarlosDefeated = carlosDefeated,
                 ErosionPercent = erosionPercent,
-                ShionTrust = shionTrust,
+                ShionTrust = shionTrust >= 0 ? shionTrust : Trust.GetTrust(CharacterId.Shion),
                 GreyveEventCleared = greyveEventCleared,
                 SetsunaTrust = setsunaTrust
             };
