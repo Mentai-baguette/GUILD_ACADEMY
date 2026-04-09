@@ -37,7 +37,7 @@ namespace GuildAcademy.Tests.EditMode.Battle
         public void Poison_DealsDamage_8PercentPerTurn()
         {
             _system.TryApply(_target, StatusEffectType.Poison, 100, 0f, _alwaysSucceed);
-            int expectedDamage = (int)(1000 * 0.08f); // 80
+            int expectedDamage = 80; // MaxHp(1000) * 8%
 
             _system.OnTurnEnd(_target);
 
@@ -260,7 +260,7 @@ namespace GuildAcademy.Tests.EditMode.Battle
         {
             _target.CurrentHp = 500; // 半分に減らす
             _system.TryApply(_target, StatusEffectType.Regen, 100, 0f, _alwaysSucceed);
-            int expectedHeal = (int)(1000 * 0.03f); // 30
+            int expectedHeal = 30; // MaxHp(1000) * 3%
 
             _system.OnTurnEnd(_target);
 

@@ -124,13 +124,13 @@ namespace GuildAcademy.Core.Battle
                 {
                     case StatusEffectType.Poison:
                         // HP8%ダメージ（スタック数に応じて）
-                        int poisonDamage = (int)(target.MaxHp * 0.08f * effect.StackCount);
+                        int poisonDamage = (int)System.Math.Round(target.MaxHp * 0.08f * effect.StackCount);
                         target.CurrentHp = System.Math.Max(0, target.CurrentHp - poisonDamage);
                         break;
 
                     case StatusEffectType.Regen:
                         // HP3%回復（スタック数に応じて）
-                        int regenAmount = (int)(target.MaxHp * 0.03f * effect.StackCount);
+                        int regenAmount = (int)System.Math.Round(target.MaxHp * 0.03f * effect.StackCount);
                         target.CurrentHp = System.Math.Min(target.MaxHp, target.CurrentHp + regenAmount);
                         break;
                 }
