@@ -891,7 +891,7 @@ MonoBehaviour:
   versionText: {fileID: 1674802959}
   seSelect: {fileID: 0}
   seConfirm: {fileID: 0}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 193011414}
 --- !u!1 &450930956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,9 +1180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Continue
-
-'
+  m_text: Continue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5c36fefb3effb4e94a60a8edfc45e409, type: 2}
   m_sharedMaterial: {fileID: 5175053154628878453, guid: 5c36fefb3effb4e94a60a8edfc45e409, type: 2}
@@ -1319,9 +1317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'New Game
-
-'
+  m_text: New Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5c36fefb3effb4e94a60a8edfc45e409, type: 2}
   m_sharedMaterial: {fileID: 5175053154628878453, guid: 5c36fefb3effb4e94a60a8edfc45e409, type: 2}

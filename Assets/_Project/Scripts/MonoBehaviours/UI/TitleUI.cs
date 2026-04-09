@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using TMPro;
 using GuildAcademy.MonoBehaviours.UI;
 
@@ -23,6 +24,7 @@ namespace GuildAcademy.UI
         [SerializeField] private Button newGameButton;
         [SerializeField] private Button continueButton;
         [SerializeField] private Button galleryButton;
+        [FormerlySerializedAs("configButton")]
         [SerializeField] private Button settingButton;
         [SerializeField] private Button exitButton;
 
