@@ -47,19 +47,22 @@ namespace GuildAcademy.Core.Battle
 
         /// <summary>
         /// 状態異常の付与（耐性判定込み）
+        /// ボスはストップ完全無効。他の状態異常は耐性値で成功率が低下する
         /// </summary>
         public bool TryApply(CharacterStats target, StatusEffectType type,
             int baseChancePercent, float resistanceValue, IRandom random,
             bool isEnhanced = false)
         {
-            // ボスはストップ完全無効（耐性1.0で判定）
-            if (resistanceValue >= 1.0f)
+            // ストップはボス完全無効（耐性1.0以上）
+            if (type == StatusEffectType.Stop && resistanceValue >= 1.0f)
                 return false;
 
-            // 成功率 = 基本成功率 × (1 - 耐性値)
-            float successRate = baseChancePercent * (1f - resistanceValue);
+            // 他の状態異常は耐性で確率低下（1.0でも0%にはなるが、ストップとは別ルート）
+            int effectiveChance = (int)(baseChancePercent * (1f - resistanceValue));
+            if (effectiveChance <= 0) return false;
+
             int roll = random.Range(0, 100);
-            if (roll >= (int)successRate)
+            if (roll >= effectiveChance)
                 return false;
 
             var effects = GetOrCreateEffectList(target);

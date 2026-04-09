@@ -224,6 +224,38 @@ namespace GuildAcademy.Tests.EditMode.Battle
             Assert.IsFalse(result);
             Assert.IsFalse(_system.HasEffect(_target, StatusEffectType.Stop));
         }
+        [Test]
+        public void Poison_WithResistance1_EffectiveChanceZero_Fails()
+        {
+            // 毒+耐性1.0 → 成功率0%で無効（計算結果が0以下）
+            bool result = _system.TryApply(_target, StatusEffectType.Poison, 100, 1.0f, _alwaysSucceed);
+
+            Assert.IsFalse(result);
+            Assert.IsFalse(_system.HasEffect(_target, StatusEffectType.Poison));
+        }
+
+        [Test]
+        public void Poison_WithResistance05_SuccessRateHalved()
+        {
+            // 毒+耐性0.5 → 成功率半減（100 * 0.5 = 50%）
+            // roll=0 → 0 < 50 → 成功
+            bool result = _system.TryApply(_target, StatusEffectType.Poison, 100, 0.5f, _alwaysSucceed);
+
+            Assert.IsTrue(result);
+            Assert.IsTrue(_system.HasEffect(_target, StatusEffectType.Poison));
+        }
+
+        [Test]
+        public void Poison_WithResistance05_HighRoll_Fails()
+        {
+            // 毒+耐性0.5 → 成功率50%
+            // roll=60 → 60 >= 50 → 失敗
+            var random = new FixedRandom(60);
+            bool result = _system.TryApply(_target, StatusEffectType.Poison, 100, 0.5f, random);
+
+            Assert.IsFalse(result);
+        }
+
 
         // ===== バフ：ATKアップ =====
 
