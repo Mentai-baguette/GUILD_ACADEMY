@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 420333344}
   - component: {fileID: 420333345}
   m_Layer: 0
-  m_Name: Spawn_from_hallway
+  m_Name: Spawn_from_library
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72283f51ebf1c41829e8dbd039843528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GuildAcademy.MonoBehaviours::GuildAcademy.MonoBehaviours.Field.SceneSpawnPoint
-  _spawnId: from_hallway
+  _spawnId: from_library
   _facingDirection: {x: 0, y: -1}
 --- !u!1 &464351477
 GameObject:

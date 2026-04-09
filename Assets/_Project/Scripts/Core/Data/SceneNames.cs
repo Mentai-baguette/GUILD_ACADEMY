@@ -12,6 +12,7 @@ namespace GuildAcademy.Core.Data
         public const string AcademyCafeteria = "Academy_Cafeteria";
         public const string AcademyLibrary = "Academy_Library";
         public const string AcademySchoolyard = "Academy_Schoolyard";
+        public const string AcademyCourtyard = "Academy_Courtyard";
         public const string AcademyRooftop = "Academy_Rooftop";
         public const string AcademyStudentCouncilRoom = "Academy_StudentCouncilRoom";
         public const string AcademyInfirmary = "Academy_Infirmary";
