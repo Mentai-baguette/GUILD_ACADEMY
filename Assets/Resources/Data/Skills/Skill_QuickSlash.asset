@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75665f10340f54f59b28f377fc928e1a, type: 3}
+  m_Name: Skill_QuickSlash
+  m_EditorClassIdentifier: GuildAcademy.ScriptableObjects::GuildAcademy.Data.SkillDataSO
+  skillName: "\u30AF\u30A4\u30C3\u30AF\u30B9\u30E9\u30C3\u30B7\u30E5"
+  description: "\u7D20\u65E9\u3044\u9023\u7D9A\u65AC\u308A"
+  power: 80
+  mpCost: 6
+  element: 0
+  targetType: 0
+  isHealing: 0
+  isMagic: 0
+  breakValue: 8

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a8678412e33491c9c0afe5201b8b0f, type: 3}
+  m_Name: Enemy_Mushroom
+  m_EditorClassIdentifier: GuildAcademy.ScriptableObjects::GuildAcademy.Data.EnemyDataSO
+  enemyName: "\u30DD\u30A4\u30BA\u30F3\u30DE\u30C3\u30B7\u30E5"
+  description: "\u6BD2\u80DE\u5B50\u3092\u6492\u304F\u83CC\u985E"
+  isBoss: 0
+  bossPhase: 0
+  maxHp: 35
+  maxMp: 15
+  atk: 4
+  def: 5
+  intStat: 7
+  res: 5
+  agi: 3
+  dex: 4
+  luk: 80
+  level: 5
+  element: 4
+  weakElement: 1
+  resistElement: 0
+  nullElement: 0
+  breakGaugeMax: 55
+  breakWeakHitValue: 10
+  skills:
+  - {fileID: 11400000, guid: 7e41ff0986c3a42b79bc35f52d4949be, type: 2}
+  expReward: 6
+  goldReward: 3

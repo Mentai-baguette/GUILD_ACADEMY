@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a8678412e33491c9c0afe5201b8b0f, type: 3}
+  m_Name: Enemy_Treant
+  m_EditorClassIdentifier: GuildAcademy.ScriptableObjects::GuildAcademy.Data.EnemyDataSO
+  enemyName: "\u30C8\u30EC\u30F3\u30C8"
+  description: "\u68EE\u306E\u756A\u4EBA\u3002\u786C\u3044"
+  isBoss: 0
+  bossPhase: 0
+  maxHp: 80
+  maxMp: 10
+  atk: 7
+  def: 12
+  intStat: 4
+  res: 6
+  agi: 3
+  dex: 4
+  luk: 75
+  level: 6
+  element: 4
+  weakElement: 1
+  resistElement: 4
+  nullElement: 0
+  breakGaugeMax: 80
+  breakWeakHitValue: 20
+  skills:
+  - {fileID: 11400000, guid: d1b9c4d4a19244ac6bdf6e2d9e311ea0, type: 2}
+  - {fileID: 11400000, guid: a78b159cb9f6c4d29a5679a1754af2f3, type: 2}
+  expReward: 12
+  goldReward: 6
