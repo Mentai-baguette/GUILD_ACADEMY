@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747542059cb724e8aa5753886844e856, type: 3}
+  m_Name: Char_Kaito
+  m_EditorClassIdentifier: GuildAcademy.ScriptableObjects::GuildAcademy.Data.CharacterDataSO
+  id: 3
+  characterName: "\u30AB\u30A4\u30C8"
+  description: "\u7121\u5C5E\u6027\u306E\u30BF\u30F3\u30AF\u6226\u58EB"
+  maxHp: 120
+  maxMp: 15
+  atk: 16
+  def: 11
+  intStat: 5
+  res: 7
+  agi: 8
+  dex: 9
+  luk: 90
+  level: 1
+  element: 0
+  weakElement: 0
+  resistElement: 0
+  nullElement: 0

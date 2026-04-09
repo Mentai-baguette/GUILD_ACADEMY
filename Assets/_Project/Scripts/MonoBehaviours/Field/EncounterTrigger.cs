@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using GuildAcademy.Core.Data;
+using GuildAcademy.Data;
 using GuildAcademy.MonoBehaviours.UI;
 
 namespace GuildAcademy.MonoBehaviours.Field
@@ -8,18 +9,17 @@ namespace GuildAcademy.MonoBehaviours.Field
     public class EncounterTrigger : MonoBehaviour
     {
         [Header("Enemy Configuration")]
-        [SerializeField] private string _enemyName = "Enemy";
-        [SerializeField] private int _enemyHp = 100;
-        [SerializeField] private int _enemyMp = 30;
-        [SerializeField] private int _enemyAtk = 15;
-        [SerializeField] private int _enemyDef = 10;
-        [SerializeField] private int _enemyAgi = 8;
-        [SerializeField] private ElementType _enemyElement = ElementType.None;
+        [SerializeField] private EnemyDataSO[] _enemies;
+
+        [Header("Party (leave empty to use default party SO)")]
+        [SerializeField] private CharacterDataSO[] _partyOverride;
 
         [Header("Battle Settings")]
         [SerializeField] private bool _isBossBattle;
         [SerializeField] private bool _canFlee = true;
         [SerializeField] private bool _destroyAfterBattle = true;
+
+        private const string DefaultPartyPath = "Data/Characters";
 
         private bool _triggered;
 
@@ -34,14 +34,26 @@ namespace GuildAcademy.MonoBehaviours.Field
 
         public void StartEncounter()
         {
-            var enemies = new List<CharacterStats>
+            var enemyStats = new List<CharacterStats>();
+            if (_enemies != null && _enemies.Length > 0)
             {
-                new CharacterStats(_enemyName, _enemyHp, _enemyMp, _enemyAtk, _enemyDef, _enemyAgi, _enemyElement)
-            };
+                foreach (var enemy in _enemies)
+                {
+                    if (enemy != null)
+                        enemyStats.Add(enemy.ToCharacterStats());
+                }
+            }
 
-            var party = GetDefaultParty();
+            if (enemyStats.Count == 0)
+            {
+                Debug.LogWarning("[EncounterTrigger] No enemies configured.");
+                _triggered = false;
+                return;
+            }
 
-            var setup = new BattleSetupData(party, enemies,
+            var party = GetParty();
+
+            var setup = new BattleSetupData(party, enemyStats,
                 UnityEngine.SceneManagement.SceneManager.GetActiveScene().name)
             {
                 IsBossBattle = _isBossBattle,
@@ -61,9 +73,6 @@ namespace GuildAcademy.MonoBehaviours.Field
             }
         }
 
-        /// <summary>
-        /// バトル終了後に呼ぶ。destroyAfterBattle設定に応じてオブジェクトを処理する。
-        /// </summary>
         public void OnBattleReturned()
         {
             if (_destroyAfterBattle)
@@ -76,17 +85,26 @@ namespace GuildAcademy.MonoBehaviours.Field
             }
         }
 
-        private List<CharacterStats> GetDefaultParty()
+        private List<CharacterStats> GetParty()
         {
-            // Hackathon default: 5 party members from scenario
-            return new List<CharacterStats>
+            var sources = (_partyOverride != null && _partyOverride.Length > 0)
+                ? _partyOverride
+                : Resources.LoadAll<CharacterDataSO>(DefaultPartyPath);
+
+            var party = new List<CharacterStats>();
+            foreach (var so in sources)
             {
-                new CharacterStats("レイ", 450, 80, 42, 30, 28, ElementType.Dark, intStat: 25, res: 22, dex: 35, luk: 100),
-                new CharacterStats("ユナ", 380, 150, 28, 25, 22, ElementType.Light, intStat: 48, res: 38, dex: 20, luk: 100),
-                new CharacterStats("ミオ", 350, 120, 32, 22, 35, ElementType.Wind, intStat: 40, res: 28, dex: 30, luk: 100),
-                new CharacterStats("カイト", 500, 60, 52, 38, 30, ElementType.Fire, intStat: 18, res: 20, dex: 28, luk: 100),
-                new CharacterStats("シオン", 480, 100, 48, 35, 32, ElementType.Ice, intStat: 42, res: 35, dex: 38, luk: 100)
-            };
+                if (so != null)
+                    party.Add(so.ToCharacterStats());
+            }
+
+            if (party.Count == 0)
+            {
+                Debug.LogWarning("[EncounterTrigger] No party data found. Using fallback.");
+                party.Add(new CharacterStats("レイ", 105, 25, 12, 10, 10, ElementType.Dark));
+            }
+
+            return party;
         }
     }
 }
