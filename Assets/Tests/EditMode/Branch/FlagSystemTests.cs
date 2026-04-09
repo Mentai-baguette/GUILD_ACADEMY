@@ -129,5 +129,44 @@ namespace GuildAcademy.Tests.EditMode.Branch
             Assert.AreEqual(0, _flagSystem.GetActiveCount());
             Assert.IsFalse(_flagSystem.AreAllSet());
         }
+
+        // === 追加テスト ===
+
+        [Test]
+        public void GetActiveCount_ExcludesAcademyRefused()
+        {
+            _flagSystem.Set(F.AcademyRefused, true);
+            Assert.AreEqual(0, _flagSystem.GetActiveCount());
+        }
+
+        [Test]
+        public void GetActiveCount_CountsOnlyActiveInfoFlags()
+        {
+            _flagSystem.Set(F.ShionPast, true);
+            _flagSystem.Set(F.CarlosPlan, true);
+            _flagSystem.Set(F.AcademyRefused, true);
+            Assert.AreEqual(2, _flagSystem.GetActiveCount());
+        }
+
+        [Test]
+        public void ToggleFlag_OnOffOn_ReturnsCorrectState()
+        {
+            _flagSystem.Set(F.ShionPast, true);
+            Assert.IsTrue(_flagSystem.Get(F.ShionPast));
+            _flagSystem.Set(F.ShionPast, false);
+            Assert.IsFalse(_flagSystem.Get(F.ShionPast));
+            _flagSystem.Set(F.ShionPast, true);
+            Assert.IsTrue(_flagSystem.Get(F.ShionPast));
+        }
+
+        [Test]
+        public void Reset_ClearsAllIncludingAcademyRefused()
+        {
+            SetAllInfoFlags();
+            _flagSystem.Set(F.AcademyRefused, true);
+            _flagSystem.Reset();
+            Assert.AreEqual(0, _flagSystem.GetActiveCount());
+            Assert.IsFalse(_flagSystem.Get(F.AcademyRefused));
+        }
     }
 }

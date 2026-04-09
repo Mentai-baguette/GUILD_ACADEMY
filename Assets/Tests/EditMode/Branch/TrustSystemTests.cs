@@ -112,5 +112,53 @@ namespace GuildAcademy.Tests.EditMode.Branch
         {
             Assert.IsFalse(_trustSystem.IsTrustTarget(CharacterId.Ray));
         }
+
+        // === 追加テスト ===
+
+        [Test]
+        public void SetTrust_ClampsToMax100()
+        {
+            _trustSystem.SetTrust(CharacterId.Yuna, 150);
+            Assert.AreEqual(100, _trustSystem.GetTrust(CharacterId.Yuna));
+        }
+
+        [Test]
+        public void SetTrust_ClampsToMin0()
+        {
+            _trustSystem.SetTrust(CharacterId.Yuna, -50);
+            Assert.AreEqual(0, _trustSystem.GetTrust(CharacterId.Yuna));
+        }
+
+        [Test]
+        public void AddTrust_MultipleCallsAccumulate()
+        {
+            _trustSystem.AddTrust(CharacterId.Kaito, 20);
+            _trustSystem.AddTrust(CharacterId.Kaito, 30);
+            _trustSystem.AddTrust(CharacterId.Kaito, 10);
+            Assert.AreEqual(60, _trustSystem.GetTrust(CharacterId.Kaito));
+        }
+
+        [Test]
+        public void MeetsThreshold_BelowByOne_ReturnsFalse()
+        {
+            _trustSystem.SetTrust(CharacterId.Shion, 49);
+            Assert.IsFalse(_trustSystem.MeetsThreshold(CharacterId.Shion, 50));
+        }
+
+        [Test]
+        public void IsTrustTarget_Mio_ReturnsTrue()
+        {
+            Assert.IsTrue(_trustSystem.IsTrustTarget(CharacterId.Mio));
+        }
+
+        [Test]
+        public void Reset_ClearsAllToZero()
+        {
+            _trustSystem.SetTrust(CharacterId.Yuna, 50);
+            _trustSystem.SetTrust(CharacterId.Mio, 60);
+            _trustSystem.Reset();
+            Assert.AreEqual(0, _trustSystem.GetTrust(CharacterId.Yuna));
+            Assert.AreEqual(0, _trustSystem.GetTrust(CharacterId.Mio));
+        }
     }
 }
