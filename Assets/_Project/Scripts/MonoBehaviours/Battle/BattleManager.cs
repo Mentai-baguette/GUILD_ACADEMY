@@ -22,6 +22,10 @@ namespace GuildAcademy.MonoBehaviours.Battle
 
         public BattleFlowController BattleFlow => _battleFlow;
         public BattleSetupData Setup => _setup;
+        public ATBSystem ATB => _atb;
+        public BreakSystem Break => _breakSystem;
+        public List<CharacterStats> Party => _party;
+        public List<CharacterStats> Enemies => _enemies;
 
         public event System.Action<BattleResult> OnBattleFinished;
 
