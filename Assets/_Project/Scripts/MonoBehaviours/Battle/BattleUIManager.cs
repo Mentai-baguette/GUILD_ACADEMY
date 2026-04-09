@@ -147,9 +147,8 @@ namespace GuildAcademy.MonoBehaviours.Battle
 
         private void OnActionExecuted(ActionResult result)
         {
-            // Defend produces no damage/heal — show separate message
-            if (result.DamageDealt == 0 && result.HealAmount == 0
-                && !result.WasCritical && !result.WasWeakHit)
+            // Defend: attacker targets self and no damage/heal
+            if (result.Attacker == result.Target && result.DamageDealt == 0 && result.HealAmount == 0)
             {
                 Log($"{result.Attacker.Name}は防御した");
                 return;
@@ -183,10 +182,21 @@ namespace GuildAcademy.MonoBehaviours.Battle
             }
         }
 
+        private const int MaxLogLines = 50;
+        private readonly System.Collections.Generic.Queue<string> _logLines = new System.Collections.Generic.Queue<string>();
+
         private void Log(string message)
         {
+            _logLines.Enqueue(message);
+            while (_logLines.Count > MaxLogLines)
+                _logLines.Dequeue();
+
             if (_battleLog != null)
-                _battleLog.text = message + "\n" + _battleLog.text;
+            {
+                var lines = _logLines.ToArray();
+                System.Array.Reverse(lines);
+                _battleLog.text = string.Join("\n", lines);
+            }
             Debug.Log($"[Battle] {message}");
         }
 
