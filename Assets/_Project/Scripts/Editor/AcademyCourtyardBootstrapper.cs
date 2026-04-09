@@ -47,7 +47,6 @@ namespace GuildAcademy.EditorTools
             CreateSpawnPoints();
             CreateNpcSpots();
             CreateEventTriggers();
-            CreateFountainCollider();
 
             ground.CompressBounds();
             decoration.CompressBounds();
@@ -168,14 +167,6 @@ namespace GuildAcademy.EditorTools
             CreateEventTrigger(root.transform, "Event_Courtyard_SL_3", new Vector2(0f, 6.2f), "courtyard_sl_03", false, "Courtyard SL event 03");
             CreateEventTrigger(root.transform, "Event_Courtyard_Sunday_1", new Vector2(-10f, 0f), "courtyard_sunday_01", true, "Courtyard Sunday event 01");
             CreateEventTrigger(root.transform, "Event_Courtyard_Sunday_2", new Vector2(10f, 0f), "courtyard_sunday_02", true, "Courtyard Sunday event 02");
-        }
-
-        private static void CreateFountainCollider()
-        {
-            var fountain = new GameObject("Fountain_Center");
-            fountain.transform.position = Vector3.zero;
-            var collider = fountain.AddComponent<CircleCollider2D>();
-            collider.radius = 1.8f;
         }
 
         private static void CreatePortal(Transform parent, string name, Vector2 localPos, Vector2 size, string targetScene, string targetSpawnPointId)

@@ -30,7 +30,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Academy/Academy_Schoolyard.unity
     guid: 3bcdfe629e3734db6950240429a62b65
   - enabled: 1
-    path: Assets/Scenes/Academy/Academy_Courtyard.unity
+    path: Assets/Scenes/Academy/Academy_dormitory.unity
     guid: 6218cb9ae46f47e7aec6cca74838945b
   - enabled: 1
     path: Assets/Scenes/Academy/Academy_Rooftop.unity
