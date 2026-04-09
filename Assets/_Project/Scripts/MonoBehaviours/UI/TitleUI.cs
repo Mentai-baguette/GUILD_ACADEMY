@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using TMPro;
 using GuildAcademy.MonoBehaviours.UI;
 
@@ -11,7 +12,8 @@ namespace GuildAcademy.UI
     /// screen-flow.md §2 準拠。
     /// NEW GAME → 難易度選択パネル表示 → 選択後にフィールドへ遷移
     /// CONTINUE → セーブスロット選択（未実装時はログ出力）
-    /// EXIT → ゲーム終了
+    /// GALLERY → ギャラリー画面（未実装時はログ出力）
+    /// CONFIG → 設定画面（未実装時はログ出力）
     /// 上下キーで選択移動、Enter/Spaceで決定。
     /// </summary>
     public class TitleUI : MonoBehaviour
@@ -19,7 +21,8 @@ namespace GuildAcademy.UI
         [Header("タイトルメニューボタン")]
         [SerializeField] private Button newGameButton;
         [SerializeField] private Button continueButton;
-        [SerializeField] private Button exitButton;
+        [SerializeField] private Button galleryButton;
+        [SerializeField] private Button configButton;
 
         [Header("難易度選択パネル（§3）")]
         [SerializeField] private GameObject difficultyPanel;
@@ -50,14 +53,15 @@ namespace GuildAcademy.UI
 
         private void Start()
         {
-            _titleButtons = new[] { newGameButton, continueButton, exitButton };
+            _titleButtons = new[] { newGameButton, continueButton, galleryButton, configButton };
             _difficultyButtons = new[] { easyButton, normalButton, hardButton, nightmareButton };
             _currentButtons = _titleButtons;
 
             // タイトルメニューのクリックイベント
             newGameButton.onClick.AddListener(OnNewGame);
             continueButton.onClick.AddListener(OnContinue);
-            exitButton.onClick.AddListener(OnExit);
+            if (galleryButton != null) galleryButton.onClick.AddListener(OnGallery);
+            if (configButton != null) configButton.onClick.AddListener(OnConfig);
 
             // 難易度選択のクリックイベント
             if (easyButton != null) easyButton.onClick.AddListener(() => OnDifficultySelected(0));
@@ -181,13 +185,16 @@ namespace GuildAcademy.UI
             Debug.Log("セーブデータ読み込み：未実装");
         }
 
-        private void OnExit()
+        private void OnGallery()
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+            // TODO: ギャラリー画面を表示する
+            Debug.Log("ギャラリー：未実装");
+        }
+
+        private void OnConfig()
+        {
+            // TODO: 設定画面を表示する
+            Debug.Log("設定画面：未実装");
         }
 
         // === 難易度選択（§3） ===
@@ -223,6 +230,11 @@ namespace GuildAcademy.UI
             if (SceneTransitionManager.Instance != null)
             {
                 SceneTransitionManager.Instance.LoadScene(fieldSceneName);
+            }
+            else
+            {
+                Debug.LogWarning("SceneTransitionManager が見つかりません。直接シーン遷移します。");
+                SceneManager.LoadScene(fieldSceneName);
             }
         }
 
