@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using GuildAcademy.UI;
-using GuildAcademy.MonoBehaviours.Schedule;
 
 namespace GuildAcademy.MonoBehaviours.Field
 {
@@ -22,6 +21,12 @@ namespace GuildAcademy.MonoBehaviours.Field
 
         [Header("Optional")]
         [SerializeField] private InfoFlagTrigger _infoFlagTrigger;
+
+        /// <summary>
+        /// 他システム（ScheduleManagerMB等）から現在の章を一括設定する用。
+        /// デフォルト1。ScheduleManagerMBが別PRでマージされたらそちらから更新する。
+        /// </summary>
+        public static int CurrentChapterOverride { get; set; } = 1;
 
         private bool _playerInRange;
         private bool _inConversation;
@@ -99,13 +104,7 @@ namespace GuildAcademy.MonoBehaviours.Field
 
         private int GetCurrentChapter()
         {
-            var scheduleMB = ScheduleManagerMB.Instance;
-            if (scheduleMB != null && scheduleMB.Calendar != null)
-            {
-                // Chapter enum: Chapter1=0, Chapter2=1, ... → 1-indexed に変換
-                return (int)scheduleMB.Calendar.CurrentChapter + 1;
-            }
-            return 1;
+            return CurrentChapterOverride;
         }
 
         private System.Collections.IEnumerator WaitForDialogueEnd(DialogueUIBridge bridge)
