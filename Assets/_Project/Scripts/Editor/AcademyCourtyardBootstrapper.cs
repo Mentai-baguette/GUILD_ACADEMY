@@ -12,6 +12,8 @@ namespace GuildAcademy.EditorTools
 {
     public static class AcademyCourtyardBootstrapper
     {
+        private const string ScenePortal2DTypeName = "GuildAcademy.MonoBehaviours.Field.ScenePortal2D, GuildAcademy.MonoBehaviours";
+        private const string SceneSpawnPointTypeName = "GuildAcademy.MonoBehaviours.Field.SceneSpawnPoint, GuildAcademy.MonoBehaviours";
         private const string SceneRoot = "Assets/Scenes/Academy";
         private const string CourtyardScenePath = SceneRoot + "/" + SceneNames.AcademyCourtyard + ".unity";
         private const string HallwayScenePath = SceneRoot + "/" + SceneNames.AcademyHallway + ".unity";
@@ -79,8 +81,8 @@ namespace GuildAcademy.EditorTools
             {
                 Name = "ToCourtyard",
                 Position = new Vector2(0f, -9f),
-            });
-            EnsureSpawnPoint(scene, "from_courtyard", new Vector2(0f, -5.5f));
+            }, SceneNames.AcademyCourtyard, "from_hallway");
+            EnsureSpawnPoint(scene, "from_courtyard", new Vector2(0f, -5.5f), Vector2.down);
             SaveScene(scene, HallwayScenePath, SceneNames.AcademyHallway);
         }
 
@@ -97,8 +99,8 @@ namespace GuildAcademy.EditorTools
             {
                 Name = "ToCourtyard",
                 Position = new Vector2(0f, 9f),
-            });
-            EnsureSpawnPoint(scene, "from_courtyard", new Vector2(0f, 5.5f));
+            }, SceneNames.AcademyCourtyard, "from_schoolyard");
+            EnsureSpawnPoint(scene, "from_courtyard", new Vector2(0f, 5.5f), Vector2.up);
             SaveScene(scene, SchoolyardScenePath, SceneNames.AcademySchoolyard);
         }
 
@@ -131,9 +133,9 @@ namespace GuildAcademy.EditorTools
             var spawnPoints = new GameObject("SpawnPoints");
             SceneManager.MoveGameObjectToScene(spawnPoints, scene);
 
-            CreateSpawnPoint(spawnPoints.transform, "default", Vector2.zero);
-            CreateSpawnPoint(spawnPoints.transform, "from_hallway", new Vector2(0f, 5.5f));
-            CreateSpawnPoint(spawnPoints.transform, "from_schoolyard", new Vector2(0f, -5.5f));
+            CreateSpawnPoint(spawnPoints.transform, "default", Vector2.zero, Vector2.down);
+            CreateSpawnPoint(spawnPoints.transform, "from_hallway", new Vector2(0f, 5.5f), Vector2.down);
+            CreateSpawnPoint(spawnPoints.transform, "from_schoolyard", new Vector2(0f, -5.5f), Vector2.up);
 
             var savePoint = new GameObject("SavePoint_S");
             SceneManager.MoveGameObjectToScene(savePoint, scene);
@@ -146,19 +148,19 @@ namespace GuildAcademy.EditorTools
             {
                 Name = "ToHallway",
                 Position = new Vector2(0f, 8.5f),
-            });
+            }, SceneNames.AcademyHallway, "from_courtyard");
 
             EnsurePortal(scene, new PortalLink
             {
                 Name = "ToSchoolyard",
                 Position = new Vector2(0f, -8.5f),
-            });
+            }, SceneNames.AcademySchoolyard, "from_courtyard");
 
             var savePoint = FindOrCreateRoot(scene, "SavePoint_S");
             savePoint.transform.position = Vector3.zero;
         }
 
-        private static void EnsurePortal(Scene scene, PortalLink link)
+        private static void EnsurePortal(Scene scene, PortalLink link, string targetSceneName, string targetSpawnPointId)
         {
             var root = FindOrCreateRoot(scene, "Portals");
             var existing = FindChild(root.transform, link.Name);
@@ -169,9 +171,20 @@ namespace GuildAcademy.EditorTools
             }
 
             existing.transform.localPosition = link.Position;
+
+            var collider2D = existing.GetComponent<BoxCollider2D>();
+            if (collider2D == null)
+                collider2D = existing.AddComponent<BoxCollider2D>();
+
+            collider2D.isTrigger = true;
+
+            var portal = EnsureComponent(existing, ScenePortal2DTypeName);
+
+            SetSerializedField(portal, "_targetSceneName", targetSceneName);
+            SetSerializedField(portal, "_targetSpawnPointId", targetSpawnPointId);
         }
 
-        private static void EnsureSpawnPoint(Scene scene, string spawnId, Vector2 localPosition)
+        private static void EnsureSpawnPoint(Scene scene, string spawnId, Vector2 localPosition, Vector2 facingDirection)
         {
             var root = FindOrCreateRoot(scene, "SpawnPoints");
             var existing = FindChild(root.transform, "Spawn_" + spawnId);
@@ -182,6 +195,11 @@ namespace GuildAcademy.EditorTools
             }
 
             existing.transform.localPosition = localPosition;
+
+            var spawnPoint = EnsureComponent(existing, SceneSpawnPointTypeName);
+
+            SetSerializedField(spawnPoint, "_spawnId", spawnId);
+            SetSerializedField(spawnPoint, "_facingDirection", facingDirection);
         }
 
         private static GameObject CreateTilemap(Transform parent, string name)
@@ -193,11 +211,15 @@ namespace GuildAcademy.EditorTools
             return obj;
         }
 
-        private static void CreateSpawnPoint(Transform parent, string spawnId, Vector2 localPosition)
+        private static void CreateSpawnPoint(Transform parent, string spawnId, Vector2 localPosition, Vector2 facingDirection)
         {
             var obj = new GameObject("Spawn_" + spawnId);
             obj.transform.SetParent(parent, false);
             obj.transform.localPosition = localPosition;
+
+            var spawnPoint = EnsureComponent(obj, SceneSpawnPointTypeName);
+            SetSerializedField(spawnPoint, "_spawnId", spawnId);
+            SetSerializedField(spawnPoint, "_facingDirection", facingDirection);
         }
 
         private static GameObject FindOrCreateRoot(Scene scene, string name)
@@ -260,6 +282,43 @@ namespace GuildAcademy.EditorTools
 
             current.Add(new EditorBuildSettingsScene(scenePath, true));
             EditorBuildSettings.scenes = current.ToArray();
+        }
+
+        private static void SetSerializedField(UnityEngine.Object target, string fieldName, string value)
+        {
+            var serializedObject = new SerializedObject(target);
+            var property = serializedObject.FindProperty(fieldName);
+            if (property == null)
+                throw new InvalidOperationException("Serialized field not found: " + fieldName + " on " + target.name);
+
+            property.stringValue = value;
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(target);
+        }
+
+        private static void SetSerializedField(UnityEngine.Object target, string fieldName, Vector2 value)
+        {
+            var serializedObject = new SerializedObject(target);
+            var property = serializedObject.FindProperty(fieldName);
+            if (property == null)
+                throw new InvalidOperationException("Serialized field not found: " + fieldName + " on " + target.name);
+
+            property.vector2Value = value;
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(target);
+        }
+
+        private static Component EnsureComponent(GameObject target, string assemblyQualifiedTypeName)
+        {
+            var type = Type.GetType(assemblyQualifiedTypeName);
+            if (type == null)
+                throw new InvalidOperationException("Type not found: " + assemblyQualifiedTypeName);
+
+            var component = target.GetComponent(type);
+            if (component != null)
+                return component;
+
+            return target.AddComponent(type);
         }
     }
 }
