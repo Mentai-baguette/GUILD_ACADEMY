@@ -52,7 +52,7 @@ namespace GuildAcademy.Tests.EditMode.Events
         // ── 優先度順ソート ──
 
         [Test]
-        public void GetAvailableEvents_SortsByPriority_ForcedFirst()
+        public void GetAvailableEvents_SortsByPriority_WithoutForced()
         {
             _scheduler.RegisterEvent(CreateEvent("free1", EventType.Free, timeSlot: TimeOfDay.Morning, chapter: 1));
             _scheduler.RegisterEvent(CreateEvent("main1", EventType.Main, timeSlot: TimeOfDay.Morning, chapter: 1));
@@ -356,8 +356,8 @@ namespace GuildAcademy.Tests.EditMode.Events
         }
 
         // ── JSON読み込み ──
-        // Note: EventDataLoader uses UnityEngine.JsonUtility which requires Unity runtime.
-        // These tests validate the loader integration when run in EditMode with Unity test runner.
+        // Note: EventDataLoader is implemented with a lightweight parser without using JsonUtility.
+        // These tests validate JSON loading behavior in EditMode with the Unity test runner.
 
         [Test]
         public void LoadFromJson_ValidJson_ReturnsEvents()

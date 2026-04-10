@@ -45,7 +45,9 @@ namespace GuildAcademy.Core.Events
                     if (depth == 0 && start >= 0)
                     {
                         var objStr = arrayContent.Substring(start, i - start + 1);
-                        result.Add(ParseEventObject(objStr));
+                        var eventData = ParseEventObject(objStr);
+                        if (!string.IsNullOrEmpty(eventData.EventId))
+                            result.Add(eventData);
                         start = -1;
                     }
                 }

@@ -19,7 +19,7 @@ namespace GuildAcademy.Core.Events
         private readonly HashSet<string> _completedEventIds = new HashSet<string>();
 
         /// <summary>完了済みイベントID一覧</summary>
-        public IReadOnlyList<string> CompletedEventIds => _completedEventIds.ToList().AsReadOnly();
+        public IReadOnlyCollection<string> CompletedEventIds => _completedEventIds;
 
         public EventScheduler(FlagSystem flagSystem, TrustSystem trustSystem)
         {
@@ -31,6 +31,10 @@ namespace GuildAcademy.Core.Events
         public void RegisterEvent(EventData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
+            if (string.IsNullOrEmpty(data.EventId))
+                throw new ArgumentException("EventId is required.", nameof(data));
+            if (_events.Any(e => e.EventId == data.EventId))
+                throw new InvalidOperationException($"Event '{data.EventId}' is already registered.");
             _events.Add(data);
         }
 
@@ -126,7 +130,7 @@ namespace GuildAcademy.Core.Events
             // SLイベント信頼度チェック
             if (e.Type == EventType.SoulLink && !string.IsNullOrEmpty(e.TargetCharacterId))
             {
-                if (Enum.TryParse<CharacterId>(e.TargetCharacterId, out var charId))
+                if (Enum.TryParse<CharacterId>(e.TargetCharacterId, true, out var charId))
                 {
                     if (!_trustSystem.IsTrustTarget(charId) || !_trustSystem.MeetsThreshold(charId, e.RequiredTrust))
                         return false;
