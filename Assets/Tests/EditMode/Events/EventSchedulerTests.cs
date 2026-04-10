@@ -477,6 +477,64 @@ namespace GuildAcademy.Tests.EditMode.Events
             Assert.AreEqual("forced1", result[0].EventId);
         }
 
+        [Test]
+        public void LoadFromJson_EmptyEventId_SkipsEntry()
+        {
+            var json = @"{
+                ""events"": [
+                    {
+                        ""eventId"": """",
+                        ""type"": ""Main"",
+                        ""chapter"": 1,
+                        ""timeSlot"": ""Morning""
+                    },
+                    {
+                        ""eventId"": ""valid"",
+                        ""type"": ""Free"",
+                        ""chapter"": 1,
+                        ""timeSlot"": ""Morning""
+                    }
+                ]
+            }";
+
+            var events = EventDataLoader.LoadFromJson(json);
+            Assert.AreEqual(1, events.Count);
+            Assert.AreEqual("valid", events[0].EventId);
+        }
+
+        [Test]
+        public void LoadFromJson_WhitespaceEventId_SkipsEntry()
+        {
+            var json = @"{
+                ""events"": [
+                    {
+                        ""eventId"": ""   "",
+                        ""type"": ""Main"",
+                        ""chapter"": 1,
+                        ""timeSlot"": ""Morning""
+                    }
+                ]
+            }";
+
+            var events = EventDataLoader.LoadFromJson(json);
+            Assert.AreEqual(0, events.Count);
+        }
+
+        [Test]
+        public void RegisterEvent_WhitespaceEventId_ThrowsArgumentException()
+        {
+            var evt = CreateEvent("   ", EventType.Main, timeSlot: TimeOfDay.Morning, chapter: 1);
+            Assert.Throws<System.ArgumentException>(() => _scheduler.RegisterEvent(evt));
+        }
+
+        [Test]
+        public void RegisterEvent_SoulLinkWithoutTarget_ThrowsArgumentException()
+        {
+            var evt = CreateEvent("sl1", EventType.SoulLink, timeSlot: TimeOfDay.Morning, chapter: 1);
+            evt.TargetCharacterId = null;
+            Assert.Throws<System.ArgumentException>(() => _scheduler.RegisterEvent(evt));
+        }
+
         // ── ヘルパー ──
 
         private static EventData CreateEvent(

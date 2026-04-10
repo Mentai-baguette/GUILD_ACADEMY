@@ -46,7 +46,7 @@ namespace GuildAcademy.Core.Events
                     {
                         var objStr = arrayContent.Substring(start, i - start + 1);
                         var eventData = ParseEventObject(objStr);
-                        if (!string.IsNullOrEmpty(eventData.EventId))
+                        if (!string.IsNullOrWhiteSpace(eventData.EventId))
                             result.Add(eventData);
                         start = -1;
                     }

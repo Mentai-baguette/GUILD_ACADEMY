@@ -31,8 +31,11 @@ namespace GuildAcademy.Core.Events
         public void RegisterEvent(EventData data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
-            if (string.IsNullOrEmpty(data.EventId))
-                throw new ArgumentException("EventId is required.", nameof(data));
+            if (string.IsNullOrWhiteSpace(data.EventId))
+                throw new ArgumentException("EventId is required and cannot be whitespace.", nameof(data));
+            // SoulLinkイベントはTargetCharacterIdが必須
+            if (data.Type == EventType.SoulLink && string.IsNullOrWhiteSpace(data.TargetCharacterId))
+                throw new ArgumentException("SoulLink event requires TargetCharacterId.", nameof(data));
             if (_events.Any(e => e.EventId == data.EventId))
                 throw new InvalidOperationException($"Event '{data.EventId}' is already registered.");
             _events.Add(data);
