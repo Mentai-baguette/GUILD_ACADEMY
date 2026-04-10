@@ -4,57 +4,138 @@ using TMPro;
 using System;
 using System.Collections;
 using GuildAcademy.Core.Dialogue;
+using GuildAcademy.Data;
 
 namespace GuildAcademy.UI
 {
+    /// <summary>
+    /// 会話ウィンドウのUI表示を担当するコンポーネント。
+    ///
+    /// 仕様書セクション5「会話画面」準拠:
+    /// - テキストウィンドウ（下部）に名前＋本文を表示
+    /// - タイプライター演出
+    /// - ▼送りマーク（テキスト表示完了時に点滅）
+    /// - オートモード（特殊ボタンでトグル）
+    /// - キャンセルボタン押しっぱなしで早送り
+    /// - テーマ対応（UIThemeSO）
+    /// </summary>
     public class DialogueUI : MonoBehaviour
     {
         // === Inspectorで接続する変数 ===
-        [SerializeField] private GameObject dialoguePanel; // ダイアログパネル
-        [SerializeField] private TextMeshProUGUI NameText; // 名前を表示するテキスト
-        [SerializeField] private TextMeshProUGUI MessageText; // 話の内容を表示するテキスト
-        [SerializeField] private float typingSpeed = 0.05f; // タイピングの速度(1文字あたり何秒待つか)
+        [Header("UI要素")]
+        [SerializeField] private GameObject dialoguePanel;       // ダイアログパネル全体
+        [SerializeField] private TextMeshProUGUI NameText;       // 名前を表示するテキスト
+        [SerializeField] private TextMeshProUGUI MessageText;    // 話の内容を表示するテキスト
 
-        // === 会話が全部終わったことを通知するイベント ===
-        // 他のスクリプトが「会話終わった？」を知るために使う
-        // 使い方: dialogueUI.OnDialogueComplete += () => { 次の処理; };
+        [Header("送りマーク")]
+        [SerializeField] private AdvanceIndicator _advanceIndicator;  // ▼送りマーク
+
+        [Header("テーマ（任意）")]
+        [SerializeField] private UIThemeSO _theme;
+
+        [Header("タイプライター設定")]
+        [SerializeField] private float typingSpeed = 0.05f;          // 通常速度（1文字あたり秒）
+        [SerializeField] private float fastTypingSpeed = 0.01f;      // 早送り速度
+
+        [Header("オートモード設定")]
+        [SerializeField] private float autoWaitTime = 1.5f;          // 表示完了後の自動送り待機時間
+
+        // === イベント ===
+        /// <summary>会話が全部終わったことを通知するイベント</summary>
         public event Action OnDialogueComplete;
 
+        /// <summary>オートモードの状態が変わったときに通知</summary>
+        public event Action<bool> OnAutoModeChanged;
+
         // === 内部変数 ===
-        private Coroutine _typingCoroutine; // タイピングのコルーチンを覚えておく箱
-        private bool _isTyping = false; // タイピング中かどうか
-        private string _currentMessage;    // SkipTyping用に全文を保持
+        private Coroutine _typingCoroutine;
+        private bool _isTyping = false;
+        private string _currentMessage;        // SkipTyping用に全文を保持
 
         // --- 複数セリフ管理 ---
-        private DialogueLine[] _lines;     // セリフ配列（全部のセリフを保持）
-        private int _currentLineIndex = 0; // 今何番目のセリフか（0から始まる）
-        private bool _isActive = false;    // 会話中かどうか
+        private DialogueLine[] _lines;
+        private int _currentLineIndex = 0;
+        private bool _isActive = false;
+
+        // --- オートモード ---
+        private bool _isAutoMode = false;
+        private Coroutine _autoAdvanceCoroutine;
+
+        /// <summary>オートモードON/OFF</summary>
+        public bool IsAutoMode => _isAutoMode;
+
+        /// <summary>タイプライタ演出が完了しているか</summary>
+        public bool IsTypingComplete => !_isTyping;
+
+        /// <summary>会話中かどうか</summary>
+        public bool IsActive => _isActive;
 
         private void Awake()
         {
-            HideDialogue(); // ダイアログパネルを最初は非表示にする
+            AutoResolveReferences();
+            ApplyTheme();
+
+            // dialoguePanelがあれば非表示にする（nullなら何もしない）
+            if (dialoguePanel != null)
+                dialoguePanel.SetActive(false);
+        }
+
+        /// <summary>Inspector未設定のフィールドを子オブジェクトから自動取得する</summary>
+        private void AutoResolveReferences()
+        {
+            // dialoguePanelが未設定 → 自分自身のGameObjectをパネルとして使う
+            if (dialoguePanel == null)
+                dialoguePanel = gameObject;
+
+            // TextMeshProUGUI を子から探す
+            if (NameText == null || MessageText == null)
+            {
+                var tmps = GetComponentsInChildren<TMPro.TextMeshProUGUI>(true);
+                foreach (var tmp in tmps)
+                {
+                    if (NameText == null && tmp.gameObject.name.Contains("Name"))
+                        NameText = tmp;
+                    else if (MessageText == null && tmp.gameObject.name.Contains("Message"))
+                        MessageText = tmp;
+                }
+            }
+
+            // AdvanceIndicator を子から探す
+            if (_advanceIndicator == null)
+                _advanceIndicator = GetComponentInChildren<AdvanceIndicator>(true);
         }
 
         // ============================================================
-        // 複数セリフを開始する
+        // テーマ適用
         // ============================================================
-        // 使い方:
-        //   DialogueLine[] lines = new DialogueLine[]
-        //   {
-        //       new DialogueLine("先生", "アカデミーに入学するぞ"),
-        //       new DialogueLine("先生", "準備はいいか？"),
-        //       new DialogueLine("レイ", "…はい"),
-        //   };
-        //   dialogueUI.StartDialogue(lines);
+        private void ApplyTheme()
+        {
+            if (_theme == null) return;
+
+            if (NameText != null)
+                NameText.color = _theme.textHighlight;
+            if (MessageText != null)
+                MessageText.color = _theme.textNormal;
+        }
+
+        /// <summary>テーマを差し替えて適用する</summary>
+        public void ApplyTheme(UIThemeSO newTheme)
+        {
+            _theme = newTheme;
+            ApplyTheme();
+        }
+
+        // ============================================================
+        // 複数セリフを開始する（既存API互換）
         // ============================================================
         public void StartDialogue(DialogueLine[] lines)
         {
-            if (lines == null || lines.Length == 0) return; // セリフがなければ何もしない
+            if (lines == null || lines.Length == 0) return;
 
-            _lines = lines;            // セリフ配列を保存
-            _currentLineIndex = 0;     // 最初のセリフから
-            _isActive = true;          // 会話中フラグON
-            ShowCurrentLine();         // 最初の1行目を表示
+            _lines = lines;
+            _currentLineIndex = 0;
+            _isActive = true;
+            ShowCurrentLine();
         }
 
         // ============================================================
@@ -62,15 +143,15 @@ namespace GuildAcademy.UI
         // ============================================================
         private void ShowCurrentLine()
         {
-            DialogueLine line = _lines[_currentLineIndex]; // 今のセリフを取り出す
+            DialogueLine line = _lines[_currentLineIndex];
             _currentMessage = line.Message;
-            dialoguePanel.SetActive(true);
-            NameText.text = line.SpeakerName;
+            if (dialoguePanel != null) dialoguePanel.SetActive(true);
+            if (NameText != null) NameText.text = line.SpeakerName;
+            HideAdvanceIndicator();
 
             if (_typingCoroutine != null)
-            {
                 StopCoroutine(_typingCoroutine);
-            }
+
             _typingCoroutine = StartCoroutine(TypeMessage(line.Message));
         }
 
@@ -79,16 +160,14 @@ namespace GuildAcademy.UI
         // ============================================================
         private void ShowNextLine()
         {
-            _currentLineIndex++; // インデックスを1つ進める
+            _currentLineIndex++;
 
             if (_currentLineIndex < _lines.Length)
             {
-                // まだセリフが残っている → 次を表示
                 ShowCurrentLine();
             }
             else
             {
-                // 全セリフ表示済み → 会話終了
                 EndDialogue();
             }
         }
@@ -100,10 +179,10 @@ namespace GuildAcademy.UI
         {
             _isActive = false;
             HideDialogue();
-            OnDialogueComplete?.Invoke(); // イベント発火（聞いてる人がいれば通知）
+            OnDialogueComplete?.Invoke();
         }
 
-        // === 1セリフだけ表示する（後方互換。既存の呼び出しが壊れないように残す） ===
+        // === 1セリフだけ表示する（後方互換） ===
         public void ShowDialogue(string speakerName, string message)
         {
             StartDialogue(new DialogueLine[]
@@ -117,8 +196,9 @@ namespace GuildAcademy.UI
         {
             _isActive = true;
             _currentMessage = message;
-            dialoguePanel.SetActive(true);
-            NameText.text = speakerName;
+            if (dialoguePanel != null) dialoguePanel.SetActive(true);
+            if (NameText != null) NameText.text = speakerName;
+            HideAdvanceIndicator();
 
             if (_typingCoroutine != null)
                 StopCoroutine(_typingCoroutine);
@@ -126,11 +206,7 @@ namespace GuildAcademy.UI
             _typingCoroutine = StartCoroutine(TypeMessage(message));
         }
 
-        public bool IsTypingComplete => !_isTyping;
-
-        /// <summary>
-        /// タイプライタ演出をスキップして全文を即表示する。
-        /// </summary>
+        /// <summary>タイプライタ演出をスキップして全文を即表示する。</summary>
         public void SkipTyping()
         {
             if (!_isTyping) return;
@@ -138,42 +214,136 @@ namespace GuildAcademy.UI
             if (_typingCoroutine != null)
                 StopCoroutine(_typingCoroutine);
 
-            // ShowLine経由の場合、_linesがnullの可能性があるので直接MessageTextを使う
-            // TypeMessageが途中まで書いたテキストの全文は保持していないため、
-            // ShowLine利用時のために_currentMessageを保持する
             if (!string.IsNullOrEmpty(_currentMessage))
                 MessageText.text = _currentMessage;
 
             _isTyping = false;
+            ShowAdvanceIndicator();
+            StartAutoAdvanceIfNeeded();
         }
 
-        public void HideDialogue() // 会話ウィンドウを消すメソッド
+        public void HideDialogue()
         {
-            dialoguePanel.SetActive(false);
+            _isActive = false;
+            StopAutoAdvance();
+            HideAdvanceIndicator();
+            if (dialoguePanel != null)
+                dialoguePanel.SetActive(false);
         }
 
-        // === タイプライター演出 ===
+        // ============================================================
+        // タイプライター演出
+        // ============================================================
         private IEnumerator TypeMessage(string message)
         {
             _isTyping = true;
-            MessageText.text = ""; // テキストを空にする
+            MessageText.text = "";
+            HideAdvanceIndicator();
 
-            foreach (char c in message) // 1文字ずつ取り出す
+            foreach (char c in message)
             {
-                MessageText.text += c; // 1文字追加
-                yield return new WaitForSeconds(typingSpeed); // 少し待つ
+                MessageText.text += c;
+
+                // キャンセルボタン（Escapeキー）押しっぱなしで早送り
+                float speed = IsHoldingCancel() ? fastTypingSpeed : typingSpeed;
+                yield return new WaitForSeconds(speed);
             }
 
             _isTyping = false;
+            ShowAdvanceIndicator();
+            StartAutoAdvanceIfNeeded();
         }
 
-        // === クリック/キー入力の処理 ===
+        // ============================================================
+        // 送りマーク制御
+        // ============================================================
+        private void ShowAdvanceIndicator()
+        {
+            if (_advanceIndicator != null)
+                _advanceIndicator.Show();
+        }
+
+        private void HideAdvanceIndicator()
+        {
+            if (_advanceIndicator != null)
+                _advanceIndicator.Hide();
+        }
+
+        // ============================================================
+        // オートモード
+        // ============================================================
+        /// <summary>オートモードをトグルする</summary>
+        public void ToggleAutoMode()
+        {
+            _isAutoMode = !_isAutoMode;
+            OnAutoModeChanged?.Invoke(_isAutoMode);
+
+            if (_isAutoMode && !_isTyping && _isActive)
+            {
+                StartAutoAdvanceIfNeeded();
+            }
+            else
+            {
+                StopAutoAdvance();
+            }
+        }
+
+        private void StartAutoAdvanceIfNeeded()
+        {
+            if (!_isAutoMode || _isTyping) return;
+
+            StopAutoAdvance();
+            _autoAdvanceCoroutine = StartCoroutine(AutoAdvanceAfterDelay());
+        }
+
+        private void StopAutoAdvance()
+        {
+            if (_autoAdvanceCoroutine != null)
+            {
+                StopCoroutine(_autoAdvanceCoroutine);
+                _autoAdvanceCoroutine = null;
+            }
+        }
+
+        private IEnumerator AutoAdvanceAfterDelay()
+        {
+            yield return new WaitForSeconds(autoWaitTime);
+
+            // 自動送り: Bridge経由の場合は_linesがnull
+            if (_lines != null)
+            {
+                ShowNextLine();
+            }
+            // Bridge経由の場合は外部（Bridge）が Advance() を呼ぶので
+            // ここではイベント通知のみ
+        }
+
+        // ============================================================
+        // キャンセルボタン（早送り）判定
+        // ============================================================
+        private bool IsHoldingCancel()
+        {
+            return Keyboard.current != null && Keyboard.current.escapeKey.isPressed;
+        }
+
+        // ============================================================
+        // クリック/キー入力の処理
+        // ============================================================
         private void Update()
         {
-            // 会話中でなければ何もしない
             if (!_isActive) return;
             // Bridge経由(ShowLine)の場合は_linesがnull → Bridge側で入力を処理するためここではスキップ
             if (_lines == null) return;
+
+            // オートモード切替: Aキー
+            if (Keyboard.current != null && Keyboard.current.aKey.wasPressedThisFrame)
+            {
+                ToggleAutoMode();
+                return;
+            }
+
+            // オートモード中は手動送りしない（クリックでオートを解除する仕様にもできる）
+            if (_isAutoMode) return;
 
             bool inputPressed =
                 (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
@@ -184,12 +354,10 @@ namespace GuildAcademy.UI
 
             if (_isTyping)
             {
-                // タイピング中 → スキップ（全文を即表示）
                 SkipTyping();
             }
             else
             {
-                // 表示完了 → 次のセリフへ（最後なら閉じる）
                 ShowNextLine();
             }
         }
