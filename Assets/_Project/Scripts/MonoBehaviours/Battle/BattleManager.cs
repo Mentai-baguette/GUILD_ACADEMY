@@ -22,8 +22,6 @@ namespace GuildAcademy.MonoBehaviours.Battle
 
         public BattleFlowController BattleFlow => _battleFlow;
         public BattleSetupData Setup => _setup;
-        public IReadOnlyList<CharacterStats> Party => _party;
-        public IReadOnlyList<CharacterStats> Enemies => _enemies;
 
         public event System.Action<BattleResult> OnBattleFinished;
 
@@ -123,15 +121,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
         public ActionResult SubmitPlayerCommand(BattleCommand command)
         {
             if (_battleFlow.State != BattleFlowState.WaitingForCommand) return null;
-            var result = _battleFlow.SubmitCommand(command);
-
-            // Flee成功時はフィールドに戻る
-            if (command.Type == CommandType.Flee)
-            {
-                StartCoroutine(ReturnToField(BattleResult.PlayerVictory));
-            }
-
-            return result;
+            return _battleFlow.SubmitCommand(command);
         }
 
         private void OnDestroy()
