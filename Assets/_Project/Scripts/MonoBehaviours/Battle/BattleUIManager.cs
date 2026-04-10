@@ -581,7 +581,9 @@ namespace GuildAcademy.MonoBehaviours.Battle
         private void OnChangePressed()
         {
             if (_currentActor == null) return;
-            // Change formation row during battle
+            // UIはChangeコマンドを送信するのみ。
+            // 実際の隊列変更(FormationSystem連携)はBattleManager.SubmitPlayerCommand内で
+            // GA-84 PartyManager.SetFormation() を呼んで処理する。
             Log($"{_currentActor.Name}は隊列を変更した");
 
             var command = new BattleCommand
@@ -597,7 +599,9 @@ namespace GuildAcademy.MonoBehaviours.Battle
         private void OnSwapPressed()
         {
             if (_currentActor == null) return;
-            // Swap party member - show ally target selection
+            // UIはターゲット選択→Swapコマンド送信のみ。
+            // 実際のメンバー入替(PartyManager.SwapMember + ATBリセット)は
+            // BattleManager.SubmitPlayerCommand内で処理する。
             _pendingCommandType = CommandType.Swap;
             _pendingSkill = null;
             _targetSelectingAlly = true;
@@ -692,15 +696,21 @@ namespace GuildAcademy.MonoBehaviours.Battle
 
         private List<SkillData> GetActorSkills(CharacterStats actor)
         {
-            // Placeholder: in future, each character has their own skill list
-            // For now, return EnemySkills if actor is enemy, or empty list
-            if (_battleManager.Setup != null && _battleManager.Setup.EnemySkills != null
-                && _battleManager.Enemies != null && _battleManager.Enemies.Contains(actor))
+            if (_battleManager.Setup == null || actor == null) return new List<SkillData>();
+
+            // 敵の場合: EnemySkills を返す
+            if (_battleManager.Enemies != null && _battleManager.Enemies.Contains(actor))
             {
-                return _battleManager.Setup.EnemySkills;
+                return _battleManager.Setup.EnemySkills ?? new List<SkillData>();
             }
 
-            // Return empty list for party members until skill system is connected
+            // 味方の場合: PartySkills から名前で検索
+            if (_battleManager.Setup.PartySkills != null
+                && _battleManager.Setup.PartySkills.TryGetValue(actor.Name, out var skills))
+            {
+                return skills;
+            }
+
             return new List<SkillData>();
         }
 
