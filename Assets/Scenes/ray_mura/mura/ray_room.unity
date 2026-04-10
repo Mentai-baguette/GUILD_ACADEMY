@@ -3422,7 +3422,6 @@ GameObject:
   m_Component:
   - component: {fileID: 927496629}
   - component: {fileID: 927496631}
-  - component: {fileID: 927496630}
   m_Layer: 0
   m_Name: Event_Academy_Library_2
   m_TagString: Untagged
@@ -3445,22 +3444,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1622459481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &927496630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927496628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f391d439109b54a7e9eeb0dbbafd3e18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: GuildAcademy.MonoBehaviours::GuildAcademy.MonoBehaviours.Field.AreaEventTrigger2D
-  _eventId: academy_library_event_2
-  _playerTag: Player
-  _debugMessage: Academy_Library event point 2
-  _oneShot: 1
 --- !u!61 &927496631
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5520,7 +5503,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1356968846}
   - component: {fileID: 1356968848}
-  - component: {fileID: 1356968847}
   m_Layer: 0
   m_Name: Event_Academy_Library_1
   m_TagString: Untagged
@@ -5543,22 +5525,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1622459481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1356968847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1356968845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f391d439109b54a7e9eeb0dbbafd3e18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: GuildAcademy.MonoBehaviours::GuildAcademy.MonoBehaviours.Field.AreaEventTrigger2D
-  _eventId: academy_library_event_1
-  _playerTag: Player
-  _debugMessage: Academy_Library event point 1
-  _oneShot: 1
 --- !u!61 &1356968848
 BoxCollider2D:
   m_ObjectHideFlags: 0
