@@ -109,8 +109,12 @@ namespace GuildAcademy.MonoBehaviours.Battle
         {
             OnBattleFinished?.Invoke(result);
 
-            // Return to field after a delay
-            StartCoroutine(ReturnToField(result));
+            // PlayerVictory時はBattleResultUIがフィールド復帰を制御するため、
+            // ここではリザルト画面が無い場合のみ自動復帰する
+            if (result != BattleResult.PlayerVictory)
+            {
+                StartCoroutine(ReturnToField(result));
+            }
         }
 
         private System.Collections.IEnumerator ReturnToField(BattleResult result)
