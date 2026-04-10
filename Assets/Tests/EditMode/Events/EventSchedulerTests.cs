@@ -553,7 +553,7 @@ namespace GuildAcademy.Tests.EditMode.Events
                 Day = null,
                 TimeSlot = timeSlot,
                 PrerequisiteFlags = System.Array.Empty<string>(),
-                TargetCharacterId = "",
+                TargetCharacterId = type == EventType.SoulLink ? "Yuna" : "",
                 RequiredTrust = 0,
                 DialogueKey = "",
                 Location = "",
