@@ -439,6 +439,39 @@ namespace GuildAcademy.Tests.EditMode.Party
             Assert.IsFalse(battleParty.Contains(_luna));
         }
 
+        [Test]
+        public void SetBattleFormation_LeaderNotIncluded_AutoAddsLeader()
+        {
+            _party.AddMember(_ray);
+            _party.AddMember(_luna);
+            _party.AddMember(_kaito);
+            _party.SetLeader(_ray);
+            // リーダー(Ray)を含まない編成を指定
+            _party.SetBattleFormation(new List<CharacterStats> { _luna, _kaito });
+
+            var battleMembers = _party.GetBattleMembers();
+            // リーダーが自動追加されている
+            Assert.IsTrue(battleMembers.Contains(_ray));
+            Assert.IsTrue(battleMembers.Contains(_luna));
+            Assert.IsTrue(battleMembers.Contains(_kaito));
+        }
+
+        [Test]
+        public void SetBattleFormation_NullElement_ThrowsArgumentException()
+        {
+            _party.AddMember(_ray);
+            Assert.Throws<ArgumentException>(() =>
+                _party.SetBattleFormation(new List<CharacterStats> { null }));
+        }
+
+        [Test]
+        public void SetBattleFormation_DuplicateMembers_ThrowsArgumentException()
+        {
+            _party.AddMember(_ray);
+            Assert.Throws<ArgumentException>(() =>
+                _party.SetBattleFormation(new List<CharacterStats> { _ray, _ray }));
+        }
+
         // ===========================================
         // 隊列（前列/後列）
         // ===========================================

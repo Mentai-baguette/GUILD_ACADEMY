@@ -126,13 +126,33 @@ namespace GuildAcademy.Core.Party
         public void SetBattleFormation(List<CharacterStats> battle)
         {
             if (battle == null) throw new ArgumentNullException(nameof(battle));
-            if (battle.Count > MaxBattleMembers)
+
+            // null要素チェック
+            foreach (var member in battle)
+            {
+                if (member == null)
+                    throw new ArgumentException("Battle formation cannot contain null members.");
+            }
+
+            // 重複チェック
+            var unique = new HashSet<CharacterStats>(battle);
+            if (unique.Count != battle.Count)
+                throw new ArgumentException("Battle formation cannot contain duplicate members.");
+
+            // リーダー設定済みで編成に含まれていない場合は自動追加
+            var effective = new List<CharacterStats>(battle);
+            if (_leader != null && !effective.Contains(_leader) && _members.Contains(_leader))
+            {
+                effective.Insert(0, _leader);
+            }
+
+            if (effective.Count > MaxBattleMembers)
                 throw new ArgumentException($"Battle members cannot exceed {MaxBattleMembers}.");
 
             _battleMembers.Clear();
             _reserveMembers.Clear();
 
-            foreach (var member in battle)
+            foreach (var member in effective)
             {
                 if (!_members.Contains(member))
                     throw new ArgumentException($"{member.Name} is not a party member.");
