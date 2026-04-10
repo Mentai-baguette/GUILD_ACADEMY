@@ -36,6 +36,9 @@ namespace GuildAcademy.MonoBehaviours.Field
         {
             _rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
+
+            if (GetComponent<SceneSpawnResolver>() == null)
+                gameObject.AddComponent<SceneSpawnResolver>();
         }
 
         public void OnMove(InputValue value)
