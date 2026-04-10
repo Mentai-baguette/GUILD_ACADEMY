@@ -26,6 +26,24 @@ namespace GuildAcademy.Core.Battle
                 Target = command.Target
             };
 
+            // Flee/Change/Swap はダメージ計算不要
+            if (command.Type == CommandType.Flee
+                || command.Type == CommandType.Change
+                || command.Type == CommandType.Swap)
+            {
+                return new ActionResult
+                {
+                    Attacker = command.Attacker,
+                    Target = command.Target ?? command.Attacker,
+                    DamageDealt = 0,
+                    HealAmount = 0,
+                    WasCritical = false,
+                    WasWeakHit = false,
+                    TriggeredBreak = false,
+                    TargetDefeated = false
+                };
+            }
+
             if (command.Type == CommandType.Defend)
                 return result;
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using GuildAcademy.Core.Battle;
@@ -548,6 +549,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
         private void OnFleePressed()
         {
             if (_currentActor == null) return;
+            if (_battleManager == null || _battleManager.BattleFlow == null) return;
 
             if (_battleManager.Setup != null && !_battleManager.Setup.CanFlee)
             {
@@ -555,19 +557,18 @@ namespace GuildAcademy.MonoBehaviours.Battle
                 return;
             }
 
-            Log("逃げた！");
-            if (_battleManager.Setup == null) return;
+            var command = new BattleCommand
+            {
+                Attacker = _currentActor,
+                Target = _currentActor,
+                Type = CommandType.Flee
+            };
 
-            BattleSetupData.Current = null;
-            if (SceneTransitionManager.Instance != null)
-            {
-                SceneTransitionManager.Instance.LoadScene(_battleManager.Setup.ReturnSceneName);
-            }
-            else
-            {
-                Debug.LogWarning("[BattleUI] SceneTransitionManager not found. Falling back to direct load.");
-                UnityEngine.SceneManagement.SceneManager.LoadScene(_battleManager.Setup.ReturnSceneName);
-            }
+            _battleManager.SubmitPlayerCommand(command);
+            if (_commandPanel != null) _commandPanel.SetActive(false);
+            _currentActor = null;
+
+            // Fleeの実際のシーン遷移はBattleManager.SubmitPlayerCommand内で処理される
         }
 
         private void OnDualArtsPressed()
