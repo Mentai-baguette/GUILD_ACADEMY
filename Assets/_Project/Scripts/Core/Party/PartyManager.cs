@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GuildAcademy.Core.Battle;
 using GuildAcademy.Core.Data;
 
 namespace GuildAcademy.Core.Party
@@ -22,10 +23,10 @@ namespace GuildAcademy.Core.Party
         public const int MaxBattleMembers = 3;
 
         private CharacterStats _leader;
-        private IATBResetable _atbSystem;
+        private IATBResettable _atbSystem;
         private IsInLessonCheck _isInLessonCheck;
 
-        public IReadOnlyList<CharacterStats> Members => _members;
+        public IReadOnlyList<CharacterStats> Members => _members.AsReadOnly();
         public int Count => _members.Count;
         public CharacterStats Leader => _leader;
 
@@ -36,7 +37,7 @@ namespace GuildAcademy.Core.Party
         /// <summary>
         /// ATBシステムの参照を設定する。入替時のゲージリセットに使用。
         /// </summary>
-        public void SetATBSystem(IATBResetable atbSystem)
+        public void SetATBSystem(IATBResettable atbSystem)
         {
             _atbSystem = atbSystem;
         }
@@ -151,7 +152,7 @@ namespace GuildAcademy.Core.Party
         /// </summary>
         public IReadOnlyList<CharacterStats> GetBattleMembers()
         {
-            return _battleMembers;
+            return _battleMembers.AsReadOnly();
         }
 
         /// <summary>
@@ -292,6 +293,8 @@ namespace GuildAcademy.Core.Party
             _turnCounts.Clear();
             _formations.Clear();
             _leader = null;
+            _isInLessonCheck = null;
+            _atbSystem = null;
         }
     }
 }

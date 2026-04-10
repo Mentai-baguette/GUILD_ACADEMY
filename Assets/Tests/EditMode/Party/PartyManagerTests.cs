@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using GuildAcademy.Core.Battle;
 using GuildAcademy.Core.Data;
 using GuildAcademy.Core.Party;
 
@@ -204,7 +205,7 @@ namespace GuildAcademy.Tests.EditMode.Party
         [Test]
         public void SwapMember_ResetsATBGaugeForIncomingMember()
         {
-            var mockATB = new MockATBResetable();
+            var mockATB = new MockATBResettable();
             _party.SetATBSystem(mockATB);
 
             _party.AddMember(_ray);
@@ -491,7 +492,7 @@ namespace GuildAcademy.Tests.EditMode.Party
         // Mock classes
         // ===========================================
 
-        private class MockATBResetable : IATBResetable
+        private class MockATBResettable : IATBResettable
         {
             public CharacterStats LastResetTarget { get; private set; }
 

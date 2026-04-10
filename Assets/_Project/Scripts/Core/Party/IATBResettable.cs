@@ -6,7 +6,7 @@ namespace GuildAcademy.Core.Party
     /// ATBゲージリセット用インターフェース。
     /// テスト時にモック可能にするため抽象化。
     /// </summary>
-    public interface IATBResetable
+    public interface IATBResettable
     {
         void ResetGauge(CharacterStats stats);
     }
