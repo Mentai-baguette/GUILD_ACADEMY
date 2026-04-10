@@ -21,6 +21,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
         private List<CharacterStats> _party;       // バトル参加中メンバー
         private List<CharacterStats> _reserves;     // 控えメンバー
         private List<CharacterStats> _enemies;
+        private bool _fleeing;
 
         public BattleFlowController BattleFlow => _battleFlow;
         public BattleSetupData Setup => _setup;
@@ -78,7 +79,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
 
         private void Update()
         {
-            if (_battleFlow != null && _battleFlow.State == BattleFlowState.TickingATB)
+            if (_battleFlow != null && _battleFlow.State == BattleFlowState.TickingATB && !_fleeing)
             {
                 _battleFlow.Tick(Time.deltaTime);
             }
@@ -171,9 +172,16 @@ namespace GuildAcademy.MonoBehaviours.Battle
 
             var result = _battleFlow.SubmitCommand(command);
 
-            // Flee成功時はフィールドに戻る
+            // Flee: 逃走禁止戦闘ではBattleManager側でもブロック
             if (command.Type == CommandType.Flee)
             {
+                if (_setup != null && !_setup.CanFlee)
+                {
+                    // 逃走禁止戦闘では無視
+                    return result;
+                }
+
+                _fleeing = true;
                 StartCoroutine(ReturnToField(BattleResult.PlayerVictory));
             }
 

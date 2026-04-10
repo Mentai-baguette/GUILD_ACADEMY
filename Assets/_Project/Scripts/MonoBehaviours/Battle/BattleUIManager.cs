@@ -764,16 +764,20 @@ namespace GuildAcademy.MonoBehaviours.Battle
         /// </summary>
         private void ShowSwapTargetPanel()
         {
+            if (_targetListContainer == null || _targetEntryPrefab == null) return;
+
+            var reserves = _battleManager.Reserves;
+            if (reserves == null || reserves.Count == 0)
+            {
+                Log("入れ替えできるメンバーがいません");
+                return;
+            }
+
             SetActive(_commandPanel, false);
             SetActive(_skillPanel, false);
             SetActive(_targetPanel, true);
 
-            if (_targetListContainer == null || _targetEntryPrefab == null) return;
-
             ClearChildren(_targetListContainer);
-
-            var reserves = _battleManager.Reserves;
-            if (reserves == null) return;
 
             foreach (var reserve in reserves)
             {

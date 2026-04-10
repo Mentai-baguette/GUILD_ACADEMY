@@ -24,6 +24,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
 
         private CharacterStats _stats;
         private BreakSystem _breakSystem;
+        private CanvasGroup _canvasGroup;
 
         public CharacterStats Stats => _stats;
 
@@ -31,6 +32,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
         {
             _stats = stats;
             _breakSystem = breakSystem;
+            _canvasGroup = GetComponent<CanvasGroup>();
 
             if (stats == null) return;
 
@@ -59,7 +61,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
             // Break gauge
             if (_breakSystem != null)
             {
-                float breakPercent = _breakSystem.GetBreakGaugePercent(_stats);
+                float breakPercent = Mathf.Clamp01(_breakSystem.GetBreakGaugePercent(_stats));
                 bool isBroken = _breakSystem.IsBreaking(_stats);
 
                 if (_breakSlider != null)
@@ -82,11 +84,10 @@ namespace GuildAcademy.MonoBehaviours.Battle
                 }
             }
 
-            // Hide if defeated
-            if (_stats.CurrentHp <= 0)
+            // Defeated / alive alpha
+            if (_canvasGroup != null)
             {
-                var cg = GetComponent<CanvasGroup>();
-                if (cg != null) cg.alpha = 0.4f;
+                _canvasGroup.alpha = _stats.CurrentHp <= 0 ? 0.4f : 1.0f;
             }
         }
 
