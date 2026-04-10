@@ -6,30 +6,6 @@ using GuildAcademy.Core.Data;
 namespace GuildAcademy.Core.Party
 {
     /// <summary>
-    /// 前列/後列の隊列設定。
-    /// </summary>
-    public enum FormationRow
-    {
-        Front,
-        Back
-    }
-
-    /// <summary>
-    /// ATBゲージリセット用インターフェース。
-    /// テスト時にモック可能にするため抽象化。
-    /// </summary>
-    public interface IATBResetable
-    {
-        void ResetGauge(CharacterStats stats);
-    }
-
-    /// <summary>
-    /// キャラクターが授業中かどうかを判定するデリゲート。
-    /// ScheduleManagerとの連携に使用。
-    /// </summary>
-    public delegate bool IsInLessonCheck(CharacterStats member);
-
-    /// <summary>
     /// 現在のパーティ（加入済みキャラ）を管理する。
     /// 全CharacterSOを丸読みするのではなく、ストーリー進行に応じて明示的にAdd/Removeする。
     /// FF10式メンバー入替、EXP配分、隊列管理に対応。
@@ -79,6 +55,8 @@ namespace GuildAcademy.Core.Party
         public void SetLeader(CharacterStats leader)
         {
             if (leader == null) throw new ArgumentNullException(nameof(leader));
+            if (!_members.Contains(leader))
+                throw new InvalidOperationException("Leader must be a party member. Call AddMember first.");
             _leader = leader;
         }
 
@@ -108,12 +86,27 @@ namespace GuildAcademy.Core.Party
         }
 
         /// <summary>
-        /// バトル用にアクティブメンバー（最大5人）のリストを返す。
-        /// リーダーは先頭に配置。授業中のメンバーは除外。
+        /// バトル用にアクティブメンバーのリストを返す。
+        /// SetBattleFormationで前衛が設定済みならその前衛メンバーを返す（授業中除外）。
+        /// 未設定なら全メンバーから最大5人を返す（後方互換）。
+        /// リーダーは先頭に配置。
         /// </summary>
         public List<CharacterStats> GetBattleParty()
         {
-            var available = _members.Where(m => IsAvailableForParty(m)).ToList();
+            List<CharacterStats> available;
+
+            if (_battleMembers.Count > 0)
+            {
+                // SetBattleFormationで設定済み: 前衛メンバーを返す
+                available = _battleMembers.Where(m => IsAvailableForParty(m)).ToList();
+            }
+            else
+            {
+                // 未設定: 全メンバーから最大5人（後方互換）
+                available = _members.Where(m => IsAvailableForParty(m)).ToList();
+                int count = Math.Min(available.Count, MaxActiveMembers);
+                available = available.GetRange(0, count);
+            }
 
             // リーダーを先頭に
             if (_leader != null && available.Contains(_leader))
@@ -122,8 +115,7 @@ namespace GuildAcademy.Core.Party
                 available.Insert(0, _leader);
             }
 
-            int count = Math.Min(available.Count, MaxActiveMembers);
-            return available.GetRange(0, count);
+            return available;
         }
 
         /// <summary>

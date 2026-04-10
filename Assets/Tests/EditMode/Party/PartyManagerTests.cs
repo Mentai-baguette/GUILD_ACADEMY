@@ -375,6 +375,70 @@ namespace GuildAcademy.Tests.EditMode.Party
         }
 
         // ===========================================
+        // GetBattleParty と SetBattleFormation の連携
+        // ===========================================
+
+        [Test]
+        public void GetBattleParty_WithFormationSet_ReturnsBattleMembers()
+        {
+            _party.AddMember(_ray);
+            _party.AddMember(_luna);
+            _party.AddMember(_kaito);
+            _party.AddMember(_mira);
+            _party.SetBattleFormation(new List<CharacterStats> { _ray, _luna, _kaito });
+
+            var battleParty = _party.GetBattleParty();
+
+            Assert.AreEqual(3, battleParty.Count);
+            Assert.IsTrue(battleParty.Contains(_ray));
+            Assert.IsTrue(battleParty.Contains(_luna));
+            Assert.IsTrue(battleParty.Contains(_kaito));
+            Assert.IsFalse(battleParty.Contains(_mira));
+        }
+
+        [Test]
+        public void GetBattleParty_WithoutFormationSet_ReturnsAllUpToMax()
+        {
+            _party.AddMember(_ray);
+            _party.AddMember(_luna);
+            _party.AddMember(_kaito);
+
+            // SetBattleFormation を呼ばない場合は後方互換で全メンバー返す
+            var battleParty = _party.GetBattleParty();
+
+            Assert.AreEqual(3, battleParty.Count);
+        }
+
+        [Test]
+        public void GetBattleParty_WithFormation_LeaderFirst()
+        {
+            _party.AddMember(_luna);
+            _party.AddMember(_ray);
+            _party.AddMember(_kaito);
+            _party.SetLeader(_ray);
+            _party.SetBattleFormation(new List<CharacterStats> { _luna, _ray, _kaito });
+
+            var battleParty = _party.GetBattleParty();
+
+            Assert.AreEqual(_ray, battleParty[0]);
+        }
+
+        [Test]
+        public void GetBattleParty_WithFormation_ExcludesUnavailable()
+        {
+            _party.SetScheduleCheck(m => m.Name == "Luna");
+            _party.AddMember(_ray);
+            _party.AddMember(_luna);
+            _party.AddMember(_kaito);
+            _party.SetBattleFormation(new List<CharacterStats> { _ray, _luna, _kaito });
+
+            var battleParty = _party.GetBattleParty();
+
+            Assert.AreEqual(2, battleParty.Count);
+            Assert.IsFalse(battleParty.Contains(_luna));
+        }
+
+        // ===========================================
         // 隊列（前列/後列）
         // ===========================================
 
