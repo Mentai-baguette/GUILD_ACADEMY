@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
-namespace GuildAcademy.Maptile
+namespace GuildAcademy.Core.Data
 {
     /// <summary>
     /// Ground/Furniture Item mapping to Tile Assets

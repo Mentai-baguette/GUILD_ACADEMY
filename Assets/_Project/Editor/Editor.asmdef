@@ -1,0 +1,20 @@
+{
+    "name": "GuildAcademy.Editor",
+    "rootNamespace": "GuildAcademy.Editor",
+    "references": [
+        "GuildAcademy.Core",
+        "GuildAcademy.MonoBehaviours",
+        "GuildAcademy.ScriptableObjects"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

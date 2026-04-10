@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using System.Linq;
-using GuildAcademy.Maptile;
+using GuildAcademy.Core.Data;
 
 /// <summary>
 /// Automatic Tile Item Mapping Generator

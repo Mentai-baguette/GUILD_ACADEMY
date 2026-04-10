@@ -98,7 +98,8 @@ public class MaptileTileAssociationTool
         if (tilemaps.Length > 0)
         {
             var firstTilemap = tilemaps[0];
-            Debug.Log($"[Maptile Recovery] Tile Palette Tilemap has {firstTilemap.cellCount} cells");
+            var usedCells = firstTilemap.GetUsedSpriteCellCoords().Count;
+            Debug.Log($"[Maptile Recovery] Tile Palette Tilemap has {usedCells} cells");
             return true;
         }
 
