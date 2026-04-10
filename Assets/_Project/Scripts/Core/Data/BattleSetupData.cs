@@ -7,6 +7,8 @@ namespace GuildAcademy.Core.Data
         public static BattleSetupData Current { get; set; }
 
         public List<CharacterStats> Party { get; set; }
+        /// <summary>控えメンバー（Swap入替候補）</summary>
+        public List<CharacterStats> Reserves { get; set; }
         public List<CharacterStats> Enemies { get; set; }
         public List<SkillData> EnemySkills { get; set; }
         /// <summary>
@@ -26,6 +28,7 @@ namespace GuildAcademy.Core.Data
             ReturnSceneName = returnSceneName ?? throw new System.ArgumentNullException(nameof(returnSceneName));
             EnemySkills = enemySkills ?? new List<SkillData>();
             PartySkills = new Dictionary<string, List<SkillData>>();
+            Reserves = new List<CharacterStats>();
         }
     }
 }

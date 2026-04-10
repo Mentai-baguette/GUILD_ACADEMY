@@ -18,7 +18,8 @@ namespace GuildAcademy.MonoBehaviours.Battle
         private IRandom _random;
 
         private BattleSetupData _setup;
-        private List<CharacterStats> _party;
+        private List<CharacterStats> _party;       // バトル参加中メンバー
+        private List<CharacterStats> _reserves;     // 控えメンバー
         private List<CharacterStats> _enemies;
 
         public BattleFlowController BattleFlow => _battleFlow;
@@ -27,6 +28,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
         public BreakSystem Break => _breakSystem;
         public FormationSystem Formation => _formationSystem;
         public IReadOnlyList<CharacterStats> Party => _party;
+        public IReadOnlyList<CharacterStats> Reserves => _reserves;
         public IReadOnlyList<CharacterStats> Enemies => _enemies;
 
         public event System.Action<BattleResult> OnBattleFinished;
@@ -43,6 +45,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
             }
 
             _party = _setup.Party;
+            _reserves = _setup.Reserves ?? new List<CharacterStats>();
             _enemies = _setup.Enemies;
 
             InitializeSystems();
@@ -140,20 +143,30 @@ namespace GuildAcademy.MonoBehaviours.Battle
                 Debug.Log($"[BattleManager] {command.Attacker.Name} → {_formationSystem.GetRow(command.Attacker)}");
             }
 
-            // Swap: メンバー入替の実処理（ATBリセット付き）
+            // Swap: バトルメンバー⇔控えメンバーの入替（FF10式）
             if (command.Type == CommandType.Swap && command.Target != null)
             {
-                // 入替先のATBゲージをリセット
-                _atb.ResetGauge(command.Target);
-                // パーティリスト内で位置を交換
-                int attackerIdx = _party.IndexOf(command.Attacker);
-                int targetIdx = _party.IndexOf(command.Target);
-                if (attackerIdx >= 0 && targetIdx >= 0)
+                int partyIdx = _party.IndexOf(command.Attacker);
+                int reserveIdx = _reserves.IndexOf(command.Target);
+
+                if (partyIdx >= 0 && reserveIdx >= 0)
                 {
-                    _party[attackerIdx] = command.Target;
-                    _party[targetIdx] = command.Attacker;
+                    // バトルメンバーから外して控えに、控えからバトルに
+                    _party[partyIdx] = command.Target;
+                    _reserves[reserveIdx] = command.Attacker;
+
+                    // 入場メンバーのATBゲージをリセット、ATBシステムに登録
+                    _atb.ResetGauge(command.Target);
+                    _atb.AddCombatant(command.Target);
+                    _atb.RemoveCombatant(command.Attacker);
+                    _breakSystem.Register(command.Target);
+
+                    Debug.Log($"[BattleManager] Swap: {command.Attacker.Name}(→控え) ⇔ {command.Target.Name}(→バトル)");
                 }
-                Debug.Log($"[BattleManager] Swap: {command.Attacker.Name} ⇔ {command.Target.Name}");
+                else
+                {
+                    Debug.LogWarning($"[BattleManager] Swap failed: {command.Attacker.Name} not in party or {command.Target.Name} not in reserves");
+                }
             }
 
             var result = _battleFlow.SubmitCommand(command);

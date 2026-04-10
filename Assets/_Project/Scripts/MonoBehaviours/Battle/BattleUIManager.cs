@@ -599,13 +599,19 @@ namespace GuildAcademy.MonoBehaviours.Battle
         private void OnSwapPressed()
         {
             if (_currentActor == null) return;
-            // UIはターゲット選択→Swapコマンド送信のみ。
-            // 実際のメンバー入替(PartyManager.SwapMember + ATBリセット)は
-            // BattleManager.SubmitPlayerCommand内で処理する。
+
+            // 控えメンバーがいなければ入替不可
+            if (_battleManager.Reserves == null || _battleManager.Reserves.Count == 0)
+            {
+                Log("入れ替えできるメンバーがいません");
+                return;
+            }
+
+            // 控えメンバーをターゲット候補として表示
             _pendingCommandType = CommandType.Swap;
             _pendingSkill = null;
             _targetSelectingAlly = true;
-            ShowTargetPanel(true);
+            ShowSwapTargetPanel();
         }
 
         // ============================================================
@@ -748,6 +754,43 @@ namespace GuildAcademy.MonoBehaviours.Battle
                 if (btn != null)
                 {
                     var captured = candidate;
+                    btn.onClick.AddListener(() => OnTargetSelected(captured));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Swap専用: 控えメンバーをターゲット候補として表示する。
+        /// </summary>
+        private void ShowSwapTargetPanel()
+        {
+            SetActive(_commandPanel, false);
+            SetActive(_skillPanel, false);
+            SetActive(_targetPanel, true);
+
+            if (_targetListContainer == null || _targetEntryPrefab == null) return;
+
+            ClearChildren(_targetListContainer);
+
+            var reserves = _battleManager.Reserves;
+            if (reserves == null) return;
+
+            foreach (var reserve in reserves)
+            {
+                if (reserve.CurrentHp <= 0) continue;
+
+                var go = Instantiate(_targetEntryPrefab, _targetListContainer);
+                var btn = go.GetComponent<Button>();
+                var label = go.GetComponentInChildren<Text>();
+
+                if (label != null)
+                {
+                    label.text = $"[控え] {reserve.Name} HP:{reserve.CurrentHp}/{reserve.MaxHp}";
+                }
+
+                if (btn != null)
+                {
+                    var captured = reserve;
                     btn.onClick.AddListener(() => OnTargetSelected(captured));
                 }
             }
