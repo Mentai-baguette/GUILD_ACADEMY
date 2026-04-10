@@ -45,3 +45,19 @@
 - 効果音（SE）素材は EVENTSTUDIO で生成した素材を使用
 - 詳細は [docs/audio-credits.md](./docs/audio-credits.md) を参照
 - 検証記録は [docs/audio-validation.md](./docs/audio-validation.md) を参照
+
+## マップタイルの権利者表示
+
+本作では、以下のマップタイル素材を使用しています。各素材は CC 規約に基づき、再配布を含めて使用可能であることを確認しています。
+
+- [RPG Indoor Tileset Expansion 1](https://opengameart.org/content/rpg-indoor-tileset-expansion-1)
+- [DawnLike 16x16 Universal Rogue-like Tileset v1.81](https://opengameart.org/content/dawnlike-16x16-universal-rogue-like-tileset-v181)
+
+必要に応じて使用している素材:
+
+- [Mage City Arcanos](https://opengameart.org/content/mage-city-arcanos)
+- [Kenney Roguelike Indoors](https://kenney.nl/assets/roguelike-indoors)
+
+補足:
+
+- DawnLike を使用する場合は、作品内に「Reptiles.png」を隠す必要があります
