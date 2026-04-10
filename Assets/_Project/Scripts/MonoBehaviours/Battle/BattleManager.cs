@@ -13,6 +13,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
         private ActionExecutor _executor;
         private BreakSystem _breakSystem;
         private DamageCalculator _damageCalc;
+        private FormationSystem _formationSystem;
         private IEnemyAI _enemyAI;
         private IRandom _random;
 
@@ -24,6 +25,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
         public BattleSetupData Setup => _setup;
         public ATBSystem ATB => _atb;
         public BreakSystem Break => _breakSystem;
+        public FormationSystem Formation => _formationSystem;
         public IReadOnlyList<CharacterStats> Party => _party;
         public IReadOnlyList<CharacterStats> Enemies => _enemies;
 
@@ -52,10 +54,15 @@ namespace GuildAcademy.MonoBehaviours.Battle
             _random = new UnityRandom();
             _damageCalc = new DamageCalculator(_random);
             _breakSystem = new BreakSystem();
+            _formationSystem = new FormationSystem();
             _executor = new ActionExecutor(_damageCalc, _breakSystem, _random);
             _atb = new ATBSystem();
             _battleFlow = new BattleFlowController(_atb, _executor, _breakSystem);
             _enemyAI = new BasicEnemyAI();
+
+            // パーティメンバーの初期隊列を前列に設定
+            foreach (var member in _party)
+                _formationSystem.SetRow(member, FormationRow.Front);
 
             _battleFlow.OnCommandRequired += OnCommandRequired;
             _battleFlow.OnBattleEnd += OnBattleEnd;
@@ -125,6 +132,30 @@ namespace GuildAcademy.MonoBehaviours.Battle
         public ActionResult SubmitPlayerCommand(BattleCommand command)
         {
             if (_battleFlow.State != BattleFlowState.WaitingForCommand) return null;
+
+            // Change: 隊列切替の実処理
+            if (command.Type == CommandType.Change && _formationSystem != null)
+            {
+                _formationSystem.ChangeRow(command.Attacker);
+                Debug.Log($"[BattleManager] {command.Attacker.Name} → {_formationSystem.GetRow(command.Attacker)}");
+            }
+
+            // Swap: メンバー入替の実処理（ATBリセット付き）
+            if (command.Type == CommandType.Swap && command.Target != null)
+            {
+                // 入替先のATBゲージをリセット
+                _atb.ResetGauge(command.Target);
+                // パーティリスト内で位置を交換
+                int attackerIdx = _party.IndexOf(command.Attacker);
+                int targetIdx = _party.IndexOf(command.Target);
+                if (attackerIdx >= 0 && targetIdx >= 0)
+                {
+                    _party[attackerIdx] = command.Target;
+                    _party[targetIdx] = command.Attacker;
+                }
+                Debug.Log($"[BattleManager] Swap: {command.Attacker.Name} ⇔ {command.Target.Name}");
+            }
+
             var result = _battleFlow.SubmitCommand(command);
 
             // Flee成功時はフィールドに戻る
