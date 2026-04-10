@@ -298,8 +298,8 @@ namespace GuildAcademy.Tests.EditMode.Events
             _scheduler.CompleteEvent("a");
             _scheduler.CompleteEvent("b");
 
-            Assert.Contains("a", (System.Collections.ICollection)_scheduler.CompletedEventIds);
-            Assert.Contains("b", (System.Collections.ICollection)_scheduler.CompletedEventIds);
+            Assert.IsTrue(_scheduler.CompletedEventIds.Contains("a"));
+            Assert.IsTrue(_scheduler.CompletedEventIds.Contains("b"));
         }
 
         // ── リピータブルイベント ──
