@@ -1,6 +1,6 @@
 namespace GuildAcademy.Core.Data
 {
-    public enum CommandType { Attack, Skill, Item, Defend, Special }
+    public enum CommandType { Attack, Skill, Item, Defend, Flee, DualArts, Change, Swap, Special }
 
     public class BattleCommand
     {
