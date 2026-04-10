@@ -21,6 +21,8 @@ namespace GuildAcademy.Tests.EditMode.Field
             _capturedSceneName = null;
             _previousSceneLoadOverride = ScenePortal2D.SceneLoadOverride;
             _previousSpawnPointProvider = SceneSpawnResolver.SpawnPointProvider;
+            SetPrivateStaticField(typeof(SceneSpawnPoint), "_lastSceneHandle", -1);
+            SetPrivateStaticField(typeof(SceneSpawnPoint), "_spawnApplied", false);
             ScenePortal2D.SceneLoadOverride = sceneName =>
             {
                 _capturedSceneName = sceneName;
@@ -117,6 +119,84 @@ namespace GuildAcademy.Tests.EditMode.Field
         }
 
         [Test]
+        public void SceneSpawnPoint_Start_MovesPlayerToDefaultSpawnAndClearsTransitionData()
+        {
+            var spawnObject = new GameObject("SpawnPoint");
+            spawnObject.transform.position = new Vector3(12f, 5f, 0f);
+            var spawnPoint = spawnObject.AddComponent<SceneSpawnPoint>();
+            SetPrivateField(spawnPoint, "_spawnId", "default");
+            SetPrivateField(spawnPoint, "_facingDirection", Vector2.down);
+
+            var playerObject = new GameObject("Player");
+            playerObject.tag = "Player";
+            playerObject.transform.position = Vector3.zero;
+
+            SceneTransitionData.Remove(ScenePortal2D.SpawnPointKey);
+
+            var startRoutine = (System.Collections.IEnumerator)InvokePrivateMethod(spawnPoint, "Start");
+            startRoutine.MoveNext();
+            startRoutine.MoveNext();
+
+            Assert.That(playerObject.transform.position, Is.EqualTo(new Vector3(12f, 5f, 0f)));
+            Assert.AreEqual(string.Empty, SceneTransitionData.Get(ScenePortal2D.SpawnPointKey, string.Empty));
+
+            UnityEngine.Object.DestroyImmediate(playerObject);
+            UnityEngine.Object.DestroyImmediate(spawnObject);
+        }
+
+        [Test]
+        public void SceneSpawnPoint_Start_WithMatchingRequestedSpawnId_MovesPlayer()
+        {
+            var spawnObject = new GameObject("SpawnPoint");
+            spawnObject.transform.position = new Vector3(9f, -3f, 0f);
+            var spawnPoint = spawnObject.AddComponent<SceneSpawnPoint>();
+            SetPrivateField(spawnPoint, "_spawnId", "from_hallway");
+            SetPrivateField(spawnPoint, "_facingDirection", Vector2.left);
+
+            var playerObject = new GameObject("Player");
+            playerObject.tag = "Player";
+            playerObject.transform.position = new Vector3(1f, 1f, 0f);
+
+            SceneTransitionData.Set(ScenePortal2D.SpawnPointKey, "from_hallway");
+
+            var startRoutine = (System.Collections.IEnumerator)InvokePrivateMethod(spawnPoint, "Start");
+            startRoutine.MoveNext();
+            startRoutine.MoveNext();
+
+            Assert.That(playerObject.transform.position, Is.EqualTo(new Vector3(9f, -3f, 0f)));
+            Assert.AreEqual(string.Empty, SceneTransitionData.Get(ScenePortal2D.SpawnPointKey, string.Empty));
+
+            UnityEngine.Object.DestroyImmediate(playerObject);
+            UnityEngine.Object.DestroyImmediate(spawnObject);
+        }
+
+        [Test]
+        public void SceneSpawnPoint_Start_WithDifferentRequestedSpawnId_DoesNotMovePlayer()
+        {
+            var spawnObject = new GameObject("SpawnPoint");
+            spawnObject.transform.position = new Vector3(-8f, 14f, 0f);
+            var spawnPoint = spawnObject.AddComponent<SceneSpawnPoint>();
+            SetPrivateField(spawnPoint, "_spawnId", "from_library");
+
+            var playerObject = new GameObject("Player");
+            playerObject.tag = "Player";
+            var originalPosition = new Vector3(2f, 2f, 0f);
+            playerObject.transform.position = originalPosition;
+
+            SceneTransitionData.Set(ScenePortal2D.SpawnPointKey, "from_hallway");
+
+            var startRoutine = (System.Collections.IEnumerator)InvokePrivateMethod(spawnPoint, "Start");
+            startRoutine.MoveNext();
+            startRoutine.MoveNext();
+
+            Assert.That(playerObject.transform.position, Is.EqualTo(originalPosition));
+            Assert.AreEqual("from_hallway", SceneTransitionData.Get(ScenePortal2D.SpawnPointKey, string.Empty));
+
+            UnityEngine.Object.DestroyImmediate(playerObject);
+            UnityEngine.Object.DestroyImmediate(spawnObject);
+        }
+
+        [Test]
         public void SceneSpawnResolver_StartMovesPlayerToMatchingSpawnPoint()
         {
             var resolverObject = new GameObject("Resolver");
@@ -187,6 +267,15 @@ namespace GuildAcademy.Tests.EditMode.Field
                 throw new MissingMethodException(target.GetType().FullName, methodName);
 
             return method.Invoke(target, args);
+        }
+
+        private static void SetPrivateStaticField<T>(Type type, string fieldName, T value)
+        {
+            var field = type.GetField(fieldName, BindingFlags.Static | BindingFlags.NonPublic);
+            if (field == null)
+                throw new MissingFieldException(type.FullName, fieldName);
+
+            field.SetValue(null, value);
         }
     }
 }
