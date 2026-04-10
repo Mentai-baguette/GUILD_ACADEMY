@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using GuildAcademy.Core.Dialogue;
 using GuildAcademy.Core.Branch;
 using GuildAcademy.MonoBehaviours.Branch;
@@ -7,12 +8,22 @@ using GuildAcademy.MonoBehaviours.Dialogue;
 
 namespace GuildAcademy.UI
 {
+    /// <summary>
+    /// DialogueManager（ロジック）と各UI（表示）をつなぐブリッジ。
+    ///
+    /// 仕様書セクション5「会話画面」準拠:
+    /// - 会話テキスト表示（DialogueUI）
+    /// - 選択肢表示（ChoiceUI）
+    /// - 入力: 決定ボタン（テキスト送り/選択肢決定）
+    ///         キャンセルボタン（テキスト早送り → DialogueUI側で処理）
+    ///         上下キー（選択肢カーソル移動 → ChoiceUI側で処理）
+    ///         特殊ボタン（オートモード切替）
+    /// </summary>
     public class DialogueUIBridge : MonoBehaviour
     {
-        [Header("References")]
+        [Header("UI References")]
         [SerializeField] private DialogueUI _dialogueUI;
         [SerializeField] private ChoiceUI _choiceUI;
-
         [Header("Dialogue Source")]
         [SerializeField] private string _defaultSourceKey = "Dialogues/chapter1_dialogue";
 
@@ -30,6 +41,12 @@ namespace GuildAcademy.UI
                 return;
             }
             Instance = this;
+
+            // 同じオブジェクト or 子オブジェクトから自動取得（未設定の場合）
+            if (_dialogueUI == null)
+                _dialogueUI = GetComponentInChildren<DialogueUI>();
+            if (_choiceUI == null)
+                _choiceUI = GetComponentInChildren<ChoiceUI>();
         }
 
         /// <summary>
@@ -56,6 +73,10 @@ namespace GuildAcademy.UI
             return true;
         }
 
+        // ============================================================
+        // 会話開始API
+        // ============================================================
+
         public void StartDialogue(string sourceKey, string entryId)
         {
             if (!EnsureInitialized()) return;
@@ -68,6 +89,10 @@ namespace GuildAcademy.UI
         {
             StartDialogue(_defaultSourceKey, entryId);
         }
+
+        // ============================================================
+        // DialogueManager イベントハンドラ
+        // ============================================================
 
         private void HandleDialogueAdvanced(DialogueEntry entry)
         {
@@ -111,15 +136,35 @@ namespace GuildAcademy.UI
             _dialogueManager.SelectChoice(index);
         }
 
-        private void OnDestroy()
+        // ============================================================
+        // 入力処理
+        // ============================================================
+
+        private void Update()
         {
-            if (_dialogueManager != null)
+            if (_dialogueManager == null || !_dialogueManager.IsActive) return;
+
+            // 選択肢待ち中はChoiceUI側で入力処理
+            if (_waitingForChoice) return;
+
+            // 特殊ボタン: オートモード切替（Aキー）
+            if (Keyboard.current != null && Keyboard.current.aKey.wasPressedThisFrame)
             {
-                _dialogueManager.OnDialogueAdvanced -= HandleDialogueAdvanced;
-                _dialogueManager.OnChoicesPresented -= HandleChoicesPresented;
-                _dialogueManager.OnDialogueEnded -= HandleDialogueEnded;
+                if (_dialogueUI != null)
+                    _dialogueUI.ToggleAutoMode();
+                return;
             }
-            if (Instance == this) Instance = null;
+
+            // 決定ボタン: テキスト送り
+            bool advanceInput =
+                (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+                || (Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame)
+                || (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame);
+
+            if (advanceInput)
+            {
+                OnAdvanceInput();
+            }
         }
 
         public void OnAdvanceInput()
@@ -135,6 +180,21 @@ namespace GuildAcademy.UI
             }
 
             _dialogueManager.Advance();
+        }
+
+        // ============================================================
+        // クリーンアップ
+        // ============================================================
+
+        private void OnDestroy()
+        {
+            if (_dialogueManager != null)
+            {
+                _dialogueManager.OnDialogueAdvanced -= HandleDialogueAdvanced;
+                _dialogueManager.OnChoicesPresented -= HandleChoicesPresented;
+                _dialogueManager.OnDialogueEnded -= HandleDialogueEnded;
+            }
+            if (Instance == this) Instance = null;
         }
     }
 }

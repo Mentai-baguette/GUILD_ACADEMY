@@ -7,8 +7,14 @@ namespace GuildAcademy.Core.Data
         public static BattleSetupData Current { get; set; }
 
         public List<CharacterStats> Party { get; set; }
+        /// <summary>控えメンバー（Swap入替候補）</summary>
+        public List<CharacterStats> Reserves { get; set; }
         public List<CharacterStats> Enemies { get; set; }
         public List<SkillData> EnemySkills { get; set; }
+        /// <summary>
+        /// パーティメンバーのスキルマッピング。キーはCharacterStats.Name。
+        /// </summary>
+        public Dictionary<string, List<SkillData>> PartySkills { get; set; }
         public string ReturnSceneName { get; set; }
         public bool IsBossBattle { get; set; }
         public bool CanFlee { get; set; } = true;
@@ -21,6 +27,8 @@ namespace GuildAcademy.Core.Data
             Enemies = enemies ?? throw new System.ArgumentNullException(nameof(enemies));
             ReturnSceneName = returnSceneName ?? throw new System.ArgumentNullException(nameof(returnSceneName));
             EnemySkills = enemySkills ?? new List<SkillData>();
+            PartySkills = new Dictionary<string, List<SkillData>>();
+            Reserves = new List<CharacterStats>();
         }
     }
 }

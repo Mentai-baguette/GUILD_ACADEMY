@@ -53,7 +53,9 @@ namespace GuildAcademy.MonoBehaviours.Dialogue
                     Speaker = entryDto.speaker,
                     Text = entryDto.text,
                     Next = entryDto.next,
-                    Choices = ConvertChoices(entryDto.choices)
+                    Choices = ConvertChoices(entryDto.choices),
+                    Emotion = string.IsNullOrEmpty(entryDto.emotion) ? "normal" : entryDto.emotion,
+                    PortraitPosition = entryDto.portraitPosition
                 };
 
                 entries.Add(entry);
@@ -135,6 +137,8 @@ namespace GuildAcademy.MonoBehaviours.Dialogue
             public string text;
             public string next;
             public DialogueChoiceDto[] choices;
+            public string emotion;            // 感情差分（任意）
+            public string portraitPosition;   // 立ち絵位置（任意）
         }
 
         [Serializable]

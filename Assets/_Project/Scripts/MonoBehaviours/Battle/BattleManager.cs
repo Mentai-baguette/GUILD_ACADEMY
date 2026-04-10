@@ -13,15 +13,24 @@ namespace GuildAcademy.MonoBehaviours.Battle
         private ActionExecutor _executor;
         private BreakSystem _breakSystem;
         private DamageCalculator _damageCalc;
+        private FormationSystem _formationSystem;
         private IEnemyAI _enemyAI;
         private IRandom _random;
 
         private BattleSetupData _setup;
-        private List<CharacterStats> _party;
+        private List<CharacterStats> _party;       // バトル参加中メンバー
+        private List<CharacterStats> _reserves;     // 控えメンバー
         private List<CharacterStats> _enemies;
+        private bool _fleeing;
 
         public BattleFlowController BattleFlow => _battleFlow;
         public BattleSetupData Setup => _setup;
+        public ATBSystem ATB => _atb;
+        public BreakSystem Break => _breakSystem;
+        public FormationSystem Formation => _formationSystem;
+        public IReadOnlyList<CharacterStats> Party => _party;
+        public IReadOnlyList<CharacterStats> Reserves => _reserves;
+        public IReadOnlyList<CharacterStats> Enemies => _enemies;
 
         public event System.Action<BattleResult> OnBattleFinished;
 
@@ -37,6 +46,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
             }
 
             _party = _setup.Party;
+            _reserves = _setup.Reserves ?? new List<CharacterStats>();
             _enemies = _setup.Enemies;
 
             InitializeSystems();
@@ -48,10 +58,15 @@ namespace GuildAcademy.MonoBehaviours.Battle
             _random = new UnityRandom();
             _damageCalc = new DamageCalculator(_random);
             _breakSystem = new BreakSystem();
+            _formationSystem = new FormationSystem();
             _executor = new ActionExecutor(_damageCalc, _breakSystem, _random);
             _atb = new ATBSystem();
             _battleFlow = new BattleFlowController(_atb, _executor, _breakSystem);
             _enemyAI = new BasicEnemyAI();
+
+            // パーティメンバーの初期隊列を前列に設定
+            foreach (var member in _party)
+                _formationSystem.SetRow(member, FormationRow.Front);
 
             _battleFlow.OnCommandRequired += OnCommandRequired;
             _battleFlow.OnBattleEnd += OnBattleEnd;
@@ -64,7 +79,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
 
         private void Update()
         {
-            if (_battleFlow != null && _battleFlow.State == BattleFlowState.TickingATB)
+            if (_battleFlow != null && _battleFlow.State == BattleFlowState.TickingATB && !_fleeing)
             {
                 _battleFlow.Tick(Time.deltaTime);
             }
@@ -121,7 +136,56 @@ namespace GuildAcademy.MonoBehaviours.Battle
         public ActionResult SubmitPlayerCommand(BattleCommand command)
         {
             if (_battleFlow.State != BattleFlowState.WaitingForCommand) return null;
-            return _battleFlow.SubmitCommand(command);
+
+            // Change: 隊列切替の実処理
+            if (command.Type == CommandType.Change && _formationSystem != null)
+            {
+                _formationSystem.ChangeRow(command.Attacker);
+                Debug.Log($"[BattleManager] {command.Attacker.Name} → {_formationSystem.GetRow(command.Attacker)}");
+            }
+
+            // Swap: バトルメンバー⇔控えメンバーの入替（FF10式）
+            if (command.Type == CommandType.Swap && command.Target != null)
+            {
+                int partyIdx = _party.IndexOf(command.Attacker);
+                int reserveIdx = _reserves.IndexOf(command.Target);
+
+                if (partyIdx >= 0 && reserveIdx >= 0)
+                {
+                    // バトルメンバーから外して控えに、控えからバトルに
+                    _party[partyIdx] = command.Target;
+                    _reserves[reserveIdx] = command.Attacker;
+
+                    // 入場メンバーのATBゲージをリセット、ATBシステムに登録
+                    _atb.ResetGauge(command.Target);
+                    _atb.AddCombatant(command.Target);
+                    _atb.RemoveCombatant(command.Attacker);
+                    _breakSystem.Register(command.Target);
+
+                    Debug.Log($"[BattleManager] Swap: {command.Attacker.Name}(→控え) ⇔ {command.Target.Name}(→バトル)");
+                }
+                else
+                {
+                    Debug.LogWarning($"[BattleManager] Swap failed: {command.Attacker.Name} not in party or {command.Target.Name} not in reserves");
+                }
+            }
+
+            var result = _battleFlow.SubmitCommand(command);
+
+            // Flee: 逃走禁止戦闘ではBattleManager側でもブロック
+            if (command.Type == CommandType.Flee)
+            {
+                if (_setup != null && !_setup.CanFlee)
+                {
+                    // 逃走禁止戦闘では無視
+                    return result;
+                }
+
+                _fleeing = true;
+                StartCoroutine(ReturnToField(BattleResult.PlayerVictory));
+            }
+
+            return result;
         }
 
         private void OnDestroy()
