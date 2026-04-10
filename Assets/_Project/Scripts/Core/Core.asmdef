@@ -1,7 +1,9 @@
 {
     "name": "GuildAcademy.Core",
     "rootNamespace": "GuildAcademy.Core",
-    "references": [],
+    "references": [
+        "Unity.2D.Tilemap.Extras"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
@@ -10,5 +12,5 @@
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
-    "noEngineReferences": true
+    "noEngineReferences": false
 }
