@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,13 +12,9 @@ namespace GuildAcademy.UI
 {
     /// <summary>
     /// 会話中の選択肢ウィンドウ。
-    ///
-    /// 仕様書セクション5準拠:
-    /// - 画面中央に選択肢ウィンドウを表示
-    /// - ▶ カーソルで現在選択中の項目を示す
-    /// - 上下キーでカーソル移動、決定ボタンで確定
-    /// - マウスクリックでも選択可能
-    /// - テーマ対応
+    /// キーボードカーソル操作、重要選択肢の★マーク強調、
+    /// フェードインアニメーション、DialogueRunner連携ヘルパーを提供する。
+    /// テーマ対応。
     /// </summary>
     public class ChoiceUI : MonoBehaviour
     {
@@ -25,33 +22,47 @@ namespace GuildAcademy.UI
         [SerializeField] private GameObject _choicePanel;
         [SerializeField] private Transform _buttonContainer;
         [SerializeField] private GameObject _choiceButtonPrefab;
+        [SerializeField] private CanvasGroup _canvasGroup;
+
+        [Header("重要選択肢の強調")]
+        [SerializeField] private bool _highlightImportantChoices = true;
+        [SerializeField] private Color _importantChoiceColor = new Color(1f, 0.84f, 0f);
 
         [Header("テーマ（任意）")]
         [SerializeField] private UIThemeSO _theme;
 
         [Header("カーソル表示")]
-        [Tooltip("選択中の選択肢に付けるプレフィックス")]
-        [SerializeField] private string _cursorPrefix = "\u25b6 ";          // ▶
-        [SerializeField] private string _inactivePrefix = "   ";            // 非選択時は空白
+        [SerializeField] private string _cursorPrefix = "\u25b6 ";
+        [SerializeField] private string _inactivePrefix = "   ";
 
         [Header("色設定")]
         [SerializeField] private Color _selectedColor = Color.white;
         [SerializeField] private Color _unselectedColor = new Color(0.7f, 0.7f, 0.7f, 1f);
 
+        [Header("SE")]
+        [SerializeField] private AudioClip _seSelect;
+        [SerializeField] private AudioClip _seConfirm;
+        [SerializeField] private AudioSource _audioSource;
+
+        [Header("アニメーション")]
+        [SerializeField] private float _fadeInDuration = 0.2f;
+
         private Action<int> _onChoiceSelected;
         private readonly List<GameObject> _spawnedButtons = new List<GameObject>();
         private readonly List<TextMeshProUGUI> _labels = new List<TextMeshProUGUI>();
-        private List<string> _choiceTexts = new List<string>();
+        private readonly List<string> _choiceTexts = new List<string>();
+        private readonly List<bool> _importantFlags = new List<bool>();
 
-        private int _currentIndex = 0;
-        private bool _isActive = false;
+        private int _currentIndex;
+        private bool _isActive;
+        private Coroutine _fadeCoroutine;
+        private DialogueRunner _connectedRunner;
 
         private void Awake()
         {
             if (_choicePanel != null)
                 _choicePanel.SetActive(false);
 
-            // テーマ色を適用
             if (_theme != null)
             {
                 _selectedColor = _theme.textHighlight;
@@ -59,9 +70,6 @@ namespace GuildAcademy.UI
             }
         }
 
-        // ============================================================
-        // 選択肢を表示する
-        // ============================================================
         public void Show(List<DialogueChoice> choices, Action<int> onSelected)
         {
             _onChoiceSelected = onSelected;
@@ -71,6 +79,7 @@ namespace GuildAcademy.UI
                 _choicePanel.SetActive(true);
 
             _choiceTexts.Clear();
+            _importantFlags.Clear();
             _currentIndex = 0;
 
             for (int i = 0; i < choices.Count; i++)
@@ -78,10 +87,15 @@ namespace GuildAcademy.UI
                 var btnObj = Instantiate(_choiceButtonPrefab, _buttonContainer);
                 btnObj.SetActive(true);
 
+                var choice = choices[i];
+                bool isImportant = _highlightImportantChoices && !string.IsNullOrEmpty(choice.Flag);
+
                 var label = btnObj.GetComponentInChildren<TextMeshProUGUI>();
                 if (label != null)
                 {
-                    _choiceTexts.Add(choices[i].Text);
+                    string text = isImportant ? $"\u2605 {choice.Text}" : choice.Text;
+                    _choiceTexts.Add(text);
+                    _importantFlags.Add(isImportant);
                     _labels.Add(label);
                 }
 
@@ -91,7 +105,6 @@ namespace GuildAcademy.UI
                 {
                     button.onClick.AddListener(() => SelectChoice(index));
 
-                    // ホバー時にカーソルを移動
                     int hoverIndex = i;
                     var trigger = btnObj.GetComponent<UnityEngine.EventSystems.EventTrigger>();
                     if (trigger == null)
@@ -110,98 +123,135 @@ namespace GuildAcademy.UI
 
             UpdateCursorDisplay();
             _isActive = true;
+            StartFadeIn();
         }
 
-        // ============================================================
-        // 選択肢を非表示にする
-        // ============================================================
         public void Hide()
         {
             _isActive = false;
+
+            if (_fadeCoroutine != null)
+            {
+                StopCoroutine(_fadeCoroutine);
+                _fadeCoroutine = null;
+            }
+
             ClearButtons();
             if (_choicePanel != null)
                 _choicePanel.SetActive(false);
         }
 
-        // ============================================================
-        // キーボード入力
-        // ============================================================
         private void Update()
         {
             if (!_isActive) return;
             if (Keyboard.current == null) return;
 
-            // 上キー: カーソルを上に移動
             if (Keyboard.current.upArrowKey.wasPressedThisFrame
                 || Keyboard.current.wKey.wasPressedThisFrame)
             {
+                PlaySE(_seSelect);
                 SetCursorIndex(_currentIndex - 1);
             }
-            // 下キー: カーソルを下に移動
             else if (Keyboard.current.downArrowKey.wasPressedThisFrame
                      || Keyboard.current.sKey.wasPressedThisFrame)
             {
+                PlaySE(_seSelect);
                 SetCursorIndex(_currentIndex + 1);
             }
-            // 決定: Enter / Space
             else if (Keyboard.current.enterKey.wasPressedThisFrame
                      || Keyboard.current.spaceKey.wasPressedThisFrame)
             {
+                PlaySE(_seConfirm);
                 SelectChoice(_currentIndex);
             }
         }
 
-        // ============================================================
-        // カーソル位置を変更する
-        // ============================================================
+        // === DialogueRunner連携 ===
+
+        public void ConnectToRunner(DialogueRunner runner)
+        {
+            if (runner == null) return;
+            if (_connectedRunner != null)
+                DisconnectFromRunner(_connectedRunner);
+            _connectedRunner = runner;
+            runner.OnChoicesPresented += OnRunnerChoicesPresented;
+        }
+
+        public void DisconnectFromRunner(DialogueRunner runner)
+        {
+            if (runner == null) return;
+            runner.OnChoicesPresented -= OnRunnerChoicesPresented;
+            if (_connectedRunner == runner)
+                _connectedRunner = null;
+        }
+
+        private void OnRunnerChoicesPresented(List<DialogueChoice> choices)
+        {
+            Show(choices, index => { _connectedRunner?.SelectChoice(index); });
+        }
+
+        // === 内部ロジック ===
+
         private void SetCursorIndex(int index)
         {
             if (_labels.Count == 0) return;
-
-            // ループ（上端→下端、下端→上端）
-            if (index < 0)
-                index = _labels.Count - 1;
-            else if (index >= _labels.Count)
-                index = 0;
-
+            if (index < 0) index = _labels.Count - 1;
+            else if (index >= _labels.Count) index = 0;
             _currentIndex = index;
             UpdateCursorDisplay();
         }
 
-        // ============================================================
-        // カーソル表示を更新する（▶ を選択中の項目に付ける）
-        // ============================================================
         private void UpdateCursorDisplay()
         {
             for (int i = 0; i < _labels.Count; i++)
             {
                 if (_labels[i] == null) continue;
 
+                bool isImportant = i < _importantFlags.Count && _importantFlags[i];
+                Color normalColor = isImportant ? _importantChoiceColor : _unselectedColor;
+
                 if (i == _currentIndex)
                 {
                     _labels[i].text = _cursorPrefix + _choiceTexts[i];
-                    _labels[i].color = _selectedColor;
+                    _labels[i].color = isImportant ? _importantChoiceColor : _selectedColor;
                 }
                 else
                 {
                     _labels[i].text = _inactivePrefix + _choiceTexts[i];
-                    _labels[i].color = _unselectedColor;
+                    _labels[i].color = normalColor;
                 }
             }
         }
 
-        // ============================================================
-        // 選択確定
-        // ============================================================
         private void SelectChoice(int index)
         {
-            _isActive = false;
+            if (!_isActive) return;
+            // Hide を先に実行（コールバックが次のShow を呼ぶ可能性があるため）
+            Hide();
             _onChoiceSelected?.Invoke(index);
         }
 
-        // ============================================================
-        // ボタンをクリアする
-        // ============================================================
+        private void StartFadeIn()
+        {
+            if (_canvasGroup == null) return;
+            if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
+            _fadeCoroutine = StartCoroutine(FadeInCoroutine());
+        }
+
+        private IEnumerator FadeInCoroutine()
+        {
+            _canvasGroup.alpha = 0f;
+            float elapsed = 0f;
+            while (elapsed < _fadeInDuration)
+            {
+                elapsed += Time.deltaTime;
+                _canvasGroup.alpha = Mathf.Clamp01(elapsed / _fadeInDuration);
+                yield return null;
+            }
+            _canvasGroup.alpha = 1f;
+            _fadeCoroutine = null;
+        }
+
         private void ClearButtons()
         {
             foreach (var btn in _spawnedButtons)
@@ -211,9 +261,9 @@ namespace GuildAcademy.UI
             _spawnedButtons.Clear();
             _labels.Clear();
             _choiceTexts.Clear();
+            _importantFlags.Clear();
         }
 
-        /// <summary>テーマを差し替えて適用する</summary>
         public void ApplyTheme(UIThemeSO newTheme)
         {
             _theme = newTheme;
@@ -223,6 +273,18 @@ namespace GuildAcademy.UI
                 _unselectedColor = _theme.textNormal;
             }
             UpdateCursorDisplay();
+        }
+
+        private void PlaySE(AudioClip clip)
+        {
+            if (clip != null && _audioSource != null)
+                _audioSource.PlayOneShot(clip);
+        }
+
+        private void OnDestroy()
+        {
+            if (_connectedRunner != null)
+                DisconnectFromRunner(_connectedRunner);
         }
     }
 }
