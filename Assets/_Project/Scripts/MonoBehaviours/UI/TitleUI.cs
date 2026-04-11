@@ -34,6 +34,7 @@ namespace GuildAcademy.UI
         [SerializeField] private Button normalButton;
         [SerializeField] private Button hardButton;
         [SerializeField] private Button nightmareButton;
+        [SerializeField] private Button backButton;
 
         [Header("カーソル表示（任意）")]
         [SerializeField] private GameObject cursorIndicator;
@@ -74,6 +75,14 @@ namespace GuildAcademy.UI
             if (normalButton != null) normalButton.onClick.AddListener(() => OnDifficultySelected(1));
             if (hardButton != null) hardButton.onClick.AddListener(() => OnDifficultySelected(2));
             if (nightmareButton != null) nightmareButton.onClick.AddListener(() => OnDifficultySelected(3));
+            // Backボタン: SerializeField未設定の場合はDifficultyPanel内から自動検索
+            if (backButton == null && difficultyPanel != null)
+            {
+                var backTransform = difficultyPanel.transform.Find("ButtonContainer/BackButton");
+                if (backTransform != null)
+                    backButton = backTransform.GetComponent<Button>();
+            }
+            if (backButton != null) backButton.onClick.AddListener(CloseDifficultyPanel);
 
             // 難易度パネルは最初非表示
             if (difficultyPanel != null)
@@ -224,6 +233,11 @@ namespace GuildAcademy.UI
         {
             _inputLocked = true;
             _isInDifficultySelect = true;
+
+            // メニューボタンを非表示にして、同じ場所に難易度パネルを表示
+            if (newGameButton != null)
+                newGameButton.transform.parent.gameObject.SetActive(false);
+
             difficultyPanel.SetActive(true);
             _currentButtons = _difficultyButtons;
             _selectedIndex = 1; // デフォルトはNORMAL
@@ -235,6 +249,11 @@ namespace GuildAcademy.UI
             _inputLocked = true;
             _isInDifficultySelect = false;
             difficultyPanel.SetActive(false);
+
+            // メニューボタンを再表示
+            if (newGameButton != null)
+                newGameButton.transform.parent.gameObject.SetActive(true);
+
             _currentButtons = _titleButtons;
             _selectedIndex = 0;
             UpdateSelection();
