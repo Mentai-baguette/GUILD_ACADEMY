@@ -81,8 +81,6 @@ namespace GuildAcademy.UI
                 var backTransform = difficultyPanel.transform.Find("ButtonContainer/BackButton");
                 if (backTransform != null)
                     backButton = backTransform.GetComponent<Button>();
-                else
-                    Debug.LogWarning("[TitleUI] BackButton が DifficultyPanel 内に見つかりません（ButtonContainer/BackButton）。SerializeField で設定してください。");
             }
             if (backButton != null) backButton.onClick.AddListener(CloseDifficultyPanel);
 
@@ -237,7 +235,7 @@ namespace GuildAcademy.UI
             _isInDifficultySelect = true;
 
             // メニューボタンを非表示にして、同じ場所に難易度パネルを表示
-            if (newGameButton != null && newGameButton.transform.parent != null)
+            if (newGameButton != null)
                 newGameButton.transform.parent.gameObject.SetActive(false);
 
             difficultyPanel.SetActive(true);
@@ -253,7 +251,7 @@ namespace GuildAcademy.UI
             difficultyPanel.SetActive(false);
 
             // メニューボタンを再表示
-            if (newGameButton != null && newGameButton.transform.parent != null)
+            if (newGameButton != null)
                 newGameButton.transform.parent.gameObject.SetActive(true);
 
             _currentButtons = _titleButtons;
