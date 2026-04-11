@@ -179,8 +179,11 @@ namespace GuildAcademy.UI
         {
             if (!_isActive) return;
 
-            _onChoiceSelected?.Invoke(index);
+            // Hide before invoking callback to prevent race condition:
+            // callback may trigger next OnChoicesPresented via DialogueRunner.SelectChoice(),
+            // which would conflict with a later Hide() call.
             Hide();
+            _onChoiceSelected?.Invoke(index);
         }
 
         private void MoveSelection(int direction)
