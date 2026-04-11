@@ -7,10 +7,11 @@ namespace GuildAcademy.Core.Battle
     public class BattleResultCalculator
     {
         /// <summary>
-        /// バトル結果を計算する。
+        /// バトル結果を計算し、パーティメンバーのステータスを更新する。
+        /// 注意: このメソッドはpartyメンバーのExp/Lv/Spを直接変更する副作用があります。
+        /// 1回のバトルにつき1回だけ呼び出してください（二重呼び出しでEXP二重加算になります）。
         /// EXP = 敵Lv合計 × 10、Gold = 敵Lv合計 × 5。
-        /// パーティ各メンバーにEXPを加算し、LvUP判定（閾値: 100 × 現Lv）を行う。
-        /// SP = 2Lvごとに+1SP。
+        /// LvUP閾値: 100 × 現Lv。SP: 偶数Lvで+1SP。
         /// </summary>
         public BattleResultData Calculate(List<CharacterStats> party, List<CharacterStats> enemies)
         {
