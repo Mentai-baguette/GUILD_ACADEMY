@@ -89,12 +89,14 @@ namespace GuildAcademy.Core.Battle
 
         // Flee可能か
         private bool _canFlee = true;
+        private bool _lastCanFlee = true;
 
         public CharacterStats Actor => _actor;
         public CommandType PendingCommand => _pendingCommand;
         public SkillData PendingSkill => _pendingSkill;
         public IReadOnlyList<SkillData> CurrentSkills => _currentSkills;
         public IReadOnlyList<CharacterStats> CurrentTargets => _currentTargets;
+        public bool CanFlee => _canFlee;
 
         // ============================================================
         //  Public API
@@ -104,6 +106,7 @@ namespace GuildAcademy.Core.Battle
         public void Begin(CharacterStats actor, bool canFlee = true)
         {
             _actor = actor ?? throw new ArgumentNullException(nameof(actor));
+            _lastCanFlee = canFlee;
             _canFlee = canFlee;
             _pendingSkill = null;
             _currentSkills = null;
@@ -120,6 +123,17 @@ namespace GuildAcademy.Core.Battle
             _currentSkills = null;
             _currentTargets = null;
             SetPhase(Phase.Inactive);
+        }
+
+        /// <summary>カーソルを指定位置に設定</summary>
+        public void SetCursorIndex(int index)
+        {
+            if (CurrentPhase == Phase.Inactive) return;
+            int count = GetCurrentListCount();
+            if (count <= 0 || index < 0 || index >= count) return;
+            if (CursorIndex == index) return;
+            CursorIndex = index;
+            OnCursorMoved?.Invoke();
         }
 
         /// <summary>カーソルを上方向に移動</summary>

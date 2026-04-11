@@ -195,14 +195,14 @@ namespace GuildAcademy.MonoBehaviours.Battle
                         {
                             Debug.Log("[CommandSelectUI] 使用できるスキルがありません");
                             // コマンドフェーズに留まる
-                            _logic.Begin(_logic.Actor);
+                            _logic.Begin(_logic.Actor, _logic.CanFlee);
                         }
                         break;
 
                     case CommandType.Item:
                         Debug.Log("[CommandSelectUI] アイテムはまだ使用できません");
                         // コマンドフェーズに戻す
-                        _logic.Begin(_logic.Actor);
+                        _logic.Begin(_logic.Actor, _logic.CanFlee);
                         break;
 
                     case CommandType.DualArts:
@@ -213,7 +213,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
                         else
                         {
                             Debug.Log("[CommandSelectUI] DAに必要なペアが不足しています");
-                            _logic.Begin(_logic.Actor);
+                            _logic.Begin(_logic.Actor, _logic.CanFlee);
                         }
                         break;
 
@@ -224,7 +224,7 @@ namespace GuildAcademy.MonoBehaviours.Battle
                         else
                         {
                             Debug.Log("[CommandSelectUI] 入れ替えできるメンバーがいません");
-                            _logic.Begin(_logic.Actor);
+                            _logic.Begin(_logic.Actor, _logic.CanFlee);
                         }
                         break;
 
@@ -384,8 +384,8 @@ namespace GuildAcademy.MonoBehaviours.Battle
                     btn.interactable = _logic.IsSkillUsable(skill);
                     btn.onClick.AddListener(() =>
                     {
-                        _logic.MoveCursorDown(); // カーソルを合わせる（簡易）
-                        // 正確にカーソルを設定するため直接処理
+                        _logic.SetCursorIndex(capturedIndex);
+                        ProcessConfirm();
                     });
                 }
             }
