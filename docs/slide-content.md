@@ -52,7 +52,7 @@
 ## スライド 6: AI活用マップ（全体図）
 **開発ライフサイクル全体でAIを活用**
 
-```
+```text
 企画 ──→ 設計 ──→ 実装 ──→ アセット ──→ テスト ──→ 管理
 Claude   Claude    Claude    Midjourney  CI/CD     Notion
          Code Max  Code Max  DALL-E      自動      ×AI
